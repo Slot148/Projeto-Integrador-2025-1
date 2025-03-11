@@ -29,7 +29,7 @@
 
      Se não estiver instalado, baixe e instale-o com este link: [Python Download](https://www.python.org/downloads/)
 
-1. Faça o download do repositori e descomprima no local desejado ou clone ele a partir do git utilizando:
+1. Faça o download do repositorio e descomprima no local desejado ou clone ele a partir do git utilizando:
 
     `git clone https://github.com/Y2K-Systems/Projeto-Integrador-2025-1.git`
 
