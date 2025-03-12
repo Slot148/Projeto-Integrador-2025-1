@@ -42,25 +42,3 @@
     `Flask run App.py`
 
 ## Uso
-
-## Contribuindo
-
-Caso não o teha feito, siga os paços descritos nos itens 1 a 3 em Instalação. Cada Sprint sera trabalhada em uma branch separada, com a possibilidade de branches adicionais caso haja necessidade de testar a integração de novas features do produto.
-
-### Procedimento padrão de contribuição
-
-1. Certifique-se de que está trabalhando na branch correta:
-
-    `git checkout -b <sprint_atual>`
-
-1. Introduza suas mudanças para a staging area:
-
-    `git add <nome_arquivo>` Para arquivos especificos
-
-    `git add .` Para todos os arquivos alterados
-
-1. Faça commits bem documentados para facilitar o entedimento dos outros integrantes da equipe.
-
-    `git commit -m "mensagem sucinta explicando o commit"`
-
-1. Mantenha seus commits pequenos, editar muito codigo ao mesmo tempo pode causar problemas na integração das alterações.
