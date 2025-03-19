@@ -14,3 +14,9 @@ def readJSON():
             except json.JSONDecodeError:
                 return []
     return []
+
+#Função para escrever no JSON
+def writeJSON(data):
+    with open(dataFile, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
