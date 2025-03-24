@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}base{% endblock %}</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form>* {
+            margin: 2%
+        }
+
+    </style>
+</head>
+
+<body>
+
+    {% block body %}
+
+    <main style="display: flex; flex-direction: column; align-items: center;">
+
+        <h2>Envio de Atestados:</h2>
+
+        <form action="/Submit" method="POST" enctype="multipart/form-data">
+            <label for="nomeAluno">Nome do Aluno:</label>
+            <input type="text" name="nomeAluno" required>
+
+            <label for="raAluno">RA do Aluno:</label>
+            <input type="text" name="raAluno" id="raAluno" required>
+
+            <label for="periodo">Periodo de Duração:</label>
+            <section style="display: flex; flex-direction: column;">
+                <label>Inicio:</label>
+                <input type="date" name="initDate">
+                <br>
+                <label>Termino:</label>
+                <input type="date" name="endDate">
+            </section>
+
+            <label for="insertFile">Selecionar um arquivo &#187</label>
+            <input type="file" name="insertFile" accept="application/pdf">
+
+            <button type="submit">Enviar Atestado</button>
+        </form>
+
+    </main>
+
+    {% endblock %}
+</body>
+
+</html>
