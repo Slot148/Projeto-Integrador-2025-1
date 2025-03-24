@@ -50,7 +50,10 @@ def processingScrum():
     except:
         return "Preencha todos os campos corretamente"
     
+    #padronizando os nomes
     nomeAlunoScrum = nomeAlunoScrum.lower()
+    nomeEquipeScrum = nomeEquipeScrum.lower()
+    teamFunction = teamFunction.lower()
 
     data = readJSON(scrumFile)
     novaInserção = ({"Nome": nomeAlunoScrum, "Equipe": nomeEquipeScrum, "Função": teamFunction, "Notas": [nota1, nota2, nota3, nota4]})
