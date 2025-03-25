@@ -30,7 +30,7 @@ Projeto Integrador 2025/1 é um projeto acadêmico para API (Aprendizagem por pr
 
     `python -version`
 ```
-     Se não estiver instalado, baixe e instale-o com este link: [Python Download](https://www.python.org/downloads/)
+  Se não estiver instalado, baixe e instale-o com este link: [Python Download](https://www.python.org/downloads/)
 
 1. Faça o download do repositório e extraia-o no local desejado. Você também pode clonar ele a partir do git utilizando:
 ```sh
