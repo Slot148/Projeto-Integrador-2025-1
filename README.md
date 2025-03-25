@@ -21,7 +21,8 @@ Projeto Integrador 2025/1 é um projeto acadêmico para API (Aprendizagem por pr
   - Visual Studio Code
   - GitHub
   - Git
--Outros
+- Outros
+  - Figma
 
 ## Instalação
 
