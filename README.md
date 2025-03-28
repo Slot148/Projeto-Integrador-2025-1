@@ -1,6 +1,6 @@
 # Projeto Integrador 2025/1 - Y2K Systems
 
-Projeto Integrador 2025/1 é um projeto acadêmico para API (Aprendizagem por projetos integrados do primeiro semestre do curso de Análise e Desolvimento de Sistemas da FATEC.
+Projeto Integrador 2025/1 é um projeto acadêmico para API (Aprendizagem por projetos integrados do primeiro semestre do curso de Análise e Desolvimento de Sistemas da FATEC. Tem como objetivo a criação de um site para armazenamentos 
 ## Sobre o produto
 
 ### Tecnologias Utilizadas
@@ -68,7 +68,7 @@ Projeto Integrador 2025/1 é um projeto acadêmico para API (Aprendizagem por pr
   - Como administrador, quero que os dados sejam armazenados de forma segura para evitar vazamento de informações.
 
 ## Protótipo do Projeto
-[Projeto no Figma](https://www.figma.com/design/YUDa3xPIcWXvVVxx5vbkXh/API-Y2K-Systems?node-id=115-606&t=jL8HKiSpJ9TCjtJG-1)
+[Projeto no Figma](https://www.figma.com/design/YUDa3xPIcWXvVVxx5vbkXh/API-Y2K-Systems?node-id=115-606&t=jL8HKiSpJ9TCjtJG-1) Este é um link para um rascunho do que o projeto se tornará.
 
 ## Imagens
  ### Avaliação Scrum
