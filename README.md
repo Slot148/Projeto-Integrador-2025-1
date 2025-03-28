@@ -45,8 +45,6 @@ Projeto Integrador 2025/1 é um projeto acadêmico para API (Aprendizagem por pr
 ```sh
     `Flask run App.py`
 ```
-## Uso
-
 
 ## MVP
 Primeira Sprint
@@ -57,7 +55,19 @@ Primeira Sprint
   - Como aluno, quero enviar atestados médicos no formato PDF para justificar minha ausência.
   - Como coordenador, quero visualizar atestados médicos enviados para facilitar a gestão acadêmica.
   - Como administrador, quero filtrar atestados por data e período de afastamento para análise rápida.
-
+- Avaliação de Equipes Ágeis
+  - Como avaliador, quero registrar notas e feedback qualitativo para cada membro da equipe.
+  - Como Scrum Master, quero consultar minha avaliação para entender meu desempenho.
+  - Como administrador, quero gerar relatórios analíticos sobre o desempenho da equipe ao longo do tempo
+- Relatórios e Visualizações
+  - Como coordenador, quero gerar relatórios sobre alunos afastados para análise administrativa.
+  - Como gestor, quero visualizar gráficos de desempenho das equipes ágeis para avaliar progresso.
+  - Como usuário, quero exportar relatórios em PDF ou Excel para documentação externa.
+  - Usabilidade e Segurança
+    - Como desenvolvedor, quero que o sistema tenha uma interface responsiva para dispositivos móveis e desktops.
+    - Como usuário, quero um sistema intuitivo e de fácil navegação para facilitar o uso.
+    - Como administrador, quero que os dados sejam armazenados de forma segura para evitar vazamento de informações.
+    
 ## Contribuidores
 
  - Alice Penrose       **(Scrum Master)**
