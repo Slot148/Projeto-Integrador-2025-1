@@ -63,10 +63,10 @@ Primeira Sprint
   - Como coordenador, quero gerar relatórios sobre alunos afastados para análise administrativa.
   - Como gestor, quero visualizar gráficos de desempenho das equipes ágeis para avaliar progresso.
   - Como usuário, quero exportar relatórios em PDF ou Excel para documentação externa.
-  - Usabilidade e Segurança
-    - Como desenvolvedor, quero que o sistema tenha uma interface responsiva para dispositivos móveis e desktops.
-    - Como usuário, quero um sistema intuitivo e de fácil navegação para facilitar o uso.
-    - Como administrador, quero que os dados sejam armazenados de forma segura para evitar vazamento de informações.
+- Usabilidade e Segurança
+  - Como desenvolvedor, quero que o sistema tenha uma interface responsiva para dispositivos móveis e desktops.
+  - Como usuário, quero um sistema intuitivo e de fácil navegação para facilitar o uso.
+  - Como administrador, quero que os dados sejam armazenados de forma segura para evitar vazamento de informações.
     
 ## Contribuidores
 
