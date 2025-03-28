@@ -47,7 +47,6 @@ Projeto Integrador 2025/1 é um projeto acadêmico para API (Aprendizagem por pr
 ```
 
 ## MVP
-Primeira Sprint
 - Cadastro de Usuários
   - Como administrador, quero cadastrar alunos com seus dados pessoais básicos para controle acadêmico.
   - Como usuário, quero registrar membros da equipe ágil (Scrum Master, PO, Desenvolvedores) para avaliação
@@ -67,6 +66,13 @@ Primeira Sprint
   - Como desenvolvedor, quero que o sistema tenha uma interface responsiva para dispositivos móveis e desktops.
   - Como usuário, quero um sistema intuitivo e de fácil navegação para facilitar o uso.
   - Como administrador, quero que os dados sejam armazenados de forma segura para evitar vazamento de informações.
+
+## Protótipo do Projeto
+[Projeto no Figma](https://www.figma.com/design/YUDa3xPIcWXvVVxx5vbkXh/API-Y2K-Systems?node-id=115-606&t=jL8HKiSpJ9TCjtJG-1)
+
+## Imagens
+ ### Avaliação Scrum
+![app/templates/Avaliação Scrum.png](https://github.com/Y2K-Systems/Projeto-Integrador-2025-1/blob/43b43c7a21d2d5e926e983941f4ad12eb2fbfafd/app/templates/Avalia%C3%A7%C3%A3o%20Scrum.png)
     
 ## Contribuidores
 
