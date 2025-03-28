@@ -48,17 +48,24 @@ Projeto Integrador 2025/1 é um projeto acadêmico para API (Aprendizagem por pr
 ## Uso
 
 
-## Documentação
-Use este link para 
+## MVP
+Primeira Sprint
+- Cadastro de Usuários
+  - Como administrador, quero cadastrar alunos com seus dados pessoais básicos para controle acadêmico.
+  - Como usuário, quero registrar membros da equipe ágil (Scrum Master, PO, Desenvolvedores) para avaliação
+- Gestão de Atestados Médicos
+  - Como aluno, quero enviar atestados médicos no formato PDF para justificar minha ausência.
+  - Como coordenador, quero visualizar atestados médicos enviados para facilitar a gestão acadêmica.
+  - Como administrador, quero filtrar atestados por data e período de afastamento para análise rápida.
 
 ## Contribuidores
 
- - Alice Penrose
- - Davi Andrade
- - Igor Siqueira
- - Nicolas Freitas
- - Isabela Dombrowski
- - Heitor Silva
+ - Alice Penrose       **(Scrum Master)**
+ - Davi Andrade        **(Developer Team)**
+ - Igor Siqueira       **(Product Owner)**
+ - Nicolas Freitas     **(Developer Team)**
+ - Isabela Dombrowski  **(Developer Team)**
+ - Heitor Silva        **(Developer Team)**
 
 ## Licença
 
