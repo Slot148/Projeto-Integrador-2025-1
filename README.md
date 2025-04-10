@@ -1,88 +1,87 @@
-# Projeto Integrador 2025/1 - Y2K Systems
+<p align='center'>
+  <img src='assets\banner2.jpg'>
+<br>
+<hr>
+<br>
+<h4 align="center">
+  <a href="https://www.figma.com" target="_blank"><img src="https://img.shields.io/badge/-Figma-%23E4405F?style=for-the-badge&logo=Figma&logoColor=white" target="_blank"></a>  <a href="https://www.python.org/downloads/release/python-370/" target="_blank"><img src="https://img.shields.io/badge/-Python-%2388CE?style=for-the-badge&logo=Python&logoColor=white" target="_blank"></a> <a href="https://code.visualstudio.com" target="_blank"><img src="https://img.shields.io/badge/-Visual Studio Code-%2384CE?style=for-the-badge&logo=Visual Studio Code&logoColor=white" target="_blank"></a>
+</h4>
 
-Projeto Integrador 2025/1 é um projeto acadêmico para API (Aprendizagem por projetos integrados do primeiro semestre do curso de Análise e Desolvimento de Sistemas da FATEC. Tem como objetivo a criação de um site para armazenamentos 
-## Sobre o produto
+<br>
+<p align="center">
+    |
+  <a href ="#objetivo-do-projeto">  Objetivo do Projeto </a>  |     
+  <a href ="#metodologia"> Metodologia </a>  |
+  <a href ="#mvp"> MVP </a>  |
+  <a href ="#sprints"> Sprints </a>  |
+  <a href ="#backlog-do-produto"> Backlog do Produto </a>  | 
+  <a href ="#autores"> Autores </a>  |
+</p>
+</br>
 
-### Tecnologias Utilizadas
+## 📌Objetivo do Projeto
+> **O sistema web tem como objetivo:**
+>- *Registrar e gerir* atestados médicos de alunos, facilitando a comunicação entre estudantes, professores e direção.
+>- *Avaliação continua de equipes ágeis*, permitindo análise de desempenho em projetos de desenvolvimento de software
+>
+> **Status do Projeto:**<br>
+>Em andamento🔄️
+<br> 
 
-- Tecnologias de Gestão
-  - SCRUM
-  - Discord
-  - Whatsapp
-  - Excel
-- Tecnologias de desenvolvimento
-  - Python
-  - Bootstrap
-  - Flask
-  - Jinja
-  - HTML
-  - CSS
-- Ambiente de desenvolvimento
-  - Visual Studio Code
-  - GitHub
-  - Git
-- Outros
-  - Figma
+## 💡Visão do Produto
+Para alunos, professores e coordenadores da Fatec SJC que precisam gerenciar atestados médicos e avaliar equipes ágeis, o Gestor Ágil Acadêmico é um sistema web que simplifica o registro e a análise desses dados.<br>
+Diferente de planilhas manuais e sistemas desconectados, nossa solução oferece:<br>
+- Registro digital de atestados médicos (com upload de PDF e prazos automáticos)<br>
+- Avaliação contínua de equipes ágeis (Scrum Master, PO, Devs) com métricas claras<br>
+- Relatórios inteligentes para acompanhamento acadêmico e gerencial
 
-## Instalação
+Tudo em uma interface intuitiva, com dados seguros e acessíveis de qualquer dispositivo.
+<br>
 
-1. Verifique se o Python está instalado em seu dispositivo.
-```sh
+## 📚Metodologia
 
-    `python -version`
-```
-  Se não estiver instalado, baixe e instale-o com este link: [Python Download](https://www.python.org/downloads/)
+O produto adotou o **Scrum** como metodologia ágil, um framework flexível, iterativo e adaptativo, focado em eficiência e entrega contínua de valor. Como parte desse processo, o projeto foi organizado em **Sprints**, ciclos de trabalho curtos e bem definidos.
 
-1. Faça o download do repositório e extraia-o no local desejado. Você também pode clonar ele a partir do git utilizando:
-```sh
-    `git clone https://github.com/Y2K-Systems/Projeto-Integrador-2025-1.git`
-```
-1. No repositório, acesse o terminal do Windows e instale os requisitos com a ferramenta Pip.
-```sh
-    `pip install -r requirements.txt`
-```
-1. Finalmente, inicie a aplicação navegando para a pasta App e utilizando o comando:
-```sh
-    `Flask run App.py`
-```
+Para determinar o escopo de cada Sprint, primeiro estabelecemos o **MVP (Produto Mínimo Viável)**, priorizando funcionalidades que oferecessem o maior impacto ao cliente. Em seguida, as tarefas selecionadas foram consolidados no **Backlog do Produto**, que, após validação do cliente, foi segmentado em **3 Backlogs de Sprint**.
 
-## MVP
-- Cadastro de Usuários
-  - Como administrador, quero cadastrar alunos com seus dados pessoais básicos para controle acadêmico.
-  - Como usuário, quero registrar membros da equipe ágil (Scrum Master, PO, Desenvolvedores) para avaliação
-- Gestão de Atestados Médicos
-  - Como aluno, quero enviar atestados médicos no formato PDF para justificar minha ausência.
-  - Como coordenador, quero visualizar atestados médicos enviados para facilitar a gestão acadêmica.
-  - Como administrador, quero filtrar atestados por data e período de afastamento para análise rápida.
-- Avaliação de Equipes Ágeis
-  - Como avaliador, quero registrar notas e feedback qualitativo para cada membro da equipe.
-  - Como Scrum Master, quero consultar minha avaliação para entender meu desempenho.
-  - Como administrador, quero gerar relatórios analíticos sobre o desempenho da equipe ao longo do tempo
-- Relatórios e Visualizações
-  - Como coordenador, quero gerar relatórios sobre alunos afastados para análise administrativa.
-  - Como gestor, quero visualizar gráficos de desempenho das equipes ágeis para avaliar progresso.
-  - Como usuário, quero exportar relatórios em PDF ou Excel para documentação externa.
-- Usabilidade e Segurança
-  - Como desenvolvedor, quero que o sistema tenha uma interface responsiva para dispositivos móveis e desktops.
-  - Como usuário, quero um sistema intuitivo e de fácil navegação para facilitar o uso.
-  - Como administrador, quero que os dados sejam armazenados de forma segura para evitar vazamento de informações.
+Com as atividades definidas, estimamos o tempo necessário para cada uma delas e distribuímos as demandas de forma otimizada entre os membros do time de desenvolvimento, garantindo eficiência e alinhamento com os prazos estabelecidos.
 
-## Protótipo do Projeto
-[Projeto no Figma](https://www.figma.com/design/YUDa3xPIcWXvVVxx5vbkXh/API-Y2K-Systems?node-id=115-606&t=jL8HKiSpJ9TCjtJG-1) Este é um link para um rascunho do que o projeto se tornará.
+<br>
 
-## Imagens
- ### Avaliação Scrum
-![app/templates/Avaliação Scrum.png](https://github.com/Y2K-Systems/Projeto-Integrador-2025-1/blob/43b43c7a21d2d5e926e983941f4ad12eb2fbfafd/app/templates/Avalia%C3%A7%C3%A3o%20Scrum.png)
-    
-## Contribuidores
+## 🏆**MVP**
 
- - Alice Penrose       **(Scrum Master)**
- - Davi Andrade        **(Developer Team)**
- - Igor Siqueira       **(Product Owner)**
- - Nicolas Freitas     **(Developer Team)**
- - Isabela Dombrowski  **(Developer Team)**
- - Heitor Silva        **(Developer Team)**
+1. Wireframe: [Protótipo navegável](https://www.figma.com/proto/Ox8KcNvkylAJDsWbpvBEIQ/COVID-longa?node-id=7-18&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=7%3A18)
+2. Web Site: [Versão atual](Docs/video)
 
-## Licença
 
-Copyright © 2025 Y2K Systems
+
+<br>
+
+## 📅Sprints 
+
+### Sprint - 1️⃣ 🎯 ([Clique aqui](/Docs/Sprints/Sprint1)):  Concluído✅
+
+### Sprint - 2️⃣ 🎯 ([Clique aqui](/Docs/Sprints/Sprint2)):  Pendente⭕
+
+### Sprint - 3️⃣ 🎯 ([Clique aqui](/Docs/Sprints/Sprint3)):  Pendente⭕
+<br>
+
+## 🌱Backlog do Produto
+
+|  ITEM                |  FUNCIONALIDADE         | ID  |  DESCRIÇÃO                                         | PRIORIDADE | SPRINT |
+|:--------------------:|:-----------------------:|:---:|:--------------------------------------------------:|:----------:|:------:|
+| *Estruturação*       | Design Preview          | #01 | WireFrames para planejamento da estrutura          | Baixa      | 1      |
+| *Estruturação*       | Estrutura do HTML       | #02 | Estrutura básica das paginas HTML usadas           | Alta       | 1      |
+| *Atestados Médicos*  | Upload de documentos    | #03 | Função para envio de PDF'S (Até 5MB)               | Alta       | 1      |
+| *Gestão de Usuários* | Cadastro de alunos      | #04 | Registro de dados básicos dos alunos               | Alta       | 2      |
+| *Gestão de Usuários* | Perfis de acesso        | #05 | Definição de níveis (aluno, professor e admin)     | Alta       | 2      |
+| *Atestados Médicos*  | Armazenamento           | #06 | Organização por pastas (Identificador do aluno)    | Média      | 2      |
+| *Equipes Ágeis*      | Cadastro de equipes     | #07 | Criação de equipes e atribuição de funções         | Alta       | 2      |
+| *Equipes Ágeis*      | Avaliação de desempenho | #08 | Formulários com avaliação (método P.A.C.E.R)       | Alta       | 2      |
+| *Atestados Médicos*  | Consulta                | #09 | Filtragem (Aluno, tipo, periodo)                   | Média      | 3      |
+| *Equipes Ágeis*      | Histórico               | #10 | Comparativo temporal de avaliações                 | Baixa      | 3      |
+| *Análise da Dados*   | Geração de relatórios   | #11 | Exportação em PDF/EXCEL/CSV                        | Média      | 3      |
+| *Interface*          | Design Responsivo       | #12 | Adaptação para Mobile e Desktop                    | Baixa      | 3      |
+| *Interface*          | MicroInterações         | #13 | Animações para feedback (loading, success, etc)    | Baixa      | 3      |
+| *Interface*          | Icones Customizados     | #14 | Icones tematicos para ações especificas            | Baixa      | 3      |
+
