@@ -85,3 +85,8 @@ Com as atividades definidas, estimamos o tempo necessário para cada uma delas e
 | *Interface*          | MicroInterações         | #13 | Animações para feedback (loading, success, etc)    | Baixa      | 3      |
 | *Interface*          | Icones Customizados     | #14 | Icones tematicos para ações especificas            | Baixa      | 3      |
 
+## 👨‍💻**Autores** 
+
+| NOME| FUNÇÃO| GITHUB| LINKEDIN|
+|:----:|:----:|:----:|:----:|
+|Nicolas Anderson Ferreira Freitas|DevTeam|<a href="https://github.com/Slot148"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
