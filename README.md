@@ -89,4 +89,7 @@ Com as atividades definidas, estimamos o tempo necessário para cada uma delas e
 
 | NOME| FUNÇÃO| GITHUB| LINKEDIN|
 |:----:|:----:|:----:|:----:|
-|Nicolas Anderson Ferreira Freitas|DevTeam|<a href="https://github.com/Slot148"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
+|Nicolas Anderson Ferreira Freitas|Scrum Master|<a href="https://github.com/Slot148"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
+|Heitor Guilherme Rezende Queiroz Silva|Developer Team|<a href="https://github.com/heitorsilva1337"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
+|Davi Andrande Amancio dos Anjos|Developer Team|<a href="https://github.com/aandrade007"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
+|Isabella Dombrowski Zanlorenzi|Developer Team|<a href="https://github.com/isadombrowski"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
