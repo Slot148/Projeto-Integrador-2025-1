@@ -59,29 +59,6 @@
 
     </tbody>
   </table>
-
-  <script>
-    document.getElementById('formAluno').addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const nome = document.getElementById('nome').value;
-      const ra = document.getElementById('ra').value;
-      const senha = document.getElementById('senha').value; 
-      const curso = document.getElementById('curso').value;
-      const turno = document.getElementById('turno').value;
-
-      const tabela = document.getElementById('tabelaAlunos').getElementsByTagName('tbody')[0];
-      const novaLinha = tabela.insertRow();
-
-      novaLinha.insertCell(0).innerText = nome;
-      novaLinha.insertCell(1).innerText = ra;
-      novaLinha.insertCell(2).innerText = curso;
-      novaLinha.insertCell(3).innerText = turno;
-
-
-      document.getElementById('formAluno').reset();
-    });
-  </script>
-
+   
 </body>
 </html>

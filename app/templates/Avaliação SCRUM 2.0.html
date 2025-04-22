@@ -121,35 +121,6 @@
             </tbody>
         </table>
 
-        <script>
-            const form = document.getElementById('formAvaliacao');
-            const mensagem = document.getElementById('mensagem');
-            const tabela = document.getElementById('tabelaAvaliacoes').getElementsByTagName('tbody')[0];
-
-            form.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const aluno = document.getElementById('aluno').value;
-            const P = document.getElementById('P').value;
-            const A = document.getElementById('A').value;
-            const C = document.getElementById('C').value;
-            const E = document.getElementById('E').value;
-            const R = document.getElementById('R').value;
-
-            // Cria uma nova linha
-            const novaLinha = tabela.insertRow();
-            novaLinha.insertCell(0).textContent = aluno;
-            novaLinha.insertCell(1).textContent = P;
-            novaLinha.insertCell(2).textContent = A;
-            novaLinha.insertCell(3).textContent = C;
-            novaLinha.insertCell(4).textContent = E;
-            novaLinha.insertCell(5).textContent = R;
-
-            mensagem.textContent = `Avaliação registrada com sucesso para ${aluno}!`;
-
-            form.reset();
-            });
-        </script>
     </main>
 </body>
 </html>
