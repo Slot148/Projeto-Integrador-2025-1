@@ -76,6 +76,29 @@ class ADM(USER):
         data = super().to_dict()
         data["nivel_acesso"] = self.nivel_acesso
         return data
+        
+
+class ATESTADO:
+    def __init__(self, atestado_id, file_path, data_envio, ra_aluno, nome_aluno, inicio_periodo, fim_periodo, estado = "Pendente"):
+        self.atestado_id = atestado_id
+        self.file_path = file_path
+        self.data_envio = data_envio
+        self.ra_aluno = ra_aluno
+        self.nome_aluno = nome_aluno
+        self.inicio_periodo = inicio_periodo
+        self.fim_periodo = fim_periodo
+        self.estado = estado
+    
+    def to_dict(self):
+        return{
+            "atestado_id": self.atestado_id,
+            "ra": self.ra_aluno,
+            "nome_aluno": self.nome_aluno,
+            "file_path": self.file_path,
+            "data_envio": self.data_envio,
+            "inicio_periodo": self.inicio_periodo,
+            "fim_periodo": self.fim_periodo
+        }
 
 class JSON_MANAGER:
     """Classe para gerenciar operações de CRUD em arquivos JSON.
