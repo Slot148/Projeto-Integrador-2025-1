@@ -3,7 +3,7 @@ import functions as fc
 from werkzeug.security import check_password_hash
 
 app = f.Flask(__name__)
-app.secret_key = "!yd7fzaJN3Cuj22!%t5Atx&qt2n9vAGHsxa7QU%zwxB!H$N#W&"
+app.secret_key = "!yd7fzaJN3Cuj22!%t5Atx&qt2n9vAGHsxa7QU%zwxB!H$N#W&" #lembrar de alterar em um commit futuro
 
 #INDEX
 @app.route('/')

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if session.logged_in %}
+        <p>Logado como: {{ session.nome }} <br>(RA: {{ session.ra }})</p>
+        <a href="/logout">Sair</a>
+    {% else %}
+       <a href="/login">Login</a>
+    {% endif %}
+
+    <div style="display: flex; flex-direction: column;">
+        <a href="/cadastro_usuarios">cadastro de usuarios</a>
+        <a href="/consulta_usuarios">consulta de usuarios</a>
+        <a href="/cadastro_atestados">cadastro de atestados</a>
+        <a href="/consulta_atestados">consulta de atestados</a>
+    </div>
+</body>
+</html>
