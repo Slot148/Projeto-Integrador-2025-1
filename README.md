@@ -76,8 +76,8 @@ Com as atividades definidas, estimamos o tempo necessário para cada uma delas e
 | *Gestão de Usuários* | Cadastro de alunos      | #04 | Registro de dados básicos dos alunos               | Alta       | 2      |
 | *Gestão de Usuários* | Perfis de acesso        | #05 | Definição de níveis (aluno, professor e admin)     | Alta       | 2      |
 | *Atestados Médicos*  | Armazenamento           | #06 | Organização por pastas (Identificador do aluno)    | Média      | 2      |
-| *Equipes Ágeis*      | Cadastro de equipes     | #07 | Criação de equipes e atribuição de funções         | Alta       | 2      |
-| *Equipes Ágeis*      | Avaliação de desempenho | #08 | Formulários com avaliação (método P.A.C.E.R)       | Alta       | 2      |
+| *Equipes Ágeis*      | Cadastro de equipes     | #07 | Criação de equipes e atribuição de funções         | Alta       | 3      |
+| *Equipes Ágeis*      | Avaliação de desempenho | #08 | Formulários com avaliação (método P.A.C.E.R)       | Alta       | 3      |
 | *Atestados Médicos*  | Consulta                | #09 | Filtragem (Aluno, tipo, periodo)                   | Média      | 3      |
 | *Equipes Ágeis*      | Histórico               | #10 | Comparativo temporal de avaliações                 | Baixa      | 3      |
 | *Análise da Dados*   | Geração de relatórios   | #11 | Exportação em PDF/EXCEL/CSV                        | Média      | 3      |
