@@ -50,7 +50,7 @@ def new_atestado():
         fim_periodo=f.request.form["data_fim"]
     ).to_dict()
 
-    if atestados_db.add(atestado):
+    if atestados_db.add(atestado, identifier_key="atestado_id"):
         return {"status": "success"}
     else:
         return {"status": "error", "message": "Falha ao enviar atestado"}
