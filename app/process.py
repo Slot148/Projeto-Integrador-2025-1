@@ -10,10 +10,11 @@ class USER:
         nome (str): Nome completo do usuário
         senha (str): Senha de acesso do usuário
     """
-    def __init__(self, user_id, nome, senha):
+    def __init__(self, user_id, nome, senha, tipo):
         self.user_id = user_id
         self.nome = nome
         self.senha = generate_password_hash(senha)
+        self.tipo = tipo
     
     def verify_password(self, senha):
         return check_password_hash(self.senha, senha)
@@ -28,6 +29,7 @@ class USER:
             "user_id": self.user_id,
             "nome": self.nome,
             "senha": self.senha,
+            "tipo": self.tipo
         }
 
 class ALUNO(USER):
@@ -43,7 +45,7 @@ class ALUNO(USER):
         equipe (str): Nome da equipe do aluno (opcional, default="Sem Equipe")
     """
     def __init__(self, user_id, nome, ra, senha, curso, turno, semestre, equipe="Sem Equipe"):
-        super().__init__(user_id, nome, senha)
+        super().__init__(user_id, nome, senha, tipo="aluno")
         self.ra = ra
         self.curso = curso
         self.turno = turno
@@ -68,18 +70,19 @@ class ALUNO(USER):
         return data
 
 class ADM(USER):
-    def __init__(self, user_id, nome, senha, nivel_acesso):
-        super().__init__(user_id, nome, senha)
+    def __init__(self, user_id, nome, senha, nivel_acesso="1"):
+        super().__init__(user_id, nome, senha, tipo="administrador")  # Note o tipo corrigido
         self.nivel_acesso = nivel_acesso
 
     def to_dict(self):
         data = super().to_dict()
-        data["nivel_acesso"] = self.nivel_acesso
-        return data
-        
+        data.update({
+            "nivel_acesso": self.nivel_acesso,
+        })
+        return data        
 
 class ATESTADO:
-    def __init__(self, atestado_id, file_path, data_envio, ra_aluno, nome_aluno, inicio_periodo, fim_periodo, estado = "Pendente"):
+    def __init__(self, atestado_id, file_path, data_envio, ra_aluno, nome_aluno, inicio_periodo, fim_periodo, estado = "pendente"):
         self.atestado_id = atestado_id
         self.file_path = file_path
         self.data_envio = data_envio
@@ -97,7 +100,8 @@ class ATESTADO:
             "file_path": self.file_path,
             "data_envio": self.data_envio,
             "inicio_periodo": self.inicio_periodo,
-            "fim_periodo": self.fim_periodo
+            "fim_periodo": self.fim_periodo,
+            "estado": self.estado
         }
 
 class JSON_MANAGER:
@@ -201,7 +205,7 @@ class JSON_MANAGER:
             identifier (str): Valor a ser buscado (ex: RA do aluno)
             identifier_key (str, optional): Chave do dicionário onde buscar.
                                           Defaults to "user_id".
-        
+
         Returns:
             dict or None: Dicionário com os dados do registro se encontrado,
                          ou None se não encontrado.
