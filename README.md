@@ -61,29 +61,29 @@ Com as atividades definidas, estimamos o tempo necessário para cada uma delas e
 
 ### Sprint - 1️⃣ 🎯 ([Clique aqui](/Docs/Sprints/Sprint1)):  Concluído✅
 
-### Sprint - 2️⃣ 🎯 ([Clique aqui](/Docs/Sprints/Sprint2)):  Pendente⭕
+### Sprint - 2️⃣ 🎯 ([Clique aqui](/Docs/Sprints/Sprint2)):  Pendente✅
 
 ### Sprint - 3️⃣ 🎯 ([Clique aqui](/Docs/Sprints/Sprint3)):  Pendente⭕
 <br>
 
 ## 🌱Backlog do Produto
 
-|  ITEM                |  FUNCIONALIDADE         | ID  |  DESCRIÇÃO                                         | PRIORIDADE | SPRINT |
-|:--------------------:|:-----------------------:|:---:|:--------------------------------------------------:|:----------:|:------:|
-| *Estruturação*       | Design Preview          | #01 | WireFrames para planejamento da estrutura          | Baixa      | 1      |
-| *Estruturação*       | Estrutura do HTML       | #02 | Estrutura básica das paginas HTML usadas           | Alta       | 1      |
-| *Atestados Médicos*  | Upload de documentos    | #03 | Função para envio de PDF'S (Até 5MB)               | Alta       | 1      |
-| *Gestão de Usuários* | Cadastro de alunos      | #04 | Registro de dados básicos dos alunos               | Alta       | 2      |
-| *Gestão de Usuários* | Perfis de acesso        | #05 | Definição de níveis (aluno, professor e admin)     | Alta       | 2      |
-| *Atestados Médicos*  | Armazenamento           | #06 | Organização por pastas (Identificador do aluno)    | Média      | 2      |
-| *Equipes Ágeis*      | Cadastro de equipes     | #07 | Criação de equipes e atribuição de funções         | Alta       | 3      |
-| *Equipes Ágeis*      | Avaliação de desempenho | #08 | Formulários com avaliação (método P.A.C.E.R)       | Alta       | 3      |
-| *Atestados Médicos*  | Consulta                | #09 | Filtragem (Aluno, tipo, periodo)                   | Média      | 3      |
-| *Equipes Ágeis*      | Histórico               | #10 | Comparativo temporal de avaliações                 | Baixa      | 3      |
-| *Análise da Dados*   | Geração de relatórios   | #11 | Exportação em PDF/EXCEL/CSV                        | Média      | 3      |
-| *Interface*          | Design Responsivo       | #12 | Adaptação para Mobile e Desktop                    | Baixa      | 3      |
-| *Interface*          | MicroInterações         | #13 | Animações para feedback (loading, success, etc)    | Baixa      | 3      |
-| *Interface*          | Icones Customizados     | #14 | Icones tematicos para ações especificas            | Baixa      | 3      |
+| ID  | ITEM                | FUNCIONALIDADE         | DESCRIÇÃO                                         | USER STORY DETALHADA                                                                 | PRIORIDADE | SPRINT |
+|:---:|:-------------------:|:-----------------------:|:-------------------------------------------------:|:------------------------------------------------------------------------------------:|:----------:|:------:|
+| #01 | *Estruturação*      | Design Preview          | WireFrames para planejamento da estrutura         | "Como gestor do projeto, quero visualizar os wireframes para validar a estrutura antes do desenvolvimento, garantindo que atenda aos requisitos." | Baixa      | 1      |
+| #02 | *Estruturação*      | Estrutura do HTML       | Estrutura básica das páginas HTML usadas          | "Como desenvolvedor, preciso criar a estrutura HTML base do sistema para que possamos começar a implementar as funcionalidades." | Alta       | 1      |
+| #03 | *Atestados Médicos* | Upload de documentos    | Função para envio de PDF's (Até 5MB)              | "Como aluno, desejo enviar atestados médicos em PDF para justificar faltas, com limite de 5MB por arquivo." | Alta       | 1      |
+| #04 | *Gestão de Usuários*| Cadastro de alunos      | Registro de dados básicos dos alunos              | "Como administrador, preciso cadastrar alunos no sistema com informações básicas (nome, matrícula, curso) para gerenciar seus acessos." | Alta       | 2      |
+| #05 | *Gestão de Usuários*| Perfis de acesso        | Definição de níveis (aluno, professor e admin)    | "Como sistema, devo restringir funcionalidades conforme o perfil (aluno: visualizar, professor: aprovar, admin: gerenciar) para segurança." | Alta       | 2      |
+| #06 | *Atestados Médicos* | Armazenamento           | Organização por pastas (Identificador do aluno)   | "Como sistema, devo armazenar atestados em pastas únicas por aluno (ID) para facilitar a recuperação e auditoria." | Média      | 2      |
+| #07 | *Equipes Ágeis*     | Cadastro de equipes     | Criação de equipes e atribuição de funções        | "Como professor, desejo criar equipes de alunos e definir seus papéis (scrum master, dev) para organizar projetos ágeis." | Alta       | 3      |
+| #08 | *Equipes Ágeis*     | Avaliação de desempenho | Formulários com avaliação (método P.A.C.E.R)      | "Como professor, quero avaliar equipes com critérios P.A.C.E.R (Produtividade, Adaptabilidade, etc) para medir evolução." | Alta       | 3      |
+| #09 | *Atestados Médicos* | Consulta                | Filtragem (Aluno, tipo, período)                  | "Como administrador, preciso filtrar atestados por aluno, tipo ou período para emitir relatórios mensais." | Média      | 3      |
+| #10 | *Equipes Ágeis*     | Histórico               | Comparativo temporal de avaliações                | "Como aluno, desejo visualizar meu desempenho em avaliações anteriores para identificar pontos de melhoria." | Baixa      | 3      |
+| #11 | *Análise de Dados*  | Geração de relatórios   | Exportação em PDF/EXCEL/CSV                       | "Como gestor, quero exportar relatórios de avaliações em múltiplos formatos para análise externa." | Média      | 3      |
+| #12 | *Interface*         | Design Responsivo       | Adaptação para Mobile e Desktop                   | "Como usuário, desejo acessar o sistema tanto no celular quanto no desktop com experiência adaptada a cada dispositivo." | Baixa      | 3      |
+| #13 | *Interface*         | MicroInterações         | Animações para feedback (loading, success, etc)   | "Como usuário, quero receber feedback visual (ex: animação de sucesso) ao realizar ações para confirmar que foram processadas." | Baixa      | 3      |
+| #14 | *Interface*         | Ícones Customizados     | Ícones temáticos para ações específicas           | "Como usuário, desejo identificar rapidamente funções (ex: ícone de upload) para melhor usabilidade." | Baixa      | 3      |
 
 ## 👨‍💻**Autores** 
 
@@ -93,3 +93,4 @@ Com as atividades definidas, estimamos o tempo necessário para cada uma delas e
 |Heitor Guilherme Rezende Queiroz Silva|Developer Team|<a href="https://github.com/heitorsilva1337"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
 |Davi Andrande Amancio dos Anjos|Developer Team|<a href="https://github.com/aandrade007"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
 |Isabella Dombrowski Zanlorenzi|Developer Team|<a href="https://github.com/isadombrowski"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
+|Igor Siqueira Prado|Developer Team|<a href="https://github.com/IgorSiqueira7"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
