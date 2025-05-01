@@ -5,10 +5,9 @@
   <title>Cadastro de Alunos</title>
 </head>
 <body>
-
   <h2>Cadastro de Aluno</h2>
   
-  <form id="formAluno">
+  <form action = "/cadastro_usuarios" method="POST" id="formAluno" enctype="multipart/form-data">
     <label for="nome">Nome:</label><br>
     <input type="text" id="nome" name="nome" required><br><br>
 
@@ -32,6 +31,17 @@
       <option value="Projetos de Estruturas Aeronáuticas">Projetos de Estruturas Aeronáuticas</option>
     </select><br><br>
 
+    <label for="Semestre">Semestre:</label><br>
+    <select id="semestre" name="semestre" required>
+      <option value="">Selecione</option>
+      <option value="Primeiro">Primeiro</option>
+      <option value="Segundo">Segundo</option>
+      <option value="Terceiro">Terceiro</option>
+      <option value="Quarto">Quarto</option>
+      <option value="Quinto">Quinto</option>
+      <option value="Sexto">Sexto</option>
+    </select><br><br>
+
     <label for="turno">Turno:</label><br>
     <select id="turno" name="turno" required>
       <option value="">Selecione</option>
@@ -42,8 +52,10 @@
     </select><br><br>
 
     <button type="submit">Cadastrar</button>
+  
   </form>
 
+<<<<<<< HEAD
   <h2>Lista de Alunos</h2>
 
   <table border="1" id="tabelaAlunos">
@@ -62,5 +74,8 @@
   <footer>
     <p>© 2025 - Cadastro de alunos | Todos os direitos reservados.</p>
   </footer>
+=======
+  <a href="/">HOME</a>
+>>>>>>> 62695104e307ff75f8036600e248c033685779ce
 </body>
 </html>

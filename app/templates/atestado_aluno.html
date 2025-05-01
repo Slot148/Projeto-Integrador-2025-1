@@ -31,18 +31,33 @@
           <tr>
             <th>Atestado</th>
             <th>Data de envio</th>
+            <th>Periodo</th>
             <th>Estado</th>
+            <th>Apagar</th>
           </tr>
+          {% for data in data %}
           <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
+            <td><a href="{{ url_for('visualizar_atestado', atestado_id=data['atestado_id']) }}">visualizar</a></td>
+            <td>{{ data['data_envio'] }}</td>
+            <td>{{ data['inicio_periodo'] }} a {{ data['fim_periodo'] }}</td>
+            <td>{{ data['estado'] }}</td>
+            <td>
+              {% if data['estado'] == "pendente" %}
+                <form action="{{ url_for('remover_atestado', atestado_id=data['atestado_id']) }}" method="post">
+                  <button type="submit" onclick="return confirm('Tem certeza que deseja remover este atestado?')">Remover Envio</button><br>
+                </form>
+              {% endif %}
+            </td>
           </tr>
-          
+          {% endfor %}
         </table>
+<<<<<<< HEAD:app/templates/consultaestadoatestadoaluno.html
         <footer>
           <p>© 2025 - Consulta de atestados do aluno | Todos os direitos reservados.</p>
         </footer>
+=======
+        <a href="/">HOME</a>
+>>>>>>> 62695104e307ff75f8036600e248c033685779ce:app/templates/atestado_aluno.html
         </body>
         </html>
 

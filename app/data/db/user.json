@@ -1,0 +1,10 @@
+[
+    {
+        "user_id": "001",
+        "ra": "admin",
+        "nome": "Administrador Padrão",
+        "senha": "scrypt:32768:8:1$q9hQFIYCYMbj1bEn$7d53a70b1ee1a1124e2110f284b04b52fff6cbaf628f75c9779b456234c12bb14d24db0c2780b729670394a9f2c83fb130f4b6db3aa04f98f8c0cea703c1946b",
+        "tipo": "administrador",
+        "nivel_acesso": "1"
+    }
+]
