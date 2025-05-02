@@ -1,4 +1,3 @@
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +11,6 @@
     font-weight: 400;
   }
   
-  /* Cabeçalho */
   header {
     padding: 2rem;
     background-color: #ed4848;
@@ -30,7 +28,6 @@
     font-weight: normal;
   }
   
-  /* Conteúdo principal */
   main {
     max-width: 600px;
     margin: 2rem auto;
@@ -80,7 +77,6 @@
     box-shadow: 0 0 4px rgba(237, 72, 72, 0.4);
   }
   
-  /* Botão */
   button {
     background-color: #04AA6D;
     border: none;
@@ -96,7 +92,6 @@
     background-color: #038e5a;
   }
   
-  /* Tabelas */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -123,14 +118,12 @@
     font-style: italic;
   }
   
-  /* Mensagem de sucesso */
   #mensagem {
     margin: 1rem 0;
     color: green;
     font-weight: bold;
   }
   
-  /* Rodapé */
   footer {
     background-color: #4f0303;
     color: white;
@@ -140,7 +133,6 @@
     font-size: 0.9rem;
   }
   
-  /* Link HOME */
   a {
     text-decoration: none;
     color: #e9dcdc;

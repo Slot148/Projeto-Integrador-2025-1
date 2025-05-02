@@ -1,67 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
     <title>Consulta de Usuários</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-    </style>
+    <link rel="stylesheet" href="consulta_user.css">
 </head>
 <body>
-    <h1>Consulta de Usuários</h1>
-    
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% else %}
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>RA</th>
-                    <th>Curso</th>
-                    <th>Semestre</th>
-                    <th>Turno</th>
-                    <th>Equipe</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for data in data %}
+    <header>
+        <a href="/">HOME</a>
+        <h1>Consulta de Usuários</h1>
+    </header>
+    <main>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% else %}
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ data.user_id }}</td>
-                        <td>{{ data.nome }}</td>
-                        <td>{{ data.ra }}</td>
-                        <td>{{ data.curso }}</td>
-                        <td>{{ data.semestre }}</td>
-                        <td>{{ data.turno }}</td>
-                        <td>{{ data.equipe }}</td>
-                        <td>
-                            <form action="/delete_usuario" method="POST" style="display:inline;">
-                                <input type="hidden" name="user_id" value="{{ data.user_id }}">
-                                <button type="submit">Deletar</button>
-                            </form>
-                        </td>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>RA</th>
+                        <th>Curso</th>
+                        <th>Semestre</th>
+                        <th>Turno</th>
+                        <th>Equipe</th>
+                        <th>Delete</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+                </thead>
+                <tbody>
+                    {% for data in data %}
+                        <tr>
+                            <td>{{ data.user_id }}</td>
+                            <td>{{ data.nome }}</td>
+                            <td>{{ data.ra }}</td>
+                            <td>{{ data.curso }}</td>
+                            <td>{{ data.semestre }}</td>
+                            <td>{{ data.turno }}</td>
+                            <td>{{ data.equipe }}</td>
+                            <td>
+                                <form action="/delete_usuario" method="POST" style="display:inline;">
+                                    <input type="hidden" name="user_id" value="{{ data.user_id }}">
+                                    <button type="submit">Deletar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        
+        <br>
+    </main>
+    <footer>
+        <p>© 2025 - Consulta de usuários | Todos os direitos reservados.</p>
+    </footer>
     
-    <br>
-    <a href="/">HOME</a>
 </body>
 </html>
