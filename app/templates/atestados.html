@@ -1,63 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
+    <link rel="stylesheet" href="atestado_html.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}base{% endblock %}</title>
-    <style>
-        body {
-            padding: 0;
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            justify-content: space-between;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        form>* {
-            margin: 2%
-        }
-
-    </style>
 </head>
 
 <body>
 
     {% block body %}
 
-    <main style="display: flex; flex-direction: column; align-items: center;">
+    <header>
+        <a href="/">HOME</a>
+        <h1>Envio de Atestados:</h1>
+    </header>
+    <main>
+        <section>
+            <form action="/Submit" method="POST" enctype="multipart/form-data">
+                <label for="nomeAluno">Nome do Aluno:</label>
+                <input type="text" name="nomeAluno" required>
 
-        <h2>Envio de Atestados:</h2>
+                <label for="raAluno">RA do Aluno:</label>
+                <input type="text" name="raAluno" id="raAluno" required>
 
-        <form action="/Submit" method="POST" enctype="multipart/form-data">
-            <label for="nomeAluno">Nome do Aluno:</label>
-            <input type="text" name="nomeAluno" required>
+                <label for="periodo">Periodo de Duração:</label>
+                <section style="display: flex; flex-direction: column;">
+                    <label>Inicio:</label>
+                    <input type="date" name="initDate">
+                    <br>
+                    <label>Termino:</label>
+                    <input type="date" name="endDate">
+                </section>
 
-            <label for="raAluno">RA do Aluno:</label>
-            <input type="text" name="raAluno" id="raAluno" required>
+                <label for="insertFile">Selecionar um arquivo &#187</label>
+                <input type="file" name="insertFile" accept="application/pdf">
 
-            <label for="periodo">Periodo de Duração:</label>
-            <section style="display: flex; flex-direction: column;">
-                <label>Inicio:</label>
-                <input type="date" name="initDate">
-                <br>
-                <label>Termino:</label>
-                <input type="date" name="endDate">
-            </section>
-
-            <label for="insertFile">Selecionar um arquivo &#187</label>
-            <input type="file" name="insertFile" accept="application/pdf">
-
-            <button type="submit">Enviar Atestado</button>
-        </form>
-
+                <button type="submit">Enviar Atestado</button>
+            </form>
+        </section>
     </main>
 
     
@@ -65,7 +46,6 @@
         <p>© 2025 - Atestados | Todos os direitos reservados.</p>
     </footer>
     {% endblock %}
-    <a href="/">HOME</a>
 </body>
 
 </html>
