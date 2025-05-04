@@ -1,61 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-        }
-        
-        td, th {
-          border: 4px solid #dddddd;
-          text-align: left;
-          padding: 8px;
-        }
-        
-        tr:nth-child(even) {
-          background-color: #dddddd;
-        }
-        </style>
+  <link rel="stylesheet" href="aprovar_atest.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprovação dos Atestados</title>
 </head>
 <body>
-  <h2>HTML Table</h2>
-
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Atestado</th>
-      <th>Data de envio</th>
-      <th>Periodo Valido</th>
-      <th>Aluno</th>
-      <th>Registro do aluno</th>
-      <th>Aprovar?</th>
-    </tr>
-     {% for data in data %}
-     {% if data['estado'] == "pendente" %}
+  <header>
+    <a href="/" class="home-link">HOME</a>
+    <h1>Tabela para a aprovação ou reprovação de atestados</h1><br>
+    <h3>Aprove ou reprove os atestados dos alunos aqui</h3>
+  </header>
+  <main>
+    <table>
       <tr>
-        <td>{{ data['atestado_id'] }}</td>
-        <td><a href="{{ url_for('visualizar_atestado', atestado_id=data['atestado_id']) }}">visualizar</a></td>
-        <td>{{ data.data_envio }}</td>
-        <td>De: {{ data.inicio_periodo }}<br>Até: {{ data.fim_periodo}}</td>
-        <td>{{ data.nome_aluno }}</td>
-        <td>{{ data.ra }}</td>
-        <td>
-          <form action="/consulta_atestado/aprovar/{{ data['atestado_id'] }}" method="post">
-            <button type="submit">Aprovar Atestado</button><br>
-          </form>
-          <form action="/consulta_atestado/reprovar/{{ data['atestado_id'] }}" method="post">
-            <button type="submit">Reprovar Atestado</button><br>
-          </form>
-        </td>
+        <th>ID</th>
+        <th>Atestado</th>
+        <th>Data de envio</th>
+        <th>Periodo Valido</th>
+        <th>Aluno</th>
+        <th>Registro do aluno</th>
+        <th>Aprovar?</th>
       </tr>
+      {% for data in data %}
+      {% if data['estado'] == "pendente" %}
+        <tr>
+          <td>{{ data['atestado_id'] }}</td>
+          <td><a href="{{ url_for('visualizar_atestado', atestado_id=data['atestado_id']) }}">visualizar</a></td>
+          <td>{{ data.data_envio }}</td>
+          <td>De: {{ data.inicio_periodo }}<br>Até: {{ data.fim_periodo}}</td>
+          <td>{{ data.nome_aluno }}</td>
+          <td>{{ data.ra }}</td>
+          <td>
+            <form action="/consulta_atestado/aprovar/{{ data['atestado_id'] }}" method="post" style="display:inline;">
+              <button type="submit" class="btn-approve">Aprovar Atestado</button><br>
+            </form>
+            <form action="/consulta_atestado/reprovar/{{ data['atestado_id'] }}" method="post" style="display:inline;">
+              <button type="submit" class="btn-reject">Reprovar Atestado</button><br>
+            </form>
+          </td>
+        </tr>
       {% endif %}
-     {% endfor %}
-  </table>
-  <a href="/">HOME</a>
+      {% endfor %}
+    </table>
+  </main>
+  <footer>
+    <p>© 2025 - Aprovação dos atestados | Todos os direitos reservados.</p>
+  </footer>
 </body>
 </html>
