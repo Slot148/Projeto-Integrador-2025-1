@@ -4,7 +4,7 @@
 <hr>
 <br>
 <h4 align="center">
-  <a href="https://www.figma.com" target="_blank"><img src="https://img.shields.io/badge/-Figma-%23E4405F?style=for-the-badge&logo=Figma&logoColor=white" target="_blank"></a>  <a href="https://www.python.org/downloads/release/python-370/" target="_blank"><img src="https://img.shields.io/badge/-Python-%2388CE?style=for-the-badge&logo=Python&logoColor=white" target="_blank"></a> <a href="https://code.visualstudio.com" target="_blank"><img src="https://img.shields.io/badge/-Visual Studio Code-%2384CE?style=for-the-badge&logo=Visual Studio Code&logoColor=white" target="_blank"></a>
+  <a href="https://www.figma.com" target="_blank"><img src="https://img.shields.io/badge/-Figma-%23E4405F?style=for-the-badge&logo=Figma&logoColor=white" target="_blank"></a>  <a href="https://www.python.org/downloads/release/python-370/" target="_blank"><img src="https://img.shields.io/badge/-Python-%2388CE?style=for-the-badge&logo=Python&logoColor=white" target="_blank"></a> <a href="https://code.visualstudio.com" target="_blank"><img src="https://img.shields.io/badge/-Visual_Studio_Code-%2384CE?style=for-the-badge&logo=VisualStudioCode&logoColor=white" target="_blank"></a>
 </h4>
 
 <br>
