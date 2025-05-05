@@ -1,86 +1,139 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Cadastro de Alunos</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='cadastro.css') }}">
-</head>
-<body>
-  <header>
-    <h1>Cadastro de Alunos</h1><br>
-    <h3>Faça seu cadastro aqui!</h3>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cadastro de Alunos</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/cadastro.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Cadastro de Alunos</h1>
+      <br />
+      <h3>Faça seu cadastro aqui!</h3>
+    </header>
 
-  <main>
-    <form action="/cadastro_usuarios" method="POST" id="formAluno" enctype="multipart/form-data">
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" name="nome" required>
+      <main class="display">
 
-      <label for="ra">RA:</label>
-      <input type="text" id="ra" name="ra" required>
-
-      <label for="senha">Senha:</label>
-      <input type="password" id="senha" name="senha" required>
-
-      <label for="curso">Curso:</label>
-      <select id="curso" name="curso" required>
-        <option value="">Selecione</option>
-        <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
-        <option value="Banco de Dados">Banco de Dados</option>
-        <option value="Desenvolvimento de Software Multiplataforma">Desenvolvimento de Software Multiplataforma</option>
-        <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
-        <option value="Gestão Empresarial">Gestão Empresarial</option>
-        <option value="Logística">Logística</option>
-        <option value="Manufatura Avançada">Manufatura Avançada</option>
-        <option value="Manutenção de Aeronaves">Manutenção de Aeronaves</option>
-        <option value="Projetos de Estruturas Aeronáuticas">Projetos de Estruturas Aeronáuticas</option>
-      </select>
-
-      <label for="semestre">Semestre:</label>
-      <select id="semestre" name="semestre" required>
-        <option value="">Selecione</option>
-        <option value="Primeiro">Primeiro</option>
-        <option value="Segundo">Segundo</option>
-        <option value="Terceiro">Terceiro</option>
-        <option value="Quarto">Quarto</option>
-        <option value="Quinto">Quinto</option>
-        <option value="Sexto">Sexto</option>
-      </select>
-
-      <label for="turno">Turno:</label>
-      <select id="turno" name="turno" required>
-        <option value="">Selecione</option>
-        <option value="manhã">Manhã</option>
-        <option value="tarde">Tarde</option>
-        <option value="noite">Noite</option>
-        <option value="integral">Integral</option>
-      </select>
-
-      <button type="submit">Cadastrar</button>
-    </form>
-  </main>
-  <section class="alunos-section">
-    <h2>Lista de Alunos</h2>
-    <table id="tabelaAlunos">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>RA</th>
-          <th>Curso</th>
-          <th>Turno</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Alunos serão listados aqui -->
-      </tbody>
-    </table>
+        <section style="display: flex; margin: auto;">
+          <div class="radio-inputs">
   
-    <a href="/" class="home-link">HOME</a>
-  </section>
-  
+            <label class="radio">
+              <input type="radio" name="tipouser" value="aluno" checked>
+              <span class="name">Aluno</span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="tipouser" value="administrador">
+              <span class="name">Admin</span>
+            </label>
+          </div>
 
-  <footer>
-    <p>© 2025 - Cadastro de alunos | Todos os direitos reservados.</p>
-  </footer>
-</body>
+        </section>
+
+        <form action="/cadastro_usuarios" method="POST" enctype="multipart/form-data" class="" id="formAluno">
+          <input type="hidden" name="tipo" id="tipoAluno" value="aluno">   
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" name="nome" required />
+          <label for="ra">RA:</label>
+          <input type="text" id="ra" name="ra" required />
+          <label for="senha">Senha:</label>
+          <input type="password" id="senha" name="senha" required />
+          <label for="curso">Curso:</label>
+          <select id="curso" name="curso" required>
+            <option value="">Selecione</option>
+            <option value="Análise e Desenvolvimento de Sistemas">
+              Análise e Desenvolvimento de Sistemas
+            </option>
+            <option value="Banco de Dados">Banco de Dados</option>
+            <option value="Desenvolvimento de Software Multiplataforma">
+              Desenvolvimento de Software Multiplataforma
+            </option>
+            <option value="Gestão da Produção Industrial">
+              Gestão da Produção Industrial
+            </option>
+            <option value="Gestão Empresarial">Gestão Empresarial</option>
+            <option value="Logística">Logística</option>
+            <option value="Manufatura Avançada">Manufatura Avançada</option>
+            <option value="Manutenção de Aeronaves">
+              Manutenção de Aeronaves
+            </option>
+            <option value="Projetos de Estruturas Aeronáuticas">
+              Projetos de Estruturas Aeronáuticas
+            </option>
+          </select>
+          <label for="semestre">Semestre:</label>
+          <select id="semestre" name="semestre" required>
+            <option value="">Selecione</option>
+            <option value="Primeiro">Primeiro</option>
+            <option value="Segundo">Segundo</option>
+            <option value="Terceiro">Terceiro</option>
+            <option value="Quarto">Quarto</option>
+            <option value="Quinto">Quinto</option>
+            <option value="Sexto">Sexto</option>
+          </select>
+          <label for="turno">Turno:</label>
+          <select id="turno" name="turno" required>
+            <option value="">Selecione</option>
+            <option value="manhã">Manhã</option>
+            <option value="tarde">Tarde</option>
+            <option value="noite">Noite</option>
+            <option value="integral">Integral</option>
+          </select>
+          <button type="submit">Cadastrar</button>
+        </form>
+
+        <form action="/cadastro_usuarios" method="POST" enctype="multipart/form-data" class="none" id="formAdm">
+          <input type="hidden" name="tipo" id="tipoAdmin" value="administrador">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nomeadm" name="nome" required />
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+          <label for="senha">Senha:</label>
+          <input type="password" id="senhaadm" name="senha" required />
+          <label for="senha">Nivel do Administrador</label>
+          <select name="nivel_acesso" id="nivel">
+            <option value="">Selecione</option>
+            <option value="1">SuperAdmin</option>
+            <option value="2">AdminElevado</option>
+            <option value="3">Admin</option>
+          </select>
+          <button type="submit">Cadastrar</button>
+        </form>
+      </main>
+
+
+
+    <section class="alunos-section">
+      <h2>Lista de Alunos</h2>
+      <table id="tabelaAlunos">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>RA</th>
+            <th>Curso</th>
+            <th>Turno</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in data %} {% if data.tipo != "administrador" %}
+          <tr>
+            <td>{{ data.nome }}</td>
+            <td>{{ data.ra }}</td>
+            <td>{{ data.curso }}</td>
+            <td>{{ data.turno }}</td>
+          </tr>
+          {% endif %} {% endfor %}
+        </tbody>
+      </table>
+
+      <a href="/" class="home-link">HOME</a>
+    </section>
+
+    <footer>
+      <p>© 2025 - Cadastro de alunos | Todos os direitos reservados.</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+  </body>
 </html>

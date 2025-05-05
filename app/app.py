@@ -43,7 +43,8 @@ def logout():
 @admin_required
 def cadastro_usuarios():
     if f.request.method == "GET":
-        return f.render_template("Cadastros de alunos.html")
+        data = fc.user_db.read()
+        return f.render_template("Cadastros de alunos.html", data=data)
     if f.request.method == "POST":
             fc.new_usuario()
             return f.redirect(f.url_for('cadastro_usuarios'))

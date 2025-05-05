@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
     <header>
         {% if session.logged_in %}
-            <p>Logado como: {{ session.nome }} <br>(RA: {{ session.ra }})</p>
+            <p>Logado como: {{ session.nome.title() }} <br>RA: {{ session.ra }}</p>
             <a href="/logout" class="botao-logout">Sair</a>
         {% else %}
+        <p>Nenhum Usuário Conectado</p>
             <a href="/login" class="botao-login">Login</a>
         {% endif %}
     </header>
@@ -25,8 +20,4 @@
             <a href="/aluno/consulta_atestados">area de consulta do aluno</a>
         </div>
     </main>
-    <footer>
-        <p>© 2025 - Página inicial | Todos os direitos reservados.</p>
-    </footer>
-</body>
-</html>
+{% endblock %}

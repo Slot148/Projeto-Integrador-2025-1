@@ -70,13 +70,15 @@ class ALUNO(USER):
         return data
 
 class ADM(USER):
-    def __init__(self, user_id, nome, senha, nivel_acesso="1"):
-        super().__init__(user_id, nome, senha, tipo="administrador")  # Note o tipo corrigido
+    def __init__(self, user_id, username, nome, senha, nivel_acesso="1"):
+        super().__init__(user_id, nome, senha, tipo="administrador")
+        self.username = username
         self.nivel_acesso = nivel_acesso
 
     def to_dict(self):
         data = super().to_dict()
         data.update({
+            "username": self.username,
             "nivel_acesso": self.nivel_acesso,
         })
         return data        

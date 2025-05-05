@@ -19,21 +19,32 @@ def get_next_id(db, id_field):
 def new_usuario():
     user_id = get_next_id(user_db, 'user_id')
     atual = user_db.read()
-    user = pr.ALUNO(
-        user_id=user_id,
-        nome=f.request.form["nome"].lower(),
-        ra=str(f.request.form["ra"]),
-        senha=str(f.request.form["senha"]),
-        curso=f.request.form["curso"].lower(),
-        semestre=f.request.form["semestre"].lower(),
-        turno=f.request.form["turno"].lower(),
-        equipe=f.request.form.get("equipe", "Sem equipe").lower()
-    ).to_dict()
+    tipo_usuario = f.request.form.get('tipo')
 
-    for x in atual:
-        if user['ra'] == x['ra']:
-            f.flash(f"O ra: {user['ra']} ja esta registrado em outro usuario", 'error')
-            return {"status": "error", "message": "o ra ja existe na base de dados"};   
+    if tipo_usuario == "administrador":
+        user = pr.ADM(
+            user_id=user_id,
+            nome=f.request.form["nome"].lower(),    
+            username=f.request.form["username"],    
+            senha=str(f.request.form["senha"]),
+            nivel_acesso=f.request.form["nivel_acesso"]
+        ).to_dict()
+    else:
+        user = pr.ALUNO(
+            user_id=user_id,
+            nome=f.request.form["nome"].lower(),
+            ra=str(f.request.form["ra"]),
+            senha=str(f.request.form["senha"]),
+            curso=f.request.form["curso"].lower(),
+            semestre=f.request.form["semestre"].lower(),
+            turno=f.request.form["turno"].lower(),
+            equipe=f.request.form.get("equipe", "Sem equipe").lower()
+        ).to_dict()
+
+        for x in atual:
+            if x['tipo'] == 'aluno' and user['ra'] == x['ra']:
+                f.flash(f"O ra: {user['ra']} ja esta registrado em outro usuario", 'error')
+                return {"status": "error", "message": "o ra ja existe na base de dados"};   
 
 
     if user_db.add(user):

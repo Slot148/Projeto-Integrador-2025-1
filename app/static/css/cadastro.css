@@ -2,36 +2,35 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* border: 1px solid black */
 }
 
-
 body {
-    background-color: rgb(218, 217, 217); 
-    color: #000; 
-    font-family: Arial, Helvetica, sans-serif; 
+    background-color: rgb(218, 217, 217);
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 400;
 }
 
 header {
     padding: 2rem;
-    background-color: #ed4848; 
+    background-color: #ed4848;
     color: white;
     text-align: center;
 }
 
 footer {
     background-color: #4f0303;
-    color: white;   
+    color: white;
     text-align: center;
     padding: 2rem;
     margin-top: 1rem;
 }
 
-
-main {
+.display {
     padding: 2rem;
     max-width: 500px;
-    margin: 2rem auto; 
+    margin: 2rem auto;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -73,19 +72,17 @@ select:focus {
     box-shadow: 0 0 4px rgba(143, 75, 75, 0.4);
 }
 
-
 button {
     align-self: flex-start; /* Alinha o botão ao início da coluna */
-    background-color: #04AA6D;
+    background-color: #04aa6d;
     color: white;
     border: none;
-    padding: 10px 20px; 
+    padding: 10px 20px;
     font-size: 16px;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
 
 button:hover {
     background-color: #038e5a;
@@ -99,7 +96,8 @@ table {
     overflow: hidden;
 }
 
-th, td {
+th,
+td {
     padding: 12px;
     border: 1px solid #999;
     text-align: left;
@@ -115,9 +113,8 @@ th {
     margin: 2rem auto;
     background-color: #f5f5f5;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-
 
 .alunos-section h2 {
     margin-bottom: 1rem;
@@ -128,14 +125,57 @@ th {
     display: inline-block;
     margin-top: 1rem;
     padding: 10px 20px;
-    background-color: #04AA6D;
+    background-color: #04aa6d;
     color: white;
     text-decoration: none;
     border-radius: 6px;
     transition: background-color 0.3s ease;
 }
 
-
 .home-link:hover {
     background-color: #038c5a;
+}
+
+/* Sessão de tabs */
+.radio-inputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #c9c6c6;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 300px;
+    font-size: 14px;
+}
+
+.radio-inputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.radio-inputs .radio input {
+    display: none;
+}
+
+.radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.5rem 0;
+    color: rgba(51, 65, 85, 1);
+    transition: all 0.15s ease-in-out;
+}
+
+.radio-inputs .radio input:checked + .name {
+    background-color: #ddd;
+    font-weight: 600;
+}
+
+.none{
+    display: none
 }
