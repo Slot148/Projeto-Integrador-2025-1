@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% if session.logged_in %}
-        <p>Logado como: {{ session.nome }} <br>(RA: {{ session.ra }})</p>
-        <a href="/logout">Sair</a>
-    {% else %}
-       <a href="/login">Login</a>
-    {% endif %}
-
-    <div style="display: flex; flex-direction: column;">
-        <a href="/cadastro_usuarios">cadastro de usuarios</a>
-        <a href="/consulta_usuarios">consulta de usuarios</a>
-        <a href="/cadastro_atestados">cadastro de atestados</a>
-        <a href="/consulta_atestados">consulta de atestados</a>
-        <a href="/aluno/consulta_atestados">area de consulta do aluno</a>
-    </div>
-</body>
-=======
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -54,5 +29,4 @@
         <p>© 2025 - Página inicial | Todos os direitos reservados.</p>
     </footer>
 </body>
->>>>>>> 7548baaad6d8ab950ed1ae489ef708ddbd17000a
 </html>
