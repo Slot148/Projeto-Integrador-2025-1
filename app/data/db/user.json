@@ -6,5 +6,49 @@
         "senha": "scrypt:32768:8:1$q9hQFIYCYMbj1bEn$7d53a70b1ee1a1124e2110f284b04b52fff6cbaf628f75c9779b456234c12bb14d24db0c2780b729670394a9f2c83fb130f4b6db3aa04f98f8c0cea703c1946b",
         "tipo": "administrador",
         "nivel_acesso": "1"
+    },
+    {
+        "user_id": "002",
+        "nome": "nicolas freitas",
+        "senha": "scrypt:32768:8:1$XlseR9VmANU5LmnA$a2a62a0ee8a4c57e53c7480557038d2540aa4ab5158ed42de43c8a32164ae98b2bac55b3e044d0e06157a3470a7871eb53f300996c14cbf0f7d1ca1dc17028c5",
+        "tipo": "aluno",
+        "ra": "10927235478",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "manhã",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "003",
+        "nome": "nicolas freitas",
+        "senha": "scrypt:32768:8:1$NgJVbl95orta03FR$486fb252641f8d9116d961dde800cc0db706d5af73b0b755f7aeae2be29305f5e26275703b98778efd2cd4618ac4eafea8d31dd1804398d00f72a8e9ac7665de",
+        "tipo": "aluno",
+        "ra": "109272354781",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "manhã",
+        "semestre": "terceiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "004",
+        "nome": "murillo",
+        "senha": "scrypt:32768:8:1$kmriQNzfyXzRdXQL$ce8d0000a9f1e898025883495e1d24c5c73963061cf02d39b862bda0a47f1a8d070e3b0ce1fd3e12b627cf14c88a644406ae431a79d084e3811d289c5c0b15b2",
+        "tipo": "aluno",
+        "ra": "123824362354072",
+        "curso": "banco de dados",
+        "turno": "tarde",
+        "semestre": "terceiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "005",
+        "nome": "mãe",
+        "senha": "scrypt:32768:8:1$WKJn7YJtjzVwFq53$d9c6460d8a29e1f4e3bf855b7eb835cc78bb7ae38b82ca5a7b13484f3932436f1da7597c5edd05aa9933fc9d4fd6aeef6de74ae2065a0873c7a2609b1eba016c",
+        "tipo": "aluno",
+        "ra": "123456",
+        "curso": "desenvolvimento de software multiplataforma",
+        "turno": "manhã",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
     }
 ]
