@@ -3,7 +3,7 @@
 {% block content %}
     <header>
         {% if session.logged_in %}
-            <p>Logado como: {{ session.nome.title() }} <br>RA: {{ session.ra }}</p>
+            <p>Logado como: {{ session.nome.title() }} <br>{% if session.ra %}RA: {{ session.ra }}{% endif %}</p>
             <a href="/logout" class="botao-logout">Sair</a>
         {% else %}
         <p>Nenhum Usuário Conectado</p>

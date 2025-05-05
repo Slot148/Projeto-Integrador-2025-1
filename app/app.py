@@ -16,26 +16,49 @@ def index():
 #login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if f.request.method == 'POST':
-        ra = f.request.form['ra']
-        senha = f.request.form['senha']
+    if f.session.get('logged_in'):
+        return f.redirect(f.url_for('index'))
         
-        aluno = fc.user_db.find(ra, identifier_key="ra")
-        if aluno and check_password_hash(aluno['senha'], senha):
-            f.session['user_id'] = aluno['user_id']
-            f.session['ra'] = aluno['ra']
-            f.session['nome'] = aluno['nome']
-            f.session['tipo'] = aluno['tipo']
-            f.session['logged_in'] = True
-            return f.redirect(f.url_for('index'))
-        return "RA ou senha inválidos", 401
+    if f.request.method == 'POST':
+        username = f.request.form.get('user')
+        password = f.request.form.get('senha')
+        
+        if not username or not password:
+            f.flash('Por favor, preencha todos os campos', 'error')
+            return f.redirect(f.url_for('login'))
+    
+        user = None
+        user = fc.user_db.find(username, identifier_key="username")
+        if not user:
+            user = fc.user_db.find(username, identifier_key="ra")
+        
+        if not user or not check_password_hash(user.get('senha', ''), password):
+            f.flash('Credenciais inválidas', 'error')
+            return f.redirect(f.url_for('login'))
+        
+        f.session['user_id'] = user['user_id']
+        f.session['nome'] = user['nome']
+        f.session['tipo'] = user['tipo']
+        f.session['logged_in'] = True
+        
+        if user['tipo'] == 'aluno':
+            f.session['ra'] = user['ra']
+        else:
+            if 'username' in user:
+                f.session['username'] = user['username']
+            if 'nivel_acesso' in user:
+                f.session['nivel_acesso'] = user['nivel_acesso']
+        
+        return f.redirect(f.url_for('index'))
     
     return f.render_template('login.html')
 
 @app.route("/logout")
 def logout(): 
-    f.session.clear() 
+    f.session.clear()
     f.session.pop('_flashes', None)
+    fc.reload()
+    f.flash('Desconectado com sucesso')
     return f.redirect(f.url_for('index'))
 
 #usuarios
@@ -138,7 +161,7 @@ def visualizar_atestado(atestado_id):
     except Exception as e:
         print(f"Erro: {str(e)}")
         return "Erro ao visualizar atestado", 500
-    
+
 
 
 

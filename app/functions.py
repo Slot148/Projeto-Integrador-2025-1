@@ -9,6 +9,13 @@ diaAtual = datetime.now().strftime('%Y-%m-%d')
 # equipes_db = pr.JSON_MANAGER("app/data/db/equipes.json")
 # avaliacoes_db = pr.JSON_MANAGER("app/data/db/avaliacoes.json")
 
+def reload():
+    return f.render_template_string("""
+        <script>
+            window.location.reload();
+        </script>
+    """)
+
 def get_next_id(db, id_field):
     data = db.read()
     if not data:

@@ -1,16 +1,8 @@
 [
     {
-        "user_id": "001",
-        "ra": "admin",
-        "nome": "Administrador Padrão",
-        "senha": "scrypt:32768:8:1$4xLWW1HiMsILZBM6$d0a727fd2cb32a2847b4b68d50e92bdb7e042ce1febbfa68c79210434d51f301e2e3115cc6687fb1abdf25c50aad6e1ed61da730558ce5e178347c08bb50e1c9",
-        "tipo": "administrador",
-        "nivel_acesso": "1"
-    },
-    {
-        "user_id": "002",
+        "user_id": "003",
         "nome": "nicolas freitas",
-        "senha": "scrypt:32768:8:1$fCmiQGQARy9UEv6J$50d17d5388d72d49305c75ca6f5a4f17d0dee318a5aa99b6fa4476ff617efbb675bb451c6b69fbc147625906146a9cf6bbedbdbabd5d6c500433c3dcc7f392ce",
+        "senha": "scrypt:32768:8:1$Msmr5rQ3eO5Nd4Ow$06c4c7635ecc7b72494477a9e4ea24bdc1a8db77a037ae6431bc7acb509f8f212a141e59b5a369540a1e890c92cf4c99e166eeb6c2d1409b6c652f626efb08f9",
         "tipo": "aluno",
         "ra": "1092723547",
         "curso": "análise e desenvolvimento de sistemas",
@@ -19,41 +11,19 @@
         "equipe": "sem equipe"
     },
     {
-        "user_id": "003",
-        "nome": "murillo",
-        "senha": "scrypt:32768:8:1$jYmLhpLrF6c6BDjv$c0a571d25ae3c6f92caf9d8c1dc999fdb29cd4c0f700e924fd5178a2bea161150fd0ca6c8bb820ccc80e3acb9e30f90411eacb5d5835992ae2646aec94b5b643",
-        "tipo": "aluno",
-        "ra": "12345",
-        "curso": "banco de dados",
-        "turno": "manhã",
-        "semestre": "quarto",
-        "equipe": "sem equipe"
-    },
-    {
-        "user_id": "004",
-        "nome": "mãe",
-        "senha": "scrypt:32768:8:1$BhSPx0SwtjD3FkaB$3f7bda6c8f9296ebbbe3827e9f202386f712b6fd996491de6f63b9cdd9db6cefbd5a889f7b952da0f773bec8bbac5584ff8fc1c2de2bb221445e763e7f96bd52",
-        "tipo": "aluno",
-        "ra": "123",
-        "curso": "análise e desenvolvimento de sistemas",
-        "turno": "manhã",
-        "semestre": "primeiro",
-        "equipe": "sem equipe"
-    },
-    {
-        "user_id": "005",
-        "nome": "nicolas freitas",
-        "senha": "scrypt:32768:8:1$EIQyoe063a8YvCRX$d0265ec9d7f54800182cd45b3f4e960d53b433e37c8ae810a51bca8ff987b4fcf62e74dd11f64b655e6052d379b1e828203c9c5913d6bb56e849bf4c5d1f7ea1",
+        "user_id": "001",
+        "ra": "admin",
+        "nome": "Administrador Padrão",
+        "senha": "scrypt:32768:8:1$vJyYkxOjlUC0kyny$3798886a630e2c795b90f918eecb6820d8e2b56f306a61d2ce4172d6afaa25cba853113f23d5384e37f54122e2fceae36905226b0090ef8d20e8e7340daaa795",
         "tipo": "administrador",
-        "username": "slot_148",
         "nivel_acesso": "1"
     },
     {
-        "user_id": "006",
-        "nome": "murillo",
-        "senha": "scrypt:32768:8:1$dGTvF7K2r4RzNLPd$a9d4b236622e29a73917dfbea9357a8bbf2e52fd05f2e5e0d4788301f30d7c8d71967e930dab3e4ec67999d85246fa76cdfb99fe510ab7085cb4412478d2e47e",
+        "user_id": "004",
+        "nome": "nicolas freitas",
+        "senha": "scrypt:32768:8:1$FjMCW609os94RZuB$6920f4746af4dbd9bd1c34b23740d3c9b011c30325674cd9ca70ca2d06b1ff72b1c4d4555473afa77750524d7db8d531114c15f63dd234664b2b6f10b0953171",
         "tipo": "administrador",
-        "username": "123",
-        "nivel_acesso": "2"
+        "username": "slot_148",
+        "nivel_acesso": "1"
     }
 ]
