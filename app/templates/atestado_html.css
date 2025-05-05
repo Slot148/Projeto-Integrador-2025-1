@@ -1,0 +1,119 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+body {
+    background-color: rgb(218, 217, 217);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+}
+  
+header {
+    padding: 2rem;
+    background-color: #ed4848;
+    text-align: center;
+    color: white;
+}
+  
+header h1 {
+    font-size: 2.0rem;
+}
+  
+header a {
+    color: white;
+    text-decoration: none;
+    background-color: #04AA6D;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+  
+header a:hover {
+    background-color: #038e5a;
+}
+
+main {
+    max-width: 600px;
+    width: 100%;
+    margin: 2rem auto 1rem;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.685);
+}
+  
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+  
+label {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+}
+  
+input[type="text"],
+input[type="date"],
+input[type="file"] {
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    text-decoration: none;
+}
+  
+input[type="text"]:focus,
+input[type="date"]:focus {
+    border-color: #f8f8f8;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+    outline: none;
+}
+  
+input[type="file"] {
+    cursor: pointer;
+}
+  
+form + button,
+button[type="submit"] {
+    display: block;
+    margin-top: 2rem;
+    margin-left: 0;
+    background-color: #04AA6D;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: fit-content;
+}
+  
+button[type="submit"]:hover {
+    background-color: #089c66;
+}
+  
+footer {
+    background-color: #4f0303;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    font-size: 1rem;
+    margin-top: auto;
+}
+  

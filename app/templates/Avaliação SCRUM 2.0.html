@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -125,3 +126,137 @@
     <a href="/">HOME</a>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link rel="stylesheet" href="avaliação2_0.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avaliação Scrum por Aluno</title>
+</head>
+<body>
+    <header>
+        <a href="/">HOME</a>
+        <h1>Avaliação de Aluno - Critérios Scrum</h1>
+        <h3>Avalie cada membro da equipe Scrum de forma justa</h3>
+    </header><br>
+    <main>
+        <form id="formAvaliacao">
+            <section>
+                <label for="aluno">Nome do aluno:</label><br>
+                <input type="text" id="aluno" name="aluno" required><br><br>
+            </section>
+
+            <section>
+                <label for="P">P - Planejamento:</label><br>
+                <select id="P" name="planejamento" required>
+                  <option value="">Selecione</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select><br><br>
+                
+                <label for="A">A - Autonomia:</label><br>
+                <select id="A" name="autonomia" required>
+                  <option value="">Selecione</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select><br><br>
+                
+                <label for="C">C - Colaboração:</label><br>
+                <select id="C" name="colaboracao" required>
+                  <option value="">Selecione</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select><br><br>
+                
+                <label for="E">E - Entrega:</label><br>
+                <select id="E" name="entrega" required>
+                  <option value="">Selecione</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select><br><br>
+                
+                <label for="R">R - Responsabilidade:</label><br>
+                <select id="R" name="responsabilidade" required>
+                  <option value="">Selecione</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select><br><br>
+            </section>
+            <section>
+                <button type="submit">Registrar Avaliação</button>
+            </section>
+        </form><br><br>
+    </main>
+        <section>
+            <h2>Parâmetros de Avaliação</h2>
+            <table border="1">
+                <thead>
+                <tr>
+                    <th>Nota</th>
+                    <th>Significado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>0</td>
+                    <td>Sem desempenho - o aluno não participou ou não demonstrou nenhum envolvimento no critério.</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Baixo desempenho - o aluno demonstrou pouca habilidade ou engajamento no critério avaliado.</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Médio desempenho - o aluno atendeu parcialmente às expectativas do critério.</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Alto desempenho - o aluno superou as expectativas, com ótima participação e entrega.</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Use esses parâmetros para avaliar cada critério de forma justa.</td>
+                    </tr>
+                </tfoot>
+                </table>
+        </section>
+
+        <p id="mensagem" style="color: green; font-weight: bold;"></p>
+
+        <h2>Avaliações Registradas</h2>
+        <table border="1" cellpadding="5" id="tabelaAvaliacoes">
+            <thead>
+            <tr>
+                <th>Aluno</th>
+                <th>P</th>
+                <th>A</th>
+                <th>C</th>
+                <th>E</th>
+                <th>R</th>
+            </tr>
+            </thead>
+            <tbody>
+           
+            </tbody>
+        </table>
+
+    <footer>
+        <p>© 2025 - Avaliação Scrum | Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
+>>>>>>> 7548baaad6d8ab950ed1ae489ef708ddbd17000a

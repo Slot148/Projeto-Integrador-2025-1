@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -58,3 +59,91 @@
   <a href="/">HOME</a>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Alunos</title>
+  <link rel="stylesheet" href="cadastro.css">
+</head>
+<body>
+  <header>
+    <h1>Cadastro de Alunos</h1><br>
+    <h3>Faça seu cadastro aqui!</h3>
+  </header>
+
+  <main>
+    <form action="/cadastro_usuarios" method="POST" id="formAluno" enctype="multipart/form-data">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="ra">RA:</label>
+      <input type="text" id="ra" name="ra" required>
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required>
+
+      <label for="curso">Curso:</label>
+      <select id="curso" name="curso" required>
+        <option value="">Selecione</option>
+        <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
+        <option value="Banco de Dados">Banco de Dados</option>
+        <option value="Desenvolvimento de Software Multiplataforma">Desenvolvimento de Software Multiplataforma</option>
+        <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
+        <option value="Gestão Empresarial">Gestão Empresarial</option>
+        <option value="Logística">Logística</option>
+        <option value="Manufatura Avançada">Manufatura Avançada</option>
+        <option value="Manutenção de Aeronaves">Manutenção de Aeronaves</option>
+        <option value="Projetos de Estruturas Aeronáuticas">Projetos de Estruturas Aeronáuticas</option>
+      </select>
+
+      <label for="semestre">Semestre:</label>
+      <select id="semestre" name="semestre" required>
+        <option value="">Selecione</option>
+        <option value="Primeiro">Primeiro</option>
+        <option value="Segundo">Segundo</option>
+        <option value="Terceiro">Terceiro</option>
+        <option value="Quarto">Quarto</option>
+        <option value="Quinto">Quinto</option>
+        <option value="Sexto">Sexto</option>
+      </select>
+
+      <label for="turno">Turno:</label>
+      <select id="turno" name="turno" required>
+        <option value="">Selecione</option>
+        <option value="manhã">Manhã</option>
+        <option value="tarde">Tarde</option>
+        <option value="noite">Noite</option>
+        <option value="integral">Integral</option>
+      </select>
+
+      <button type="submit">Cadastrar</button>
+    </form>
+  </main>
+  <section class="alunos-section">
+    <h2>Lista de Alunos</h2>
+    <table id="tabelaAlunos">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>RA</th>
+          <th>Curso</th>
+          <th>Turno</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Alunos serão listados aqui -->
+      </tbody>
+    </table>
+  
+    <a href="/" class="home-link">HOME</a>
+  </section>
+  
+
+  <footer>
+    <p>© 2025 - Cadastro de alunos | Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
+>>>>>>> 7548baaad6d8ab950ed1ae489ef708ddbd17000a

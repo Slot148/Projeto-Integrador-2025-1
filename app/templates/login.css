@@ -1,0 +1,82 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Mantém o rodapé no fim da tela mesmo com pouco conteúdo */
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(218, 217, 217);
+    color: #000;
+  }
+  
+  header {
+    padding: 2rem;
+    background-color: #ed4848;
+    text-align: center;
+    color: white;
+  }
+  
+  main {
+    max-width: 400px;
+    margin: 5rem auto;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  section {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+
+  input[type="text"],
+  input[type="password"] {
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background-color: #f2f2f2;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  input:hover {
+    border-color: #000;
+    background-color: #e8e8e8;
+  }
+  
+  input:focus {
+    border-color: #ed4848;
+    box-shadow: 0 0 4px rgba(237, 72, 72, 0.4);
+  }
+  
+  button {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #038e5a;
+  }
+  
+  footer {
+    background-color: #ed4848;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    margin-top: auto; /* Isso empurra o footer para o final do layout */
+  }
+  

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,4 +65,56 @@
     <a href="/">HOME</a>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="atestado_html.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}base{% endblock %}</title>
+</head>
+
+<body>
+
+    {% block body %}
+
+    <header>
+        <a href="/">HOME</a>
+        <h1>Envio de Atestados</h1><br>
+        <h3>Preencha as informações e envie seu atestado</h3>
+    </header>
+    <main>
+        <section>
+            <form action="/Submit" method="POST" enctype="multipart/form-data">
+                <label for="nomeAluno">Nome do Aluno:</label>
+                <input type="text" name="nomeAluno" required>
+
+                <label for="raAluno">RA do Aluno:</label>
+                <input type="text" name="raAluno" id="raAluno" required>
+
+                <label for="periodo">Periodo de Duração:</label>
+                <section style="display: flex; flex-direction: column;">
+                    <label>Inicio:</label>
+                    <input type="date" name="initDate">
+                    <br>
+                    <label>Termino:</label>
+                    <input type="date" name="endDate">
+                </section>
+
+                <label for="insertFile">Selecionar um arquivo &#187</label>
+                <input type="file" name="insertFile" accept="application/pdf">
+            </form>
+            <button type="submit">Enviar Atestado</button>
+        </section>
+    </main>
+
+    
+    <footer>
+        <p>© 2025 - Atestados | Todos os direitos reservados.</p>
+    </footer>
+    {% endblock %}
+</body>
+
+>>>>>>> 7548baaad6d8ab950ed1ae489ef708ddbd17000a
 </html>
