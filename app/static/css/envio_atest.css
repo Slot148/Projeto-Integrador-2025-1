@@ -1,46 +1,14 @@
-/* Reset básico para tirar margens e paddings padrão dos navegadores */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; /* Faz com que o padding e border não aumentem o tamanho total dos elementos */
-  }
-  
-  /* Estilo geral do corpo da página */
-  body {
-    background-color: rgb(218, 217, 217); /* Cor de fundo cinza claro */
-    color: #000; /* Cor do texto: preto */
-    font-family: Arial, Helvetica, sans-serif; /* Define a fonte usada na página */
-    font-weight: 400; /* Peso da fonte normal (sem negrito) */
-  }
-  
-  /* Cabeçalho principal */
-  header {
-    padding: 2rem; /* Espaçamento interno (rem = tamanho relativo à fonte) */
-    background-color: #ed4848; /* Cor de fundo vermelha */
-    text-align: center; /* Centraliza o conteúdo (título e subtítulo) */
-    color: white; /* Cor do texto dentro do cabeçalho */
-  }
-  
-  /* Título principal */
-  header h1 {
-    font-size: 2.2rem; /* Tamanho da fonte maior para destaque */
-    margin-bottom: 1rem; /* Espaço abaixo do título */
-  }
-  
-  /* Subtítulo */
-  header h3 {
-    font-size: 1rem; /* Tamanho um pouco menor que o normal */
-    font-weight: normal; /* Deixa a fonte com peso padrão */
-  }
+
   
   /* Área principal da página (o formulário) */
   main {
-    max-width: 600px; /* Largura máxima do conteúdo (para não ficar muito largo) */
+    max-width: 30rem; /* Largura máxima do conteúdo (para não ficar muito largo) */
+    width: 90%;
     margin: 2rem auto; /* Espaço externo e centralização horizontal */
     padding: 2rem; /* Espaçamento interno */
     background-color: #ffffff; /* Fundo branco para destacar o formulário */
     border-radius: 8px; /* Bordas levemente arredondadas */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave ao redor */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.685); /* Sombra suave ao redor */
   }
   
   /* Cada seção dentro do formulário (como datas e upload) */
@@ -99,15 +67,5 @@
   /* Efeito ao passar o mouse sobre o botão */
   button:hover {
     background-color: #038e5a; /* Verde um pouco mais escuro para indicar ação */
-  }
-  
-  /* Rodapé no mesmo estilo do cabeçalho */
-footer {
-    background-color: #4f0303; /* cor vermelha */
-    color: white; /* Texto branco */
-    text-align: center; /* Centraliza o conteúdo */
-    padding: 2rem; /* Espaço interno */
-    margin-top: 2rem; /* Espaço acima do rodapé */
-    font-size: 0.9rem; /* Tamanho de fonte */
   }
   

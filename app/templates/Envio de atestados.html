@@ -2,16 +2,18 @@
 <html lang="pt-BR">
 <head>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/envio_atest.css') }}">
+  <link rel="stylesheet" href="../static/css/envio_atest.css">
+  <link rel="stylesheet" href="../static/css/base.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Envio de Atestados Médicos</title>
 </head>
 <body>
   <header>
+    <a href="/">HOME</a>
     <h1>Envio de Atestados Médicos</h1>
     <h3>
-      Envie seu atestado médico e informe a <strong>Data inicial, Data final</strong> e
-      <strong>faça o upload do arquivo em PDF</strong> para justificar sua ausência.
+      Envie seu atestado médico e faça o upload do arquivo em <strong>PDF</strong> para justificar sua ausência.
     </h3><br>
   </header>
 
@@ -29,8 +31,8 @@
 
       <section>
         <h3>Faça o upload do atestado em PDF</h3>
-        <input type="file" id="uploadAtestado" name="atestado_pdf" accept=".pdf" required><br><br>
-      </section><br><br>
+        <input type="file" id="uploadAtestado" name="atestado_pdf" accept=".pdf" required><br>
+      </section>
 
       <button type="submit">Enviar Atestado</button>
     </form>

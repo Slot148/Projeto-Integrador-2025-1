@@ -1,4 +1,4 @@
-html, body {
+body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -9,21 +9,15 @@ html, body {
     background-color: rgb(218, 217, 217);
     color: #000;
   }
-  
-  header {
-    padding: 2rem;
-    background-color: #ed4848;
-    text-align: center;
-    color: white;
-  }
-  
+    
   main {
-    max-width: 400px;
+    max-width: 20rem;
+    width: 90%;
     margin: 5rem auto;
     background-color: #ffffff;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.685);
   }
   
   section {

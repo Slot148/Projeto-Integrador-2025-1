@@ -1,67 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  html, body {
-    height: 100%;
-  }
-  
-  body {
-    background-color: rgb(218, 217, 217);
-    color: #000;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  header {
-    padding: 2rem;
-    background-color: #ed4848;
-    text-align: center;
-    color: white;
-  }
-  
-  header h1 {
-    font-size: 2rem;
-    margin-bottom: 1.3rem;
-  }
-  
-  header h3 {
-    font-size: 1rem;
-    font-weight: normal;
-  }
-  
-  header p {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-  }
-  
-header a {
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    display: inline-block;
-    margin-top: 0.5rem;
-  }
-  
-  .botao-login {
-    background-color: #4f0303;
-  }
-  .botao-login:hover {
-    background-color: #04AA6D;
-  }
-  
-  .botao-logout {
-    background-color: #4f0303;
-  }
-  .botao-logout:hover {
-    background-color: #ff0000;
-  }
     
   /* Main: cresce para empurrar o footer para o fim */
   main {
@@ -71,7 +7,7 @@ header a {
     padding: 3rem;
     background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.844);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.685);
   }
   
   main div {
@@ -80,7 +16,7 @@ header a {
     gap: 3rem;
   }
   
-  main a {
+  div a {
     background-color: #04AA6D;
     color: white;
     padding: 10px 15px;
@@ -91,17 +27,7 @@ header a {
     transition: background-color 0.3s ease;
   }
   
-  main a:hover {
+  div a:hover {
     background-color: #027a4e;
-  }
-  
-
-  footer {
-    background-color: #4f0303;
-    color: white;
-    text-align: center;
-    padding: 2rem;
-    font-size: 1rem;
-    margin-top: auto; /* empurra o footer para o fim */
   }
   

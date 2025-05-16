@@ -3,54 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/atestado_html.css">
+    <link rel="stylesheet" href="../static/css/base.css">
     <title>Document</title>
     <body>
-        <style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-        }
-        
-        td, th {
-          border: 3px solid #dddddd;
-          text-align: left;
-          padding: 8px;
-        }
-        
-        tr:nth-child(even) {
-          background-color: #dddddd;
-        }
-        </style>
         </head>
         <body>
+        <header>
+          <a href="/">HOME</a>
+          <h1>Consulta de Estado de Atestado</h1>
+          <h3>Consulte seu atestado por aqui</h3>
+        </header>
         
-        <h2>Consulta de Estado de Atestado</h2>
-        
+        <main>
         <table>
-          <tr>
-            <th>Atestado</th>
-            <th>Data de envio</th>
-            <th>Periodo</th>
-            <th>Estado</th>
-            <th>Apagar</th>
-          </tr>
-          {% for data in data %}
-          <tr>
-            <td><a href="{{ url_for('visualizar_atestado', atestado_id=data['atestado_id']) }}">visualizar</a></td>
-            <td>{{ data['data_envio'] }}</td>
-            <td>{{ data['inicio_periodo'] }} a {{ data['fim_periodo'] }}</td>
-            <td>{{ data['estado'] }}</td>
-            <td>
-              {% if data['estado'] == "pendente" %}
-                <form action="{{ url_for('remover_atestado', atestado_id=data['atestado_id']) }}" method="post">
-                  <button type="submit" onclick="return confirm('Tem certeza que deseja remover este atestado?')">Remover Envio</button><br>
-                </form>
-              {% endif %}
-            </td>
-          </tr>
-          {% endfor %}
-        </table>
+            <tr>
+              <th>Atestado</th>
+              <th>Data de envio</th>
+              <th>Periodo</th>
+              <th>Estado</th>
+              <th>Apagar</th>
+            </tr>
+            {% for data in data %}
+            <tr>
+              <td><a href="{{ url_for('visualizar_atestado', atestado_id=data['atestado_id']) }}">visualizar</a></td>
+              <td>{{ data['data_envio'] }}</td>
+              <td>{{ data['inicio_periodo'] }} a {{ data['fim_periodo'] }}</td>
+              <td>{{ data['estado'] }}</td>
+              <td>
+                {% if data['estado'] == "pendente" %}
+                  <form action="{{ url_for('remover_atestado', atestado_id=data['atestado_id']) }}" method="post">
+                    <button type="submit" onclick="return confirm('Tem certeza que deseja remover este atestado?')">Remover Envio</button><br>
+                  </form>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+        </main>
         <footer>
           <p>© 2025 - Consulta de atestados do aluno | Todos os direitos reservados.</p>
         </footer>

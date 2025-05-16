@@ -1,9 +1,10 @@
 import os
-from secret_key import key
 import flask as f
 import functions as fc
 from werkzeug.security import check_password_hash, generate_password_hash
 from decorators import login_required, admin_required, student_required
+
+key = "kjfçwert43it240j´42y"
 
 app = f.Flask(__name__)
 app.secret_key = key
@@ -87,7 +88,7 @@ def delete_usuario():
 
 #atestados
 @app.route("/cadastro_atestados", methods=["GET", "POST"])
-@student_required
+@login_required
 def cadastro_atestados():
     if f.request.method == "GET":
         return f.render_template("Envio de atestados.html")
@@ -96,7 +97,7 @@ def cadastro_atestados():
             return f.redirect(f.url_for('cadastro_atestados'))
 
 @app.route("/aluno/consulta_atestados", methods=['GET', 'POST'])
-@student_required
+@login_required
 def consulta_atestados_aluno():
     if not f.session.get('logged_in'):
         return f.redirect(f.url_for('login'))
@@ -106,7 +107,7 @@ def consulta_atestados_aluno():
     return f.render_template('atestado_aluno.html', data=atestados_aluno)
 
 @app.route('/consulta_atestado/remover/<atestado_id>', methods=["POST"])
-@student_required
+@login_required
 def remover_atestado(atestado_id):
     try:
         atestado = fc.atestados_db.find(atestado_id, identifier_key="atestado_id")

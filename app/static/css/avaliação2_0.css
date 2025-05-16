@@ -1,46 +1,19 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    background-color: rgb(218, 217, 217);
-    color: #000;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 400;
-  }
-  
-  header {
-    padding: 2rem;
-    background-color: #ed4848;
-    text-align: center;
-    color: white;
-  }
-  
-  header h1 {
-    font-size: 2.2rem;
-    margin-bottom: 1rem;
-  }
-  
-  header h3 {
-    font-size: 1rem;
-    font-weight: normal;
-  }
-  
   main {
-    max-width: 600px;
-    margin: 2rem auto;
+    max-width: 30rem; 
+    margin: 2rem auto; 
     padding: 2rem;
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.685);
+    width: 90%;
+}
+
   
   form {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    justify-content: center;
   }
   
   section {
@@ -81,9 +54,9 @@
     background-color: #04AA6D;
     border: none;
     color: white;
-    padding: 10px 20px;
-    font-size: 14px;
-    border-radius: 5px;
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    border-radius: 0.4rem;
     transition: background-color 0.3s ease;
     align-self: flex-start;
   }
@@ -93,7 +66,7 @@
   }
   
   table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
     margin-top: 2rem;
     background-color: #fff;
@@ -109,12 +82,12 @@
   }
   
   th {
-    background-color: #f4f4f4;
+    background: linear-gradient(to right, #ffffff, #e0dfdf);
     font-weight: bold;
   }
   
   tfoot {
-    background-color: #eee;
+    background: linear-gradient(to right, #ffffff, #e0dfdf);
     font-style: italic;
   }
   
@@ -123,28 +96,4 @@
     color: green;
     font-weight: bold;
   }
-  
-  footer {
-    background-color: #4f0303;
-    color: white;
-    text-align: center;
-    padding: 2rem;
-    margin-top: 2rem;
-    font-size: 0.9rem;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #e9dcdc;
-    font-weight: bold;
-    text-align: left;
-    display: block;
-    margin: 0.5rem auto;
-    font-size: 1.3rem;
-    transition: color 0.3s;
-  }
-  
-  a:hover {
-    color: #1f1e1e;
-  }
-  
+    

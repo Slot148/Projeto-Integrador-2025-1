@@ -1,53 +1,3 @@
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-  
-body {
-    background-color: rgb(218, 217, 217);
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    color: #000;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-  
-header {
-    padding: 2rem;
-    background-color: #ed4848;
-    text-align: center;
-    color: white;
-}
-  
-header h1 {
-    font-size: 2.0rem;
-}
-  
-header p {
-    font-size: 1rem;
-    font-weight: 600;
-}
-  
-header a {
-    color: white;
-    text-decoration: none;
-    background-color: #04AA6D;
-    padding: 6px 12px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-    position: absolute;
-    left: 20px;
-    top: 20px;
-}
-  
-header a:hover {
-    background-color: #038e5a;
-}
-  
 main {
     max-width: 40rem;
     width: 90%;
@@ -55,7 +5,7 @@ main {
     padding: 2rem;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.677);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.685);
     flex: 1;
 }
   
@@ -140,12 +90,3 @@ th {
 tr:nth-child(even) {
     background-color: #f9f9f9;
 }
-  
-footer {
-    background-color: #4f0303;
-    color: white;
-    text-align: center;
-    padding: 3rem;
-    font-size: 1rem;
-}
-  
