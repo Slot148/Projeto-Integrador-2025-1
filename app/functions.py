@@ -6,15 +6,10 @@ import os
 user_db = pr.JSON_MANAGER("app/data/db/user.json")
 atestados_db = pr.JSON_MANAGER("app/data/db/atestados.json")
 diaAtual = datetime.now().strftime('%Y-%m-%d')
-# equipes_db = pr.JSON_MANAGER("app/data/db/equipes.json")
+equipes_db = pr.JSON_MANAGER("app/data/db/equipes.json")
 # avaliacoes_db = pr.JSON_MANAGER("app/data/db/avaliacoes.json")
 
-def reload():
-    return f.render_template_string("""
-        <script>
-            window.location.reload();
-        </script>
-    """)
+
 
 def get_next_id(db, id_field):
     data = db.read()
@@ -88,3 +83,19 @@ def new_atestado():
         return {"status": "success"}
     else:
         return {"status": "error", "message": "Falha ao enviar atestado"}
+
+def equipe():
+    data = pr.Equipe(
+        equipe_id = get_next_id(equipes_db, 'equipe_id'),
+        nome_equipe = f.request.form['nomeEquipe'],
+    )
+
+    list_members = ["sdmfd", "sdfndsofgndsof", "dfonsfondsfgs", "fknsdlknfsd"]
+    data.add_membro(list_members)
+
+    data = data.to_dict()
+    
+    if equipes_db.add(data, identifier_key="equipe_id"):
+        return {"status": "success"}
+    else:
+        return {"status": "error", "message": "Falha ao registrar equipe"}

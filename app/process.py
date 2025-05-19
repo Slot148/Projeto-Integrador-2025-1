@@ -245,3 +245,29 @@ class JSON_MANAGER:
         except Exception as e:
             print(f"Erro inesperado: {e}")
             return False
+
+
+#Equipes Scrum
+class Equipe:
+    def __init__(self, nome_equipe, equipe_id):
+        self.equipe_id = equipe_id
+        self.nome_equipe = nome_equipe
+        self.membros = []
+    
+    def add_membro(self, *member_ra):
+        if len(member_ra) <= 9 and len(self.membros) <= 9 and (len(self.membros) and len(member_ra)) <=9 :    
+            for x in member_ra:
+                return self.membros.append(x)
+        else:
+            return "Numero maximo de integrantes atingido"
+        
+    def remove_membro(self, member_ra):
+        return self.membros.remove(self.membros.index(member_ra))
+    
+    def to_dict(self):
+        return{
+            "equipe_id":self.equipe_id,
+            "nome_equipe": self.nome_equipe,
+            "membros": self.membros
+        }
+        

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 [
     {
         "user_id": "001",
@@ -7,4 +8,125 @@
         "tipo": "administrador",
         "nivel_acesso": "1"
     }
+=======
+[
+    {
+        "user_id": "001",
+        "username": "admin",
+        "nome": "Administrador Padrão",
+        "senha": "scrypt:32768:8:1$foxlPl2UPIVQfBDT$2c484700681ca7ac036d0696fa2bf834fe23fced6467aea17b53cded3da0a62ce47971c9f68f22f3f05649c15dbf6fa415d1f53ed3dd730b340c9a44f7b890b7",
+        "tipo": "administrador",
+        "nivel_acesso": "1"
+    },
+    {
+        "user_id": "002",
+        "nome": "nicolas freitas",
+        "senha": "scrypt:32768:8:1$Rpu5ZmoKIywHIcuF$d8aad7af85eea5f6639de18c32fd6a605419cbdf283f31ca836482bb51b5b46f5c42a08ea423150971f57be525d72169e64f2eb62a3afca7dd313d1677bbec24",
+        "tipo": "aluno",
+        "ra": "1092723547",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "manhã",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "003",
+        "nome": "nicolas freitas",
+        "senha": "scrypt:32768:8:1$PQWegtRaNvO3MGfo$d1cf0f8ce1dd241dfa35b1670d2915bdff3d951f8e1bee774a9ed5381273d3e5861dd13c8ad912fe6a5e0e2c938dcc97896c318e1c95276043b415107387e2b3",
+        "tipo": "aluno",
+        "ra": "1092723547f8",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "manhã",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "004",
+        "nome": "nicolas freitas",
+        "senha": "scrypt:32768:8:1$PQWegtRaNvO3MGfo$d1cf0f8ce1dd241dfa35b1670d2915bdff3d951f8e1bee774a9ed5381273d3e5861dd13c8ad912fe6a5e0e2c938dcc97896c318e1c95276043b415107387e2b3",
+        "tipo": "aluno",
+        "ra": "109272354d78",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "manhã",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "005",
+        "nome": "nicolas freitas",
+        "senha": "scrypt:32768:8:1$PQWegtRaNvO3MGfo$d1cf0f8ce1dd241dfa35b1670d2915bdff3d951f8e1bee774a9ed5381273d3e5861dd13c8ad912fe6a5e0e2c938dcc97896c318e1c95276043b415107387e2b3",
+        "tipo": "aluno",
+        "ra": "10927235s478",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "manhã",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "006",
+        "nome": "nicolas freitas",
+        "senha": "scrypt:32768:8:1$PQWegtRaNvO3MGfo$d1cf0f8ce1dd241dfa35b1670d2915bdff3d951f8e1bee774a9ed5381273d3e5861dd13c8ad912fe6a5e0e2c938dcc97896c318e1c95276043b415107387e2b3",
+        "tipo": "aluno",
+        "ra": "10927235df478",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "manhã",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "007",
+        "nome": "dsdbskdjbasjdbas",
+        "senha": "scrypt:32768:8:1$oYH0hRnHFdVtP074$f99c9b2f89b846c90b646b4e6125237500942236d9c8e043573638ca6b65f3d0a14c59a9a675036fbea86165f060e06f0d568c28a362930e48feb0a10ca8f4fc",
+        "tipo": "aluno",
+        "ra": "SDASDCASDVASD",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "manhã",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "008",
+        "nome": "sadasd",
+        "senha": "scrypt:32768:8:1$amOC6Wp3J0BTeULA$93277aec632f98b49a20e60f0bc0f4626a18ecb2ba1f7c33a9ffc624eca074e29732159bc3d11b633bda2c0a59601beeaa92d60f096bdab196988a1f3e493268",
+        "tipo": "aluno",
+        "ra": "SDASDASD",
+        "curso": "banco de dados",
+        "turno": "manhã",
+        "semestre": "segundo",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "009",
+        "nome": "sadasdasd",
+        "senha": "scrypt:32768:8:1$DSOvFibWuuThFbsm$3705a1bc90c26565909a3a1f08000a71d7ff9c77f989dc494461236c2460640be490649fbb0fdc37a739aa6f5dbc61a6c40d327fc40b4e54ca41df2708b0513a",
+        "tipo": "aluno",
+        "ra": "ASDASDASDAS",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "manhã",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "010",
+        "nome": "sadsadasd",
+        "senha": "scrypt:32768:8:1$kKLPAGAHZiRcgmrZ$aaa435c37195b040ab04029440b7e6e18bbf3029d3d383798f607b4eed3ec4d4dd770368c6d1fe11d1dd20eb622d0d60d7aeda479577654ab8966d13000aecca",
+        "tipo": "aluno",
+        "ra": "SDASDASDASD",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "tarde",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
+    },
+    {
+        "user_id": "011",
+        "nome": "sadasdasd",
+        "senha": "scrypt:32768:8:1$L5MXv0NPrNba0GZY$617d7cd52a48577c0565ef2a108a057399ac163c08878c35172b8bfa232cd5486edcc1ac473f48905239dcbe13454f054587f759cd0ec38c45c509ad911eac71",
+        "tipo": "aluno",
+        "ra": "SADASDASD",
+        "curso": "análise e desenvolvimento de sistemas",
+        "turno": "manhã",
+        "semestre": "primeiro",
+        "equipe": "sem equipe"
+    }
+>>>>>>> Stashed changes
 ]

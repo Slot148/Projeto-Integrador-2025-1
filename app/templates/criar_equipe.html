@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar equipes</title>
+    <style>
+        h4, p{
+            margin: 1%;
+            padding: 1%;
+        }
+    </style>
+</head>
+<body style="width: 100vw;">
+    <a href="/">HOME</a>
+    <form action="/criar_equipe" method="post">
+        <label for="nome">Nome da Equipe:</label>
+        <input type="text" name="nomeEquipe" id="nome"><br>
+        <label for="membros">Membros:</label>
+        <div type="text" name="members" id="members" hidden></div>
+        <div id="members_list">
+        </div>
+        <button type="submit">enviar</button>
+    </form>
+    
+    <div id="warning" style="display: none; padding: 10%; position: fixed; top: 25%; left: 35%; background-color: rgb(104, 17, 17); border-radius: 10px;">! Limite Atingido !</div>
+
+    <div style="display: flex; flex-wrap: wrap; width: auto;">
+    {% for data in data %}
+    {% if data.equipe == "sem equipe"%}
+        <div id="{{data.ra}}" style="border: 1px solid black;border-radius: 10px; display: flex; flex-direction: column; margin: 1%;width: 20%; padding: 1%;">
+            <h4>Nome:</h4>
+            <p>{{data.nome.title()}}</p>
+            <h4>Turma:</h4>
+            <p>{{data.curso.title()}}<br>{{data.semestre.title()}} Semestre<br>{{data.turno.title()}}</p>
+            <button style="margin-top: auto;" onclick="add_member(`{{data.ra}}`, `{{data.nome.title()}}`, `{{data}}`)">Add</button>
+        </div>
+    {% endif %}
+    {% endfor %}
+    </div>
+    <script>
+        let poster = document.getElementById('members_list')
+        let list = document.getElementById('members')
+        list.value = []
+        let count = 1
+        
+        function add_member(ra, nome){
+            if(list.value.length< 9){
+                let button = document.getElementById(ra)
+                let member = document.createElement('div')
+                member.textContent = `${count++}_ ${nome}`
+                list.value.push(ra) 
+                console.log("adicionado")
+                poster.insertAdjacentElement('beforeend', member)
+                button.remove()
+            }else{
+                console.log("Limite de membros atingido")
+                limiteAlert()
+            }
+        }
+        
+        function limiteAlert(){
+            let warning = document.getElementById("warning")
+            warning.style.display = "flex"
+            setInterval(() => {
+                warning.style.display = "none"
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

@@ -44,6 +44,8 @@ def login():
         
         if user['tipo'] == 'aluno':
             f.session['ra'] = user['ra']
+            f.session['equipe'] = user['equipe']
+            f.session['curso'] = user['curso']
         else:
             if 'username' in user:
                 f.session['username'] = user['username']
@@ -163,7 +165,14 @@ def visualizar_atestado(atestado_id):
         print(f"Erro: {str(e)}")
         return "Erro ao visualizar atestado", 500
 
-
+@app.route('/criar_equipe', methods=['GET', 'POST'])
+def criar_equipe():
+    if f.request.method == "GET":
+        data = fc.user_db.read()
+        return f.render_template("criar_equipe.html", data=data)
+    if f.request.method == "POST":
+        fc.equipe()
+        return f.redirect(f.url_for('criar_equipe'))
 
 
 #PELO AMOR DE DEUS!!! LEMBRAR DE REMOVER O TRECHO ABAIXO ANTES DE PUBLICAR!!!#
@@ -173,7 +182,7 @@ def check_default_admin():
     if not existing_admin:
         admin_data = {
             "user_id": "001",
-            "ra": "admin",
+            "username": "admin",
             "nome": "Administrador Padrão",
             "senha": generate_password_hash("admin123"),
             "tipo": "administrador",
