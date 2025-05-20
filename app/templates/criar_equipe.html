@@ -11,6 +11,21 @@
             margin: 1%;
             padding: 1%;
         }
+        .member-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .remove-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 3px 8px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -35,51 +50,108 @@
     <section>
         <div id="warning" style="display: none; padding: 10%; position: fixed; top: 25%; left: 35%; background-color: rgb(104, 17, 17); border-radius: 10px;">! Limite Atingido !</div>
 
-        <div style="display: flex; flex-wrap: wrap; width: auto;">
-        {% for data in data %}
-        {% if data.equipe == "sem equipe"%}
-            <div class="table" id="{{data.ra}}">
-                <h4>Nome:</h4>
-                <p>{{data.nome.title()}}</p>
-                <h4>Turma:</h4>
-                <p>{{data.curso.title()}}<br>{{data.semestre.title()}} Semestre<br>{{data.turno.title()}}</p>
-                <button style="margin-top: auto;" onclick="add_member(`{{data.ra}}`, `{{data.nome.title()}}`, `{{data}}`)">Add</button>
-            </div>
-        {% endif %}
-        {% endfor %}
+    <div style="display: flex; flex-wrap: wrap; width: auto;">
+    {% for data in data %}
+    {% if data.equipe == "sem equipe"%}
+        <div id="{{data.ra}}" style="border: 1px solid black;border-radius: 10px; display: flex; flex-direction: column; margin: 1%;width: 20%; padding: 1%;">
+            <h4>Nome:</h4>
+            <p>{{data.nome.title()}}</p>
+            <h4>Turma:</h4>
+            <p>{{data.curso.title()}}<br>{{data.semestre.title()}} Semestre<br>{{data.turno.title()}}</p>
+            <button style="margin-top: auto;" onclick="add_member(
+                '{{data.ra}}', 
+                '{{data.nome.title()}}', 
+                '{{data.curso.title()}}', 
+                '{{data.semestre.title()}}', 
+                '{{data.turno.title()}}'
+            )">Add</button>
         </div>
-    </section>
+    {% endif %}
+    {% endfor %}
+    </div>
     <script>
-        let poster = document.getElementById('members_list')
-        let list = document.getElementById('members')
-        list.value = []
-        let count = 1
-        
-        function add_member(ra, nome){
-            if(list.value.length< 9){
-                let button = document.getElementById(ra)
-                let member = document.createElement('div')
-                member.textContent = `${count++}_ ${nome}`
-                list.value.push(ra) 
-                console.log("adicionado")
-                poster.insertAdjacentElement('beforeend', member)
-                button.remove()
-            }else{
-                console.log("Limite de membros atingido")
-                limiteAlert()
+    let poster = document.getElementById('members_list')
+    let list = document.getElementById('members')
+    list.value = ""
+    let list_example = [] 
+    let count = 1
+    
+    function add_member(ra, nome, curso, semestre, turno){
+        if(list_example.length < 9){
+            // Verifica se o membro já está na lista
+            if(list_example.includes(ra)) {
+                console.log("Membro já está na equipe")
+                return
             }
+            
+            let button = document.getElementById(ra)
+            let member = document.createElement('div')
+            member.className = 'member-item'
+            member.id = `member_${ra}`
+            member.innerHTML = `
+                <span>${count++}_ ${nome}</span>
+                <button class="remove-btn" onclick="remove_member(
+                    '${ra}', 
+                    '${nome}', 
+                    '${curso}', 
+                    '${semestre}', 
+                    '${turno}'
+                )">Remover</button>
+            `
+            list_example.push(ra)
+            list.value = list_example.join(' ') // Atualiza o valor com a lista completa
+            console.log("adicionado", list.value)
+            poster.insertAdjacentElement('beforeend', member)
+            button.remove()
+        }else{
+            console.log("Limite de membros atingido")
+            limiteAlert()
         }
-        
-        function limiteAlert(){
-            let warning = document.getElementById("warning")
-            warning.style.display = "flex"
-            setInterval(() => {
-                warning.style.display = "none"
-            }, 2000);
+    }
+    
+    function remove_member(ra, nome, curso, semestre, turno) {
+        // Remove o membro da lista visual
+        const memberElement = document.getElementById(`member_${ra}`)
+        if (memberElement) {
+            memberElement.remove()
         }
-    </script>
-   <footer>
-    <p>© 2025 - Criação de equipes Scrum | Todos os direitos reservados.</p>
-  </footer>
+
+        // Remove o RA da lista de membros
+        list_example = list_example.filter(item => item !== ra)
+        list.value = list_example.join(' ') // Atualiza o valor com a lista filtrada
+        console.log("removido", list.value)
+
+        // Decrementa o contador
+        count--
+
+        // Recria o elemento do aluno na lista de disponíveis
+        const alunosContainer = document.querySelector('div[style="display: flex; flex-wrap: wrap; width: auto;"]')
+        const alunoDiv = document.createElement('div')
+        alunoDiv.id = ra
+        alunoDiv.style = "border: 1px solid black;border-radius: 10px; display: flex; flex-direction: column; margin: 1%;width: 20%; padding: 1%;"
+        alunoDiv.innerHTML = `
+            <h4>Nome:</h4>
+            <p>${nome}</p>
+            <h4>Turma:</h4>
+            <p>${curso}<br>${semestre} Semestre<br>${turno}</p>
+            <button style="margin-top: auto;" onclick="add_member(
+                '${ra}', 
+                '${nome}', 
+                '${curso}', 
+                '${semestre}', 
+                '${turno}'
+            )">Add</button>
+        `
+        alunosContainer.appendChild(alunoDiv)
+    }
+
+    function limiteAlert(){
+        let warning = document.getElementById("warning")
+        warning.style.display = "flex"
+        setInterval(() => {
+            warning.style.display = "none"
+        }, 2000);
+    }
+</script>
 </body>
 </html>
