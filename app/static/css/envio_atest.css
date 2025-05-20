@@ -11,13 +11,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.685); /* Sombra suave ao redor */
   }
   
-  /* Cada seção dentro do formulário (como datas e upload) */
-  section {
-    display: flex; /* Layout em flexbox */
-    flex-direction: column; /* Um item abaixo do outro (coluna) */
-    gap: 0.5rem; /* Espaço entre os itens da seção */
-  }
-  
   /* O formulário em si */
   form {
     display: flex; /* Layout flexível */

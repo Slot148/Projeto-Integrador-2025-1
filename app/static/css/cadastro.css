@@ -24,10 +24,10 @@ label {
 input[type="text"],
 input[type="password"],
 select {
-    padding: 10px;
-    font-size: 16px;
+    padding: 0.7rem;
+    font-size: 1rem;
     border: 1px solid #555;
-    border-radius: 6px;
+    border-radius: 7px;
     background-color: #f2f2f2;
     color: #000;
     outline: none;
@@ -95,8 +95,6 @@ th {
     color: #333;
 }
 
-
-/* Sessão de tabs */
 .radio-inputs {
     position: relative;
     display: flex;
