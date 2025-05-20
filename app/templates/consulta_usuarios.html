@@ -33,13 +33,13 @@
                 <tbody>
                     {% for data in data %}
                         <tr>
-                            <td>{{ data.user_id }}</td>
-                            <td>{{ data.nome }}</td>
-                            <td>{{ data.ra }}</td>
-                            <td>{{ data.curso }}</td>
-                            <td>{{ data.semestre }}</td>
-                            <td>{{ data.turno }}</td>
-                            <td>{{ data.equipe }}</td>
+                            <td data-label="id">{{ data.user_id }}</td>
+                            <td data-label="nome">{{ data.nome }}</td>
+                            <td data-label="ra">{{ data.ra }}</td>
+                            <td data-label="curso">{{ data.curso }}</td>
+                            <td data-label="semestre">{{ data.semestre }}</td>
+                            <td data-label="turno">{{ data.turno }}</td>
+                            <td data-label="equipe">{{ data.equipe }}</td>
                             <td>
                             {% if ((data.tipo == "administrador" and session.nivel_acesso != "3") and (session.username != data.username)) or data.tipo == "aluno" %}
                                 <form action="/delete_usuario" method="POST" style="display:inline;">

@@ -1,45 +1,112 @@
+main {
+  max-width: 70rem;
+  margin: 5rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.685);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #ed4848;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+button {
+  background-color: #ed4848;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #c23636;
+}
+
+@media (max-width: 1280px) {
   main {
-    max-width: 70rem;
-    width: 90%;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.685);
-    flex: 1;
+    max-width: 95%;
+    padding: 1.5rem;
   }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
+
   th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
+    padding: 8px;
   }
-  
-  th {
-    background-color: #ed4848;
-    color: white;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
+
   button {
-    background-color: #ed4848;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 6px 10px;
+    font-size: 14px;
   }
-  
-  button:hover {
-    background-color: #c23636;
+}
+
+@media (max-width: 728px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
   }
-  
+
+  thead {
+    display: none;
+  }
+
+  td {
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    color: #555;
+    white-space: nowrap;
+  }
+
+  td form {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 1rem;
+  }
+
+  td {
+    font-size: 0.95rem;
+    padding-left: 45%;
+  }
+
+  td::before {
+    font-size: 0.85rem;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+}
