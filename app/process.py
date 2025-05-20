@@ -254,10 +254,10 @@ class Equipe:
         self.nome_equipe = nome_equipe
         self.membros = []
     
-    def add_membro(self, *member_ra):
-        if len(member_ra) <= 9 and len(self.membros) <= 9 and (len(self.membros) and len(member_ra)) <=9 :    
-            for x in member_ra:
-                return self.membros.append(x)
+    def add_membro(self, member_ra):
+        if len(self.membros) < 9:
+            self.membros.append(member_ra)
+            return 'membros adicionados'
         else:
             return "Numero maximo de integrantes atingido"
         

@@ -90,12 +90,19 @@ def equipe():
         nome_equipe = f.request.form['nomeEquipe'],
     )
 
-    list_members = ["sdmfd", "sdfndsofgndsof", "dfonsfondsfgs", "fknsdlknfsd"]
-    data.add_membro(list_members)
-
-    data = data.to_dict()
+    list_members = f.request.form['members'].split()
+    for x in list_members:
+        data.add_membro(x)
     
+    data = data.to_dict()
+
     if equipes_db.add(data, identifier_key="equipe_id"):
+        for ra in list_members:
+            aluno = user_db.find(ra, "ra")
+            aluno['equipe'] = data['nome_equipe']
+            if aluno:
+                user_db.edit(ra, aluno, "ra")
+        
         return {"status": "success"}
     else:
         return {"status": "error", "message": "Falha ao registrar equipe"}
