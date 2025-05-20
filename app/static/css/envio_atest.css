@@ -1,71 +1,112 @@
-
-  
-  /* Área principal da página (o formulário) */
-  main {
-    max-width: 30rem; /* Largura máxima do conteúdo (para não ficar muito largo) */
+main {
+    max-width: 30rem;
     width: 90%;
-    margin: 2rem auto; /* Espaço externo e centralização horizontal */
-    padding: 2rem; /* Espaçamento interno */
-    background-color: #ffffff; /* Fundo branco para destacar o formulário */
-    border-radius: 8px; /* Bordas levemente arredondadas */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.685); /* Sombra suave ao redor */
-  }
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.685);
+}
   
-  /* Cada seção dentro do formulário (como datas e upload) */
-  section {
-    display: flex; /* Layout em flexbox */
-    flex-direction: column; /* Um item abaixo do outro (coluna) */
-    gap: 0.5rem; /* Espaço entre os itens da seção */
-  }
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
   
-  /* O formulário em si */
-  form {
-    display: flex; /* Layout flexível */
-    flex-direction: column; /* Itens empilhados verticalmente */
-    gap: 1.5rem; /* Espaço entre as seções */
-  }
+input[type="date"],
+input[type="file"] {
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #555;
+    border-radius: 6px;
+    background-color: #f2f2f2;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
   
-  /* Estilo dos inputs de data e de arquivo */
-  input[type="date"],
-  input[type="file"] {
-    padding: 10px 12px; /* Espaçamento interno para deixar confortável de usar */
-    font-size: 16px; /* Tamanho de fonte legível */
-    border: 1px solid #555; /* Borda discreta e escura */
-    border-radius: 6px; /* Bordas arredondadas */
-    background-color: #f2f2f2; /* Cor de fundo cinza claro */
-    color: #333; /* Cor do texto dentro do input */
-    outline: none; /* Remove a borda azul que aparece ao focar */
-    transition: border-color 0.3s ease, background-color 0.3s ease; /* Transição suave ao passar o mouse ou focar */
-  }
+input[type="date"]:hover,
+input[type="file"]:hover {
+    border-color: #000;
+    background-color: #e8e8e8;
+}
   
-  /* Quando passa o mouse sobre os campos */
-  input[type="date"]:hover,
-  input[type="file"]:hover {
-    border-color: #000; /* Escurece a borda ao passar o mouse */
-    background-color: #e8e8e8; /* Fundo levemente mais escuro */
-  }
+input[type="date"]:focus,
+input[type="file"]:focus {
+    border-color: #ed4848;
+    box-shadow: 0 0 4px rgba(237, 72, 72, 0.4);
+}
   
-  /* Quando o campo recebe foco (é clicado) */
-  input[type="date"]:focus,
-  input[type="file"]:focus {
-    border-color: #ed4848; /* Destaca a borda com o mesmo vermelho do cabeçalho */
-    box-shadow: 0 0 4px rgba(237, 72, 72, 0.4); /* Adiciona uma sombra vermelha suave */
-  }
+button {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+}
   
-  /* Estilo do botão de envio */
-  button {
-    background-color: #04AA6D; /* Verde forte */
-    border: none; /* Remove borda padrão */
-    color: white; /* Texto branco */
-    padding: 10px 20px; /* Espaçamento interno */
-    font-size: 14px; /* Tamanho do texto */
-    border-radius: 5px; /* Bordas arredondadas */
-    transition: background-color 0.3s ease; /* Transição suave ao mudar a cor */
-    align-self: flex-start; /* Alinha o botão à esquerda */
-  }
-  
-  /* Efeito ao passar o mouse sobre o botão */
-  button:hover {
-    background-color: #038e5a; /* Verde um pouco mais escuro para indicar ação */
-  }
-  
+button:hover {
+    background-color: #038e5a;
+}
+
+@media (max-width: 1024px) {
+    main {
+        max-width: 26rem;
+        padding: 1.8rem;
+    }
+
+    input[type="date"],
+    input[type="file"] {
+        font-size: 15px;
+    }
+
+    button {
+        font-size: 13px;
+        padding: 10px 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        max-width: 90%;
+        padding: 1.6rem;
+    }
+
+    input[type="date"],
+    input[type="file"] {
+        font-size: 14px;
+        padding: 9px 10px;
+    }
+
+    button {
+        font-size: 13px;
+        padding: 9px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 1.2rem;
+        margin: 1.5rem auto;
+    }
+
+    form {
+        gap: 1.2rem;
+    }
+
+    input[type="date"],
+    input[type="file"] {
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+    button {
+        font-size: 12.5px;
+        padding: 9px 14px;
+    }
+}
+

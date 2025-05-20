@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/criar_equipe.css">
+    <link rel="stylesheet" href="../static/css/base.css">
     <title>Criar equipes</title>
     <style>
         h4, p{
@@ -27,18 +29,26 @@
     </style>
 </head>
 <body>
+    <header>
     <a href="/">HOME</a>
-    <form action="/criar_equipe" method="post">
-        <label for="nome">Nome da Equipe:</label>
-        <input type="text" name="nomeEquipe" id="nome" required><br>
-        <label for="members">Membros:</label>
-        <input type="hidden" name="members" id="members">
-        <div id="members_list" style="padding: 2%;">
-        </div>
-        <button type="submit">enviar</button>
-    </form>
-    
-    <div id="warning" style="display: none; padding: 10%; position: fixed; top: 25%; left: 35%; background-color: rgb(104, 17, 17); border-radius: 10px;">! Limite Atingido !</div>
+    <h1>Criação de equipes Scrum</h1>
+    <h3>Crie sua equipe Scrum</h3>
+    </header> <br><br>
+    <main>
+        <section>
+            <form action="/criar_equipe" method="post">
+                <label for="nome">Nome da Equipe:</label>
+                <input type="text" name="nomeEquipe" id="nome">
+                <label for="membros">Membros:</label>
+                <input type="hidden" name="members[]" id="members" hidden>
+                <div id="members_list">
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+    <section>
+        <div id="warning" style="display: none; padding: 10%; position: fixed; top: 25%; left: 35%; background-color: rgb(104, 17, 17); border-radius: 10px;">! Limite Atingido !</div>
 
     <div style="display: flex; flex-wrap: wrap; width: auto;">
     {% for data in data %}
