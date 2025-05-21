@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <title>Gerenciar Equipes</title>
+</head>
+<body>
+    <header>
+        <a href="/">HOME</a>
+        <h1>Relatório de Atestados</h1><br>
+        <h3>Visualize os atestados registrados.</h3>
+    </header>
+    <a href="/criar_equipe">Nova Equipe</a>
+    <main style="padding: 2%;">
+        <section>
+        {% if data %}
+        {% for x in data %}
+        <div style="margin: 1%;">
+            <h4>Equipe:</h4>
+            <p>{{ x.nome_equipe }}</p>
+            
+            <h4>Membros:</h4>
+            <ul style="padding-left: 1.5%;">
+                {% if x.membros %}
+                    {% for y in x.membros %}
+                    <li>{{ y }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>Nenhum membro cadastrado</li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>Nenhuma equipe encontrada</p>
+    {% endif %}
+    </section>
+    </main>
+</body>
+</html>

@@ -165,6 +165,7 @@ def visualizar_atestado(atestado_id):
         return "Erro ao visualizar atestado", 500
 
 @app.route('/criar_equipe', methods=['GET', 'POST'])
+@admin_required
 def criar_equipe():
     if f.request.method == "GET":
         data = fc.user_db.read()
@@ -172,6 +173,15 @@ def criar_equipe():
     if f.request.method == "POST":
         fc.equipe()
         return f.redirect(f.url_for('criar_equipe'))
+    
+
+@app.route("/gerenciar_equipes", methods=['GET', 'POST'])
+@admin_required
+def editar_equipe():
+    if f.request.method == "GET":
+        data = fc.equipes_db.read()
+        alunos = fc.user_db.read()
+        return f.render_template("gerenciar_equipes.html", data=data, alunos=alunos)
 
 
 #PELO AMOR DE DEUS!!! LEMBRAR DE REMOVER O TRECHO ABAIXO ANTES DE PUBLICAR!!!#

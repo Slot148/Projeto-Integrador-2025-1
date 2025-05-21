@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../static/css/base.css">
     <header>
         {% if session.logged_in %}
-            <h3>Logado como: {{ session.nome.title() }} <br>{% if session.ra %}RA: {{ session.ra }}{% endif %}</h3>
+            <h3>Logado como: {{ session.nome.title() }} <br>{% if session.ra %}RA: {{ session.ra }}{% endif %}{% if session.nivel_acesso %}Nivel de Acesso: {{ session.nivel_acesso }}{% endif %}</h3>
             <a href="/logout" class="botao-logout">Sair</a>
         {% else %}
         <h3>Nenhum Usuário Conectado</h3>
@@ -15,12 +15,15 @@
 
     <main>
         <div>
-            <a href="/criar_equipe">Criar equipe</a>
+            {% if session.tipo == 'administrador' %}
+            <a href="/gerenciar_equipes">Gerenciar Equipes Ágeis</a>
             <a href="/cadastro_usuarios">Cadastro de usuarios</a>
             <a href="/consulta_usuarios">Consulta de usuarios</a>
-            <a href="/cadastro_atestados">Cadastro de atestados</a>
             <a href="/consulta_atestados">Consulta de atestados</a>
+            {% elif session.tipo == 'aluno' %}
+            <a href="/cadastro_atestados">Cadastro de atestados</a>
             <a href="/aluno/consulta_atestados">Área de consulta do aluno</a>
+            {% endif %}
         </div>
     </main>
 {% endblock %}
