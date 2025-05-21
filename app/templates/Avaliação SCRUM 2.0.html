@@ -17,64 +17,64 @@
     <main>
         <form id="formAvaliacao">
             <section>
-                <label for="aluno">Nome do aluno:</label><br>
-                <input type="text" id="aluno" name="aluno" required><br><br>
+                <label for="aluno">Nome do aluno:</label>
+                <input type="text" id="aluno" name="aluno" required>
             </section>
 
             <section>
-                <label for="P">P - Planejamento:</label><br>
+                <label for="P">P - Planejamento:</label>
                 <select id="P" name="planejamento" required>
                   <option value="">Selecione</option>
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
-                </select><br><br>
+                </select><br>
                 
-                <label for="A">A - Autonomia:</label><br>
+                <label for="A">A - Autonomia:</label>
                 <select id="A" name="autonomia" required>
                   <option value="">Selecione</option>
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
-                </select><br><br>
+                </select><br>
                 
-                <label for="C">C - Colaboração:</label><br>
+                <label for="C">C - Colaboração:</label>
                 <select id="C" name="colaboracao" required>
                   <option value="">Selecione</option>
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
-                </select><br><br>
+                </select><br>
                 
-                <label for="E">E - Entrega:</label><br>
+                <label for="E">E - Entrega:</label>
                 <select id="E" name="entrega" required>
                   <option value="">Selecione</option>
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
-                </select><br><br>
+                </select><br>
                 
-                <label for="R">R - Responsabilidade:</label><br>
+                <label for="R">R - Responsabilidade:</label>    
                 <select id="R" name="responsabilidade" required>
                   <option value="">Selecione</option>
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
-                </select><br><br>
+                </select>
             </section>
             <section>
                 <button type="submit">Registrar Avaliação</button>
             </section>
-        </form><br><br>
+        </form><br>
     </main>
         <section>
             <h2>Parâmetros de Avaliação</h2>
-            <table border="1">
+            <table border="1" class="section">
                 <thead>
                 <tr>
                     <th>Nota</th>
@@ -104,13 +104,13 @@
                         <td colspan="2">Use esses parâmetros para avaliar cada critério de forma justa.</td>
                     </tr>
                 </tfoot>
-                </table>
+            </table>
         </section>
 
         <p id="mensagem" style="color: green; font-weight: bold;"></p>
 
         <h2>Avaliações Registradas</h2>
-        <table border="1" cellpadding="5" id="tabelaAvaliacoes">
+        <table border="1" cellpadding="5" id="tabelaAvaliacoes" class="section">
             <thead>
             <tr>
                 <th>Aluno</th>

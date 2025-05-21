@@ -8,6 +8,15 @@
     width: 90%;
 }
 
+h2 {
+  text-align: center;
+}
+
+section h2 {
+  padding-top: 3rem;
+  padding-bottom: 0;
+}
+
   
   form {
     display: flex;
@@ -62,7 +71,7 @@
   table {
     width: 90%;
     border-collapse: collapse;
-    margin-top: 2rem;
+    margin: 2rem auto;
     background-color: #fff;
     border-radius: 6px;
     overflow: hidden;
@@ -90,4 +99,10 @@
     color: green;
     font-weight: bold;
   }
-    
+
+
+@media (max-width: 1024px) {
+  .section{
+    margin: 2rem auto;
+  }
+}
