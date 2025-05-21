@@ -179,9 +179,13 @@ def criar_equipe():
 @admin_required
 def editar_equipe():
     if f.request.method == "GET":
-        data = fc.equipes_db.read()
+        equipes = fc.equipes_db.read()
         alunos = fc.user_db.read()
-        return f.render_template("gerenciar_equipes.html", data=data, alunos=alunos)
+        ra_para_nome = {aluno['ra']: aluno['nome'] for aluno in alunos if aluno.get('ra')}
+
+        for equipe in equipes:
+            equipe['membros_nomes'] = [ra_para_nome.get(ra, f"RA {ra} (não encontrado)") for ra in equipe.get('membros', [])]
+        return f.render_template("gerenciar_equipes.html", data=equipes, alunos=alunos)
 
 
 #PELO AMOR DE DEUS!!! LEMBRAR DE REMOVER O TRECHO ABAIXO ANTES DE PUBLICAR!!!#
