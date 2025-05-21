@@ -85,24 +85,40 @@ def new_atestado():
         return {"status": "error", "message": "Falha ao enviar atestado"}
 
 def equipe():
-    data = pr.Equipe(
-        equipe_id = get_next_id(equipes_db, 'equipe_id'),
-        nome_equipe = f.request.form['nomeEquipe'],
-    )
-
+    nome_equipe = f.request.form['nomeEquipe']
     list_members = f.request.form['members'].split()
-    for x in list_members:
-        data.add_membro(x)
-    
-    data = data.to_dict()
 
-    if equipes_db.add(data, identifier_key="equipe_id"):
+    if not equipes_db.find(nome_equipe, "nome_equipe"):
+        data = pr.Equipe(
+            equipe_id = get_next_id(equipes_db, 'equipe_id'),
+            nome_equipe=nome_equipe
+        )
+
+        for x in list_members:
+            data.add_membro(x)
+        
+        data = data.to_dict()
+
+        if equipes_db.add(data, identifier_key="equipe_id"):
+            for ra in list_members:
+                aluno = user_db.find(ra, "ra")
+                aluno['equipe'] = data['nome_equipe']
+                if aluno:
+                    user_db.edit(ra, aluno, "ra")
+            
+            return {"status": "success"}
+        else:
+            return {"status": "error", "message": "Falha ao registrar equipe"}
+    else:
+        new_data = equipes_db.find(nome_equipe, "nome_equipe")
         for ra in list_members:
+            new_data['membros'].append(ra)
             aluno = user_db.find(ra, "ra")
-            aluno['equipe'] = data['nome_equipe']
+            aluno['equipe'] = new_data['nome_equipe']
             if aluno:
                 user_db.edit(ra, aluno, "ra")
         
-        return {"status": "success"}
-    else:
-        return {"status": "error", "message": "Falha ao registrar equipe"}
+        if equipes_db.edit(nome_equipe, new_data, "nome_equipe"):
+            return {"status": "success"}
+        else:
+            return {"status": "error", "message": "Falha ao registrar equipe"}
