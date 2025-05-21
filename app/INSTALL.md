@@ -1,5 +1,5 @@
 ## INSTALAÇÃO
-Antes de realizar a instalação é necessário que o usuário primeiro verifique se o Python está instalado no seu dispositivo. (Pode-se utilizar o terminal do Windows para essa verificação)
+Antes de realizar a instalação é necessário que o usuário primeiro verifique se o Python está instalado no seu dispositivo. (Pode-se utilizar o terminal do Windows para essa verificação).
 ```sh
 
     `python -version`
