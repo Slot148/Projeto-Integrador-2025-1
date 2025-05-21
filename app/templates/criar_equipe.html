@@ -38,9 +38,9 @@
         <section>
             <form action="/criar_equipe" method="post">
                 <label for="nome">Nome da Equipe:</label>
-                <input type="text" name="nomeEquipe" id="nome">
+                <input type="text" name="nomeEquipe" id="nome" required>
                 <label for="membros">Membros:</label>
-                <input type="hidden" name="members[]" id="members" hidden>
+                <input type="hidden" name="members" id="members">
                 <div id="members_list">
                 </div>
                 <button type="submit">Enviar</button>
@@ -78,7 +78,6 @@
     
     function add_member(ra, nome, curso, semestre, turno){
         if(list_example.length < 9){
-            // Verifica se o membro já está na lista
             if(list_example.includes(ra)) {
                 console.log("Membro já está na equipe")
                 return
@@ -99,7 +98,7 @@
                 )">Remover</button>
             `
             list_example.push(ra)
-            list.value = list_example.join(' ') // Atualiza o valor com a lista completa
+            list.value = list_example.join(' ')
             console.log("adicionado", list.value)
             poster.insertAdjacentElement('beforeend', member)
             button.remove()
@@ -110,21 +109,17 @@
     }
     
     function remove_member(ra, nome, curso, semestre, turno) {
-        // Remove o membro da lista visual
         const memberElement = document.getElementById(`member_${ra}`)
         if (memberElement) {
             memberElement.remove()
         }
 
-        // Remove o RA da lista de membros
         list_example = list_example.filter(item => item !== ra)
-        list.value = list_example.join(' ') // Atualiza o valor com a lista filtrada
+        list.value = list_example.join(' ')
         console.log("removido", list.value)
 
-        // Decrementa o contador
         count--
 
-        // Recria o elemento do aluno na lista de disponíveis
         const alunosContainer = document.querySelector('div[style="display: flex; flex-wrap: wrap; width: auto;"]')
         const alunoDiv = document.createElement('div')
         alunoDiv.id = ra
