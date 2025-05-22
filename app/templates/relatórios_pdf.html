@@ -6,26 +6,34 @@
     <title>Relatório</title>
     <link rel="stylesheet" href="../static/css/base.css">
     <link rel="stylesheet" href="../static/css/relatórios_pdf.css">
+    <link rel="stylesheet" href="../static/css/pdf_layout.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <header>
-    <h1>Relatório:</h1>
-    </header>    
+        <h1>Relatório</h1>
+    </header> 
+    <div id="pdf-content">
+        <h2>Relatório</h2>
+        <p id="pdf-text"></p>
+    </div>
     <main>
-    <section>
-    <label for="relatorio">Relatório:</label>
-    <textarea id="relatorio" name="relatorio" rows="10" cols="10" placeholder="Digite o relatório aqui."></textarea>
-    <button>Gerar PDF</button>
-    </section>
+        <section>
+            <label for="relatorio">Relatório:</label>
+            <textarea id="relatorio" name="relatorio" rows="10" cols="10" placeholder="Digite o relatório aqui."></textarea>
+            <button onclick="gerarPDF()">Gerar PDF</button>
+        </section>
     </main>
     <script>
         function gerarPDF() {
             const texto = document.getElementById("relatorio").value;
-            const conteudo = document.createElement("div");
-            conteudo.innerHTML = `<h2>Relatório</h2><p>${texto.replace(/\n/g, "<br>")}</p>`;
+            const conteudo = document.getElementById("pdf-content");
+            const paragrafo = document.getElementById("pdf-text");
+
+            paragrafo.innerHTML = texto.replace(/\n/g, "<br>");
 
             html2pdf().from(conteudo).save("relatorio.pdf");
         }
-  </script>
+    </script>
 </body>
 </html>
