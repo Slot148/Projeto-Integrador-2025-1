@@ -3,6 +3,3 @@ secret_key.py
 __pycache__/*
 create_admin.py
 app/data/*
-atestados.json
-equipes.json
-user.json
