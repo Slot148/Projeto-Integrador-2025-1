@@ -18,16 +18,14 @@
     <button>Gerar PDF</button>
     </section>
     </main>
-      <script>
-    function gerarPDF() {
-      const texto = document.getElementById("relatorio").value;
-      const conteudoFormatado = texto.replace(/\n/g, "<br>");
+    <script>
+        function gerarPDF() {
+            const texto = document.getElementById("relatorio").value;
+            const conteudo = document.createElement("div");
+            conteudo.innerHTML = `<h2>Relatório</h2><p>${texto.replace(/\n/g, "<br>")}</p>`;
 
-      const elementoTemp = document.createElement("div");
-      elementoTemp.innerHTML = `<h2>Relatório</h2><p>${conteudoFormatado}</p>`;
-
-      html2pdf().from(elementoTemp).save("relatorio.pdf");
-    }
+            html2pdf().from(conteudo).save("relatorio.pdf");
+        }
   </script>
 </body>
 </html>
