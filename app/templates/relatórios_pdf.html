@@ -6,14 +6,28 @@
     <title>Relatório</title>
     <link rel="stylesheet" href="../static/css/base.css">
     <link rel="stylesheet" href="../static/css/relatórios_pdf.css">
+</head>
 <body>
+    <header>
     <h1>Relatório:</h1>
+    </header>    
     <main>
     <section>
-    <label for="relatoriio">Relatório:</label>
-    <input type="text" name="relatorio">
-    <button>Enviar</button>
+    <label for="relatorio">Relatório:</label>
+    <textarea id="relatorio" name="relatorio" rows="10" cols="10" placeholder="Digite o relatório aqui."></textarea>
+    <button>Gerar PDF</button>
     </section>
     </main>
+      <script>
+    function gerarPDF() {
+      const texto = document.getElementById("relatorio").value;
+      const conteudoFormatado = texto.replace(/\n/g, "<br>");
+
+      const elementoTemp = document.createElement("div");
+      elementoTemp.innerHTML = `<h2>Relatório</h2><p>${conteudoFormatado}</p>`;
+
+      html2pdf().from(elementoTemp).save("relatorio.pdf");
+    }
+  </script>
 </body>
 </html>
