@@ -9,7 +9,6 @@
             <a href="/logout" class="botao-logout">Sair</a>
         {% else %}
         <h3>Nenhum Usuário Conectado</h3>
-            <a href="/login" class="botao-login">Login</a>
         {% endif %}
     </header>
 
@@ -20,9 +19,13 @@
             <a href="/cadastro_usuarios">Cadastro de usuarios</a>
             <a href="/consulta_usuarios">Consulta de usuarios</a>
             <a href="/consulta_atestados">Consulta de atestados</a>
+            <a href="/gerar_relatorio">Gerar Relatório</a>
             {% elif session.tipo == 'aluno' %}
             <a href="/cadastro_atestados">Cadastro de atestados</a>
             <a href="/aluno/consulta_atestados">Área de consulta do aluno</a>
+            {% else %}
+            <h4>Faça login antes de continuar</h4>
+            <a href="/login" class="botao-login">Login</a>
             {% endif %}
         </div>
     </main>

@@ -59,7 +59,6 @@ def login():
 def logout(): 
     f.session.clear()
     f.session.pop('_flashes', None)
-    fc.reload()
     f.flash('Desconectado com sucesso')
     return f.redirect(f.url_for('index'))
 
@@ -186,6 +185,12 @@ def editar_equipe():
         for equipe in equipes:
             equipe['membros_nomes'] = [ra_para_nome.get(ra, f"RA {ra} (não encontrado)") for ra in equipe.get('membros', [])]
         return f.render_template("gerenciar_equipes.html", data=equipes, alunos=alunos)
+
+@app.route("/gerar_relatorio", methods=['GET', 'POST'])
+@admin_required
+def gerar_relatorio():
+    return f.render_template('relatórios_pdf.html')
+
 
 
 #PELO AMOR DE DEUS!!! LEMBRAR DE REMOVER O TRECHO ABAIXO ANTES DE PUBLICAR!!!#
