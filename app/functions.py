@@ -7,17 +7,33 @@ user_db = pr.JSON_MANAGER("app/data/db/user.json")
 atestados_db = pr.JSON_MANAGER("app/data/db/atestados.json")
 diaAtual = datetime.now().strftime('%Y-%m-%d')
 equipes_db = pr.JSON_MANAGER("app/data/db/equipes.json")
-# avaliacoes_db = pr.JSON_MANAGER("app/data/db/avaliacoes.json")
+avaliacoes_db = pr.JSON_MANAGER("app/data/db/avaliacoes.json")
 
 
 
 def get_next_id(db, id_field):
-    data = db.read()
-    if not data:
-        return "001"
-    max_id = max(int(item.get(id_field, 0)) for item in data)
-    return f"{max_id + 1:03d}"
+    try:
+        data = db.read()
+        if not data:
+            return "001"
 
+        numeric_ids = []
+        for item in data:
+            try:
+                if item.get(id_field):
+                    numeric_ids.append(int(str(item[id_field]).strip()))
+            except (ValueError, AttributeError):
+                continue
+        
+        if not numeric_ids:
+            return "001"
+            
+        max_id = max(numeric_ids)
+        return f"{max_id + 1:03d}"
+    except Exception as e:
+        print(f"Erro ao gerar ID: {str(e)}")
+        return None
+    
 def new_usuario():
     user_id = get_next_id(user_db, 'user_id')
     atual = user_db.read()
@@ -122,3 +138,50 @@ def equipe():
             return {"status": "success"}
         else:
             return {"status": "error", "message": "Falha ao registrar equipe"}
+
+def avaliar_equipe_post():
+    if not f.session.get('ra'):
+        raise Exception("Avaliador não identificado")
+    
+    ra_alunos = f.request.form.getlist('ra_aluno')
+    avaliacoes = []
+    
+    # Primeiro valida todos os dados ANTES de gerar IDs
+    for ra in ra_alunos:
+        if not all(f.request.form.get(f'{crit}_{ra}') for crit in ['planejamento', 'autonomia', 'colaboracao', 'entrega_resultados']):
+            raise ValueError(f"Dados incompletos para o aluno {ra}")
+    
+    # Agora processa cada avaliação com ID único
+    for ra in ra_alunos:
+        try:
+            # Gera um novo ID para CADA avaliação
+            avaliacao_id = None
+            attempts = 0
+            while not avaliacao_id and attempts < 5:
+                temp_id = get_next_id(avaliacoes_db, 'avaliacao_id')
+                if temp_id and not avaliacoes_db.find(temp_id, 'avaliacao_id'):
+                    avaliacao_id = temp_id
+                attempts += 1
+            
+            if not avaliacao_id:
+                avaliacao_id = f"temp_{datetime.now().strftime('%Y%m%d%H%M%S')}_{ra}"
+                
+            avaliacao = {
+                "avaliacao_id": avaliacao_id,
+                "ra_aluno": ra,
+                "avaliador_ra": f.session['ra'],
+                "planejamento": int(f.request.form.get(f'planejamento_{ra}')),
+                "autonomia": int(f.request.form.get(f'autonomia_{ra}')),
+                "colaboracao": int(f.request.form.get(f'colaboracao_{ra}')),
+                "entrega_resultados": int(f.request.form.get(f'entrega_resultados_{ra}')),
+                "data_avaliacao": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            }
+            
+            if not avaliacoes_db.add(avaliacao):
+                raise Exception(f"Falha ao persistir avaliação para RA {ra}")
+                
+        except Exception as e:
+            print(f"Falha na avaliação do RA {ra}: {str(e)}")
+            raise Exception(f"Erro ao avaliar {ra}: {str(e)}")
+    
+    return True

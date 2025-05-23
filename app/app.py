@@ -64,7 +64,7 @@ def logout():
 
 #usuarios
 @app.route("/cadastro_usuarios", methods=["GET", "POST"])
-@admin_required
+@admin_required(min_level=3)
 def cadastro_usuarios():
     if f.request.method == "GET":
         data = fc.user_db.read()
@@ -74,13 +74,13 @@ def cadastro_usuarios():
             return f.redirect(f.url_for('cadastro_usuarios'))
             
 @app.route("/consulta_usuarios", methods=["GET", "POST"])
-@admin_required
+@admin_required(min_level=3)
 def consulta_usuarios():
     data = fc.user_db.read()
     return f.render_template("consulta_usuarios.html", data=data)
 
 @app.route("/delete_usuario", methods=["POST"])
-@admin_required
+@admin_required(min_level=3)
 def delete_usuario():
     user_id = f.request.form["user_id"]
     fc.user_db.delete(user_id)
@@ -125,13 +125,13 @@ def remover_atestado(atestado_id):
     
 
 @app.route("/consulta_atestados", methods=["GET", "POST"])
-@admin_required
+@admin_required(min_level=3)
 def consulta_atestados():
     data = fc.atestados_db.read()
     return f.render_template("aprovar_atestado.html", data=data)
 
 @app.route('/consulta_atestado/aprovar/<id>', methods=["POST"])
-@admin_required
+@admin_required(min_level=3)
 def aprovar_atestado(id):
     new_data = fc.atestados_db.find(id, identifier_key="atestado_id")
     new_data['estado'] = "aprovado"
@@ -139,7 +139,7 @@ def aprovar_atestado(id):
     return f.redirect(f.url_for("consulta_atestados")) 
 
 @app.route('/consulta_atestado/reprovar/<id>', methods=["POST"])
-@admin_required
+@admin_required(min_level=3)
 def reprovar_atestado(id):
     new_data = fc.atestados_db.find(id, identifier_key="atestado_id")
     new_data['estado'] = "reprovado"
@@ -164,7 +164,7 @@ def visualizar_atestado(atestado_id):
         return "Erro ao visualizar atestado", 500
 
 @app.route('/criar_equipe', methods=['GET', 'POST'])
-@admin_required
+@admin_required(min_level=3)
 def criar_equipe():
     if f.request.method == "GET":
         data = fc.user_db.read()
@@ -172,10 +172,50 @@ def criar_equipe():
     if f.request.method == "POST":
         fc.equipe()
         return f.redirect(f.url_for('criar_equipe'))
+
+@app.route('/avaliar_equipe', methods=['GET', 'POST'])
+@login_required
+def avaliar_equipe():
+    if f.request.method == "GET":
+        
+        if not f.session.get('equipe'):
+            f.flash('Você não está em nenhuma equipe cadastrada', 'error')
+            return f.redirect(f.url_for('index'))
+        
+        equipe = fc.equipes_db.find(f.session['equipe'], "nome_equipe")
+        if not equipe:
+            f.flash('Equipe não encontrada', 'error')
+            return f.redirect(f.url_for('index'))
+        
+        todos_alunos = fc.user_db.read()
+        
+        membros_equipe = []
+        for aluno in todos_alunos:
+            if aluno.get('ra') and aluno['ra'] in equipe.get('membros', []):
+                membros_equipe.append({
+                    'ra': aluno['ra'],
+                    'nome': aluno['nome']
+                })
+
+        data = {
+            'nome_equipe': equipe['nome_equipe'],
+            'membros_completos': membros_equipe
+        }
+        return f.render_template("Avaliação SCRUM 2.0.html", data=data)
     
+    if f.request.method == "POST":
+        try:
+            fc.avaliar_equipe_post()
+            f.flash('Avaliações registradas com sucesso!', 'success')
+            return f.redirect(f.url_for('avaliar_equipe'))
+        
+        except Exception as e:
+            print(f"Erro ao processar avaliações: {str(e)}")
+            f.flash('Erro ao processar avaliações. Tente novamente.', 'error')
+            return f.redirect(f.url_for('avaliar_equipe'))   
 
 @app.route("/gerenciar_equipes", methods=['GET', 'POST'])
-@admin_required
+@admin_required(min_level=3)
 def editar_equipe():
     if f.request.method == "GET":
         equipes = fc.equipes_db.read()
@@ -187,7 +227,7 @@ def editar_equipe():
         return f.render_template("gerenciar_equipes.html", data=equipes, alunos=alunos)
 
 @app.route("/gerar_relatorio", methods=['GET', 'POST'])
-@admin_required
+@admin_required(min_level=3)
 def gerar_relatorio():
     return f.render_template('relatórios_pdf.html')
 
@@ -204,7 +244,7 @@ def check_default_admin():
             "nome": "Administrador Padrão",
             "senha": generate_password_hash("admin123"),
             "tipo": "administrador",
-            "nivel_acesso": "1"
+            "nivel_acesso": "3"
         }
         fc.user_db.add(admin_data, identifier_key="user_id")
         print("Admin padrão criado com credenciais temporárias")

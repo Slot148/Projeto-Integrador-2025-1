@@ -1,6 +1,7 @@
 import os, json
 from filelock import FileLock, Timeout
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 class USER:
     """Classe base que representa um usuário do sistema.
@@ -70,19 +71,12 @@ class ALUNO(USER):
         return data
 
 class ADM(USER):
-    def __init__(self, user_id, username, nome, senha, nivel_acesso="1"):
+    def __init__(self, user_id, username, nome, senha, nivel_acesso="3"):
+        if nivel_acesso not in ["1", "2", "3"]:
+            raise ValueError("Nível de acesso deve ser 1 (mais alto), 2 ou 3 (mais básico)")
         super().__init__(user_id, nome, senha, tipo="administrador")
         self.username = username
         self.nivel_acesso = nivel_acesso
-
-    def to_dict(self):
-        data = super().to_dict()
-        data.update({
-            "username": self.username,
-            "nivel_acesso": self.nivel_acesso,
-        })
-        return data        
-
 class ATESTADO:
     def __init__(self, atestado_id, file_path, data_envio, ra_aluno, nome_aluno, inicio_periodo, fim_periodo, estado = "pendente"):
         self.atestado_id = atestado_id
@@ -218,34 +212,26 @@ class JSON_MANAGER:
                 return item
         return None
         
-    def add(self, new_item, identifier_key = "user_id"):
-        """
-        Adiciona um novo item ao JSON com lock, evitando duplicatas e concorrência.
-        
-        Args:
-            new_item (dict): Dados do novo registro.
-            identifier_key (str): Chave de identificação única (padrão: "user_id").
-        
-        Returns:
-            bool: True se adicionado, False se falhou ou se é duplicado.
-        """
+    def add(self, new_item, identifier_key="user_id"):
         lock = FileLock(self.lock_path)
         try:
-            with lock:
+            with lock.acquire(timeout=3):
                 data = self.read()
-
-                if any(str(item.get(identifier_key)) == str(new_item.get(identifier_key)) for item in data):
-                    print(f"Erro: Já existe um registro com {identifier_key} = {new_item.get(identifier_key)}")
+                
+                existing_ids = [str(item.get(identifier_key)) for item in data if item.get(identifier_key)]
+                
+                if str(new_item.get(identifier_key)) in existing_ids:
+                    print(f"ID {new_item.get(identifier_key)} já existe")
                     return False
+                    
                 data.append(new_item)
                 return self.write(data)
         except Timeout:
-            print("Erro: Timeout ao acessar o arquivo (outro processo em uso).")
+            print("Timeout ao acessar o arquivo bloqueado")
             return False
         except Exception as e:
-            print(f"Erro inesperado: {e}")
+            print(f"Erro inesperado: {str(e)}")
             return False
-
 
 #Equipes Scrum
 class Equipe:
@@ -271,3 +257,30 @@ class Equipe:
             "membros": self.membros
         }
         
+class AVALIACAO:
+    def __init__(self, avaliacao_id, ra_aluno, avaliador_ra, planejamento, autonomia, 
+                 colaboracao, entrega_resultados, data_avaliacao=None):
+        self.avaliacao_id = avaliacao_id
+        self.ra_aluno = ra_aluno
+        self.avaliador_ra = avaliador_ra
+        self.planejamento = planejamento
+        self.autonomia = autonomia
+        self.colaboracao = colaboracao
+        self.entrega_resultados = entrega_resultados
+        self.data_avaliacao = data_avaliacao or datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    
+    def calcular_media(self):
+        return (self.planejamento + self.autonomia + self.colaboracao + self.entrega_resultados) / 4
+    
+    def to_dict(self):
+        return {
+            "avaliacao_id": self.avaliacao_id,
+            "ra_aluno": self.ra_aluno,
+            "avaliador_ra": self.avaliador_ra,
+            "planejamento": self.planejamento,
+            "autonomia": self.autonomia,
+            "colaboracao": self.colaboracao,
+            "entrega_resultados": self.entrega_resultados,
+            "data_avaliacao": self.data_avaliacao,
+            "media": self.calcular_media()
+        }

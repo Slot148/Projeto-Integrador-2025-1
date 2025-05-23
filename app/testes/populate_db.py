@@ -1,76 +1,100 @@
 import json
+import random
 from werkzeug.security import generate_password_hash
 
-# Dados de usuários (alunos e administradores)
-users = [
-    {
-        "user_id": "001",
-        "nome": "João Silva",
-        "ra": "123",
-        "senha": generate_password_hash("senha123"),
+# Listas de dados aleatórios
+NOMES = ['João', 'Maria', 'Carlos', 'Ana', 'Pedro', 'Lucia', 'Marcos', 'Fernanda']
+SOBRENOMES = ['Silva', 'Souza', 'Oliveira', 'Santos', 'Ferreira', 'Almeida', 'Lima', 'Costa']
+CURSOS = ['Engenharia', 'Ciência da Computação', 'Medicina', 'Direito', 'Administração', 'Arquitetura']
+TURNOS = ['manhã', 'tarde', 'noite']
+
+def gerar_ra():
+    return str(random.randint(10000, 99999))
+
+def gerar_senha():
+    return f"senha{random.randint(100, 999)}"
+
+def gerar_aluno(sem_equipe=False):
+    aluno = {
+        "user_id": str(random.randint(100, 999)),
+        "nome": f"{random.choice(NOMES)} {random.choice(SOBRENOMES)}",
+        "ra": gerar_ra(),
+        "senha": generate_password_hash(gerar_senha()),
         "tipo": "aluno",
-        "curso": "Engenharia",
-        "semestre": "3",
-        "turno": "manhã",
-        "equipe": "Nicolas inc"
-    },
-    {
-        "user_id": "002",
-        "nome": "Maria Souza",
-        "ra": "678",
-        "senha": generate_password_hash("senha678"),
-        "tipo": "aluno",
-        "curso": "Ciência da Computação",
-        "semestre": "2",
-        "turno": "tarde",
-        "equipe": "Nicolas inc"
-    },
-    {
-        "user_id": "003",
-        "nome": "Carlos Oliveira",
-        "ra": "234",
-        "senha": generate_password_hash("senha234"),
-        "tipo": "aluno",
-        "curso": "Medicina",
-        "semestre": "5",
-        "turno": "noite",
-        "equipe": "Y2K"
-    },
-    {
-        "user_id": "004",
-        "nome": "Administrador",
-        "username": "admin",
-        "senha": generate_password_hash("admin123"),
+        "curso": random.choice(CURSOS),
+        "semestre": str(random.randint(1, 10)),
+        "turno": random.choice(TURNOS),
+    }
+    aluno["equipe"] = "sem equipe" if sem_equipe else f"Equipe {random.choice(['A', 'B', 'C', 'D'])}"
+    return aluno
+
+def gerar_admin():
+    return {
+        "user_id": str(random.randint(100, 999)),
+        "nome": f"Admin {random.choice(NOMES)}",
+        "username": f"admin{random.randint(1, 100)}",
+        "senha": generate_password_hash(gerar_senha()),
         "tipo": "administrador",
-        "nivel_acesso": "1"
+        "nivel_acesso": str(random.randint(1, 3))
     }
-]
 
-# Dados de equipes
-equipes = [
-    {
-        "equipe_id": "001",
-        "nome_equipe": "Nicolas inc",
-        "membros": ["123", "678"]
-    },
-    {
-        "equipe_id": "002",
-        "nome_equipe": "Y2K",
-        "membros": ["234"]
-    },
-    {
-        "equipe_id": "003",
-        "nome_equipe": "404",
-        "membros": ["456"]  # RA que não existe em users (para teste)
+def gerar_equipe(membros_ras):
+    # Garante que cada equipe tenha entre 2 e 5 membros
+    num_membros = random.randint(2, min(5, len(membros_ras)))
+    membros = random.sample(membros_ras, num_membros)
+    
+    return {
+        "equipe_id": str(random.randint(100, 999)),
+        "nome_equipe": f"Equipe {random.choice(['Alpha', 'Beta', 'Gamma', 'Delta'])}",
+        "membros": membros
     }
-]
 
-# Salvar no user.json
-with open('app/data/db/user.json', 'w', encoding='utf-8') as f:
-    json.dump(users, f, indent=4, ensure_ascii=False)
+def main():
+    print("==== Gerador de Banco de Dados ====")
+    
+    num_alunos = int(input("Quantos alunos deseja criar? "))
+    num_admins = int(input("Quantos administradores deseja criar? "))
+    num_equipes = int(input("Quantas equipes deseja criar? "))
+    
+    users = []
+    ras_disponiveis = []
+    
+    # 1. Gerar alunos (todos inicialmente sem equipe)
+    for _ in range(num_alunos):
+        aluno = gerar_aluno(sem_equipe=(num_equipes == 0))
+        users.append(aluno)
+        ras_disponiveis.append(aluno['ra'])
+    
+    # 2. Gerar admins
+    for _ in range(num_admins):
+        users.append(gerar_admin())
+    
+    # 3. Gerar equipes (se solicitado e houver alunos suficientes)
+    equipes = []
+    if num_equipes > 0 and len(ras_disponiveis) >= 2:
+        # Criar equipes
+        for _ in range(min(num_equipes, len(ras_disponiveis) // 2)):
+            equipe = gerar_equipe(ras_disponiveis)
+            equipes.append(equipe)
+            
+            # Atualizar alunos para refletir a equipe
+            for ra in equipe['membros']:
+                for user in users:
+                    if user.get('ra') == ra:
+                        user['equipe'] = equipe['nome_equipe']
+                        break
+    
+    # 4. Salvar arquivos
+    with open('app/data/db/user.json', 'w', encoding='utf-8') as f:
+        json.dump(users, f, indent=4, ensure_ascii=False)
+    
+    with open('app/data/db/equipes.json', 'w', encoding='utf-8') as f:
+        json.dump(equipes, f, indent=4, ensure_ascii=False)
+    
+    print(f"\nBanco de dados populado com sucesso!")
+    print(f"- Total de usuários: {len(users)} ({num_alunos} alunos e {num_admins} admins)")
+    print(f"- Equipes criadas: {len(equipes)}")
+    print(f"- Alunos sem equipe: {sum(1 for u in users if u.get('tipo') == 'aluno' and u.get('equipe') == 'sem equipe')}")
 
-# Salvar no equipes.json
-with open('app/data/db/equipes.json', 'w', encoding='utf-8') as f:
-    json.dump(equipes, f, indent=4, ensure_ascii=False)
-
-print("Bancos de dados populados com sucesso!")
+if __name__ == "__main__":
+    main()

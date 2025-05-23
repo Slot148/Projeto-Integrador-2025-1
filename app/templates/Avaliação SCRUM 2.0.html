@@ -14,64 +14,62 @@
         <h1>Avaliação de Aluno - Critérios Scrum</h1>
         <h3>Avalie cada membro da equipe Scrum de forma justa</h3>
     </header><br>
-    <main>
-        <form id="formAvaliacao">
+    <form id="formAvaliacao" method="POST" action="{{ url_for('avaliar_equipe') }}">
+    <div id="membros-container">
+        {% for membro in data.membros_completos %}
+        {% if membro.ra != session.ra %}
+        <section class="display">
             <section>
-                <label for="aluno">Nome do aluno:</label>
-                <input type="text" id="aluno" name="aluno" required>
+                <label>Nome do aluno:</label>
+                <input type="text" value="{{ membro.nome }}" readonly>
+                <input type="hidden" name="ra_aluno" value="{{ membro.ra }}">
             </section>
 
-            <section>
-                <label for="P">P - Planejamento:</label>
-                <select id="P" name="planejamento" required>
-                  <option value="">Selecione</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select><br>
-                
-                <label for="A">A - Autonomia:</label>
-                <select id="A" name="autonomia" required>
-                  <option value="">Selecione</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select><br>
-                
-                <label for="C">C - Colaboração:</label>
-                <select id="C" name="colaboracao" required>
-                  <option value="">Selecione</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select><br>
-                
-                <label for="E">E - Entrega:</label>
-                <select id="E" name="entrega" required>
-                  <option value="">Selecione</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select><br>
-                
-                <label for="R">R - Responsabilidade:</label>    
-                <select id="R" name="responsabilidade" required>
-                  <option value="">Selecione</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
-            </section>
-            <section>
-                <button type="submit">Registrar Avaliação</button>
-            </section>
-        </form><br>
-    </main>
+            <label for="P_{{ membro.ra }}">P - Planejamento:</label>
+            <select id="P_{{ membro.ra }}" name="planejamento_{{ membro.ra }}" required>
+                <option value="">Selecione</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+            </select>
+
+            <label for="A_{{ membro.ra }}">A - Autonomia:</label>
+            <select id="A_{{ membro.ra }}" name="autonomia_{{ membro.ra }}" required>
+                <option value="">Selecione</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+            </select>
+
+            <label for="C_{{ membro.ra }}">C - Colaboração:</label>
+            <select id="C_{{ membro.ra }}" name="colaboracao_{{ membro.ra }}" required>
+                <option value="">Selecione</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+            </select>
+
+            <label for="ER_{{ membro.ra }}">ER - Entrega de Resultados:</label>
+            <select id="ER_{{ membro.ra }}" name="entrega_resultados_{{ membro.ra }}" required>
+                <option value="">Selecione</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+            </select>
+        </section>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+
+    <div id="submit-container">
+        <button type="submit">Registrar Avaliação</button>
+    </div>
+</form>
         <section>
             <h2>Parâmetros de Avaliação</h2>
             <table border="1" class="section">

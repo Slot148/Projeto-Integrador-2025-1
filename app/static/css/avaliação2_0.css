@@ -1,4 +1,4 @@
-  main {
+.display {
     max-width: 30rem; 
     margin: 2rem auto; 
     padding: 2rem;
@@ -100,9 +100,49 @@ section h2 {
     font-weight: bold;
   }
 
-
 @media (max-width: 1024px) {
   .section{
     margin: 2rem auto;
   }
+}
+
+#formAvaliacao {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+
+#membros-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.membro-card {
+    flex: 1 1 300px;
+    max-width: 350px;
+    min-width: 250px;
+    margin: 0.5rem;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.membro-card select,
+.membro-card input[type="text"] {
+    width: 100%;
+    margin-bottom: 0.8rem;
+}
+#submit-container {
+    text-align: center;
+    margin-top: 1rem;
+}
+@media (max-width: 768px) {
+    .membro-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
 }
