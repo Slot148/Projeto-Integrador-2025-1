@@ -1,9 +1,11 @@
 import os
 import flask as f
 import functions as fc
-from secret_key import key
+# from secret_key import key
 from werkzeug.security import check_password_hash, generate_password_hash
 from decorators import login_required, admin_required, student_required
+
+key = "jgndglnfgnlfgnfdngkfn"
 
 app = f.Flask(__name__)
 app.secret_key = key

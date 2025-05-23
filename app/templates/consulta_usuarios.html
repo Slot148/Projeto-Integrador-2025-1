@@ -14,6 +14,36 @@
         <h3>Consulte seus atestados</h3>
     </header>
     <main>
+        <select name="periodo" id="periodo">
+  <option value="">Periodo</option>
+  <option value="manhã">Manhã</option>
+  <option value="tarde">Tarde</option>
+  <option value="noite">Noite</option>
+</select>
+<select name="turma" id="turma">
+  <option value="">turma</option>
+  <option value="Anlise e Desenvolvimento de Sistemas">Anlise e Desenvolvimento de Sistemas</option>
+  <option value="Manufatura Avançada">Manufatura Avançada</option>
+  <option value="Desenvolvimento de Software multiplataforma">Desenvolvimento de Software multi-plataforma</option>
+  <option value="Logistica">Logistica</option>
+  <option value="Banco de dados">Banco de dados</option>
+  <option value="Manutenção de aeronaves">Manutenção de aeronaves</option>
+  <option value="Projetos de Estruturas Aeronáuticas">Projetos de Estruturas Aeronáuticas</option>
+  <option value="Gestão Empresarial (EaD)">Gestão Empresarial (EaD)</option>
+  <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
+
+</select>
+<select name="Semestre" id="Semestre">
+  <option value="">Semestre</option>
+  <option value="Primeiro">Primeiro</option>
+  <option value="Segundo">Segundo</option>
+  <option value="Terceiro">Terceiro</option>
+  <option value="Quarto">Quarto</option>
+  <option value="Quinto">Quinto</option>
+  <option value="Sexto">Sexto</option>
+  
+
+</select>
         {% if error %}
             <p style="color: red;">{{ error }}</p>
         {% else %}
