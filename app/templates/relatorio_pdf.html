@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Relatório</title>
+        <link rel="stylesheet" href="../static/css/base.css" />
+        <link rel="stylesheet" href="../static/css/relatórios_pdf.css" />
+        <link rel="stylesheet" href="../static/css/pdf_layout.css" />
+    </head>
+    <body>
+        <header>
+            <a href="/">HOME</a>
+            <h1>Relatório</h1>
+        </header>
+        <div id="pdf-content">
+            <h2>Relatório</h2>
+            <p id="pdf-text"></p>
+        </div>
+        <main>
+            <form action="/relatorio_pdf" method="post">
+            <section>
+                <label for="relatorio">Relatório:</label>
+                <select name="periodo" id="periodo">
+                    <option value="">Periodo</option>
+                    <option value="manhã">Manhã</option>
+                    <option value="noite">Noite</option>
+                </select>
+                <select name="turma" id="turma">
+                    <option value="">turma</option>
+                    <option value="Anlise e Desenvolvimento de Sistemas">
+                        Anlise e Desenvolvimento de Sistemas
+                    </option>
+                    <option value="Manufatura Avançada">
+                        Manufatura Avançada
+                    </option>
+                    <option value="Desenvolvimento de Software multiplataforma">
+                        Desenvolvimento de Software multi-plataforma
+                    </option>
+                    <option value="Logistica">Logistica</option>
+                    <option value="Banco de dados">Banco de dados</option>
+                    <option value="Manutenção de aeronaves">
+                        Manutenção de aeronaves
+                    </option>
+                    <option value="Projetos de Estruturas Aeronáuticas">
+                        Projetos de Estruturas Aeronáuticas
+                    </option>
+                    <option value="Gestão Empresarial (EaD)">
+                        Gestão Empresarial (EaD)
+                    </option>
+                    <option value="Gestão da Produção Industrial">
+                        Gestão da Produção Industrial
+                    </option>
+                </select>
+                <select name="Semestre" id="Semestre">
+                    <option value="">Semestre</option>
+                    <option value="Primeiro">Primeiro</option>
+                    <option value="Segundo">Segundo</option>
+                    <option value="Terceiro">Terceiro</option>
+                    <option value="Quarto">Quarto</option>
+                    <option value="Quinto">Quinto</option>
+                    <option value="Sexto">Sexto</option>
+                </select>
+                <input type="submit" value="📥 Baixar Relatório de Atestados">
+                </form>
+            </section>
+        </main>
+          <footer>
+            <p>© 2025 - Gerar Relatório | Todos os direitos reservados.</p>
+        </footer>
+    </body>
+</html>
