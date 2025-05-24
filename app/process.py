@@ -140,7 +140,7 @@ class JSON_MANAGER:
             with open(self.file_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
             return True
-        except (IOError, json.JSONEncodeError) as e:
+        except IOError as e:
             print(f"Erro ao escrever no arquivo: {e}")
             return False
 
@@ -248,7 +248,12 @@ class Equipe:
             return "Numero maximo de integrantes atingido"
         
     def remove_membro(self, member_ra):
-        return self.membros.remove(self.membros.index(member_ra))
+        if member_ra in self.membros:
+            self.membros.remove(member_ra)
+            return "Membro removido"
+        else:
+            return "Membro não encontrado"
+
     
     def to_dict(self):
         return{

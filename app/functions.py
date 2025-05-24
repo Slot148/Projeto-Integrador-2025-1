@@ -9,8 +9,6 @@ diaAtual = datetime.now().strftime('%Y-%m-%d')
 equipes_db = pr.JSON_MANAGER("app/data/db/equipes.json")
 avaliacoes_db = pr.JSON_MANAGER("app/data/db/avaliacoes.json")
 
-
-
 def get_next_id(db, id_field):
     try:
         data = db.read()
@@ -39,10 +37,13 @@ def new_usuario():
     atual = user_db.read()
     tipo_usuario = f.request.form.get('tipo')
 
+    def ajustar_nome(nome):
+        return " ".join([palavra.capitalize() for palavra in nome.split()])
+
     if tipo_usuario == "administrador":
         user = pr.ADM(
             user_id=user_id,
-            nome=f.request.form["nome"].lower(),    
+            nome=ajustar_nome(f.request.form["nome"].strip()),    
             username=f.request.form["username"],    
             senha=str(f.request.form["senha"]),
             nivel_acesso=f.request.form["nivel_acesso"]
@@ -50,7 +51,7 @@ def new_usuario():
     else:
         user = pr.ALUNO(
             user_id=user_id,
-            nome=f.request.form["nome"].lower(),
+            nome=ajustar_nome(f.request.form["nome"].strip()),
             ra=str(f.request.form["ra"]),
             senha=str(f.request.form["senha"]),
             curso=f.request.form["curso"].lower(),
@@ -145,16 +146,13 @@ def avaliar_equipe_post():
     
     ra_alunos = f.request.form.getlist('ra_aluno')
     avaliacoes = []
-    
-    # Primeiro valida todos os dados ANTES de gerar IDs
+
     for ra in ra_alunos:
         if not all(f.request.form.get(f'{crit}_{ra}') for crit in ['planejamento', 'autonomia', 'colaboracao', 'entrega_resultados']):
             raise ValueError(f"Dados incompletos para o aluno {ra}")
     
-    # Agora processa cada avaliação com ID único
     for ra in ra_alunos:
         try:
-            # Gera um novo ID para CADA avaliação
             avaliacao_id = None
             attempts = 0
             while not avaliacao_id and attempts < 5:

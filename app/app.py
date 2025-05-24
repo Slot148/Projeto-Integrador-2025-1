@@ -1,6 +1,7 @@
 import os
 import flask as f
 import functions as fc
+import functions2 as fc2
 # from secret_key import key
 from werkzeug.security import check_password_hash, generate_password_hash
 from decorators import login_required, admin_required, student_required
@@ -228,12 +229,64 @@ def editar_equipe():
             equipe['membros_nomes'] = [ra_para_nome.get(ra, f"RA {ra} (não encontrado)") for ra in equipe.get('membros', [])]
         return f.render_template("gerenciar_equipes.html", data=equipes, alunos=alunos)
 
-@app.route("/gerar_relatorio", methods=['GET', 'POST'])
+@app.route('/relatorio_pdf', methods=['GET','POST'])
 @admin_required(min_level=3)
-def gerar_relatorio():
-    return f.render_template('relatórios_pdf.html')
+def relatorio_pdf():
+    if f.request.method == "GET":
+        return f.render_template("relatorio_pdf.html")
+    
+    if f.request.method == "POST":
+        periodo = f.request.form.get("periodo")
+        turma = f.request.form.get("turma")
+        semestre = f.request.form.get("Semestre")
+        
+        all_atestados = fc.atestados_db.read()
+        all_users = fc.user_db.read()
+        
+        users_by_ra = {user.get('ra'): user for user in all_users if user.get('ra')}
 
+        filtered_data = []
+        for atestado in all_atestados:
+            ra = atestado.get('ra')
+            if not ra:
+                continue
+                
+            user = users_by_ra.get(ra)
+            if not user:
+                continue
+                
+            match = True
+            if periodo and user.get('turno', '').lower() != periodo.lower():
+                match = False
+            if turma and user.get('curso', '').lower() != turma.lower():
+                match = False
+            if semestre and user.get('semestre', '').lower() != semestre.lower():
+                match = False
+            
+            if match:
+                filtered_atestado = {
+                    'ra': ra,
+                    'nome_aluno': atestado.get('nome_aluno', user.get('nome', 'N/A')),
+                    'data_envio': atestado.get('data_envio', ''),
+                    'inicio_periodo': atestado.get('inicio_periodo', ''),
+                    'fim_periodo': atestado.get('fim_periodo', ''),
+                    'estado': atestado.get('estado', 'pendente')
+                }
+                filtered_data.append(filtered_atestado)
+        
+        filtros = {
+            'periodo': periodo,
+            'turma': turma,
+            'semestre': semestre
+        }
+        
+        output_path = os.path.abspath('app/data/relatorios/relatorio.pdf')
+        success = fc2.gerar_pdf_simples(filtered_data, filtros=filtros, output_path=output_path)
 
+        if success:
+            return f.send_file(output_path, as_attachment=True)
+        else:
+            return "Erro ao gerar PDF", 500
 
 #PELO AMOR DE DEUS!!! LEMBRAR DE REMOVER O TRECHO ABAIXO ANTES DE PUBLICAR!!!#
 
