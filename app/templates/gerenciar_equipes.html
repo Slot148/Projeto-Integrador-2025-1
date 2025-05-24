@@ -12,7 +12,7 @@
         <h1>Relatório de Atestados</h1><br>
         <h3>Visualize os atestados registrados.</h3>
     </header>
-    <a href="/criar_equipe">Nova Equipe</a>
+    <a href="/gerenciar_equipe/criar">Nova Equipe</a>
     <main style="padding: 2%;">
         <section>
         {% if data %}
@@ -31,8 +31,13 @@
                     <li>Nenhum membro cadastrado</li>
             {% endif %}
             </ul>
-            <button>Deletar</button>
-            <button>Editar</button>
+            <div style="display: inline-block; margin-left: 10px;">
+                <a href="/gerenciar_equipe/deletar/{{ x.equipe_id }}" onclick="return confirm('Tem certeza que deseja deletar esta equipe?')">Deletar</a>
+                <a href="/gerenciar_equipe/editar?equipe_id={{ x.equipe_id }}">Editar</a>
+            </div>
+            
+
+            
         </div>
         {% endfor %}
     {% else %}

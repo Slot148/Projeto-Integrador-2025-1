@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <title>Editar Equipe</title>
+    <style>
+        .member-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .member-info {
+            flex-grow: 1;
+        }
+        .member-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .warning {
+            color: red;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/">HOME</a>
+        <h1>Editar Equipe</h1>
+    </header>
+    <section style="padding: 2%;">
+        <h2>{{ equipe.nome_equipe }}</h2>
+        <form action="{{ url_for('editar_equipe') }}" method="post">
+            <input type="hidden" name="equipe_id" value="{{ equipe.equipe_id }}">
+            
+            <h3>Membros da Equipe:</h3>
+            {% for ra, info in alunos.items() %}
+            <div class="member-item">
+                <div class="member-info">
+                    <p><strong>Nome:</strong> {{ info.nome }}</p>
+                    <p><strong>RA:</strong> {{ ra }}</p>
+                </div>
+                <div class="member-actions">
+                    <select name="funcao_{{ ra }}" id="funcao_{{ ra }}">
+                        <option value="devteam" {% if info.funcao == 'devteam' %}selected{% endif %}>Dev Team</option>
+                        <option value="scrum" {% if info.funcao == 'scrum' %}selected{% endif %}>Scrum Master</option>
+                        <option value="po" {% if info.funcao == 'po' %}selected{% endif %}>Product Owner</option>
+                    </select>
+                    <label>
+                        <input type="checkbox" name="remover_membro" value="{{ ra }}">
+                        Remover
+                    </label>
+                </div>
+            </div>
+            {% endfor %}
+            
+            <div style="margin-top: 20px;">
+                <input type="submit" value="Salvar Alterações" style="padding: 10px 20px;">
+                <a href="{{ url_for('gerenciar_equipe') }}" style="margin-left: 10px;">Cancelar</a>
+            </div>
+        </form>
+    </section>
+    <footer>
+        <p>© 2025 - Editar Equipes | Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

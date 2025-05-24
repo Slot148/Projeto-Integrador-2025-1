@@ -45,13 +45,14 @@ class ALUNO(USER):
         semestre (str): Semestre atual do aluno
         equipe (str): Nome da equipe do aluno (opcional, default="Sem Equipe")
     """
-    def __init__(self, user_id, nome, ra, senha, curso, turno, semestre, equipe="Sem Equipe"):
+    def __init__(self, user_id, nome, ra, senha, curso, turno, semestre, equipe="Sem Equipe", funcao="none"):
         super().__init__(user_id, nome, senha, tipo="aluno")
         self.ra = ra
         self.curso = curso
         self.turno = turno
         self.semestre = semestre
         self.equipe = equipe
+        self.funcao = funcao
     
     def to_dict(self):
         """Converte o objeto ALUNO para um dicionário.
@@ -66,7 +67,8 @@ class ALUNO(USER):
             "curso": self.curso,
             "turno": self.turno,
             "semestre": self.semestre,
-            "equipe":  self.equipe
+            "equipe":  self.equipe,
+            "funcao": self.funcao
         })
         return data
 
@@ -235,9 +237,12 @@ class JSON_MANAGER:
 
 #Equipes Scrum
 class Equipe:
-    def __init__(self, nome_equipe, equipe_id):
+    def __init__(self, nome_equipe, equipe_id, ra_scrum_master, ra_product_owner):
         self.equipe_id = equipe_id
         self.nome_equipe = nome_equipe
+        self.ra_scrum_master = ra_scrum_master
+        self.ra_product_owner = ra_product_owner
+        self.devteam = []
         self.membros = []
     
     def add_membro(self, member_ra):
@@ -247,6 +252,12 @@ class Equipe:
         else:
             return "Numero maximo de integrantes atingido"
         
+    def add_to_team(self, member_ra):
+        if self.devteam.append(member_ra):
+            return 'membros adicionados'
+        else:
+            return 'não foi possivel adicionar o membro'
+
     def remove_membro(self, member_ra):
         if member_ra in self.membros:
             self.membros.remove(member_ra)
@@ -254,6 +265,8 @@ class Equipe:
         else:
             return "Membro não encontrado"
 
+    def has_member(self, member_ra):
+        return member_ra in self.membros
     
     def to_dict(self):
         return{

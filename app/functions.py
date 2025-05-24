@@ -104,23 +104,47 @@ def new_atestado():
 def equipe():
     nome_equipe = f.request.form['nomeEquipe']
     list_members = f.request.form['members'].split()
+    
+    ra_scrum_master = None
+    ra_product_owner = None
+    dev_team_members = []
+    
+    for x in list_members:
+        funcao = f.request.form.get(f'funcao_{x}')
+        if funcao == "scrum":
+            ra_scrum_master = x
+        elif funcao == "po":
+            ra_product_owner = x
+        else:
+            dev_team_members.append(x)
 
     if not equipes_db.find(nome_equipe, "nome_equipe"):
         data = pr.Equipe(
-            equipe_id = get_next_id(equipes_db, 'equipe_id'),
-            nome_equipe=nome_equipe
+            equipe_id=get_next_id(equipes_db, 'equipe_id'),
+            nome_equipe=nome_equipe,
+            ra_product_owner=ra_product_owner,
+            ra_scrum_master=ra_scrum_master
         )
-
+       
         for x in list_members:
+            if x in dev_team_members:
+                data.add_to_team(x)
             data.add_membro(x)
         
         data = data.to_dict()
 
         if equipes_db.add(data, identifier_key="equipe_id"):
+
             for ra in list_members:
                 aluno = user_db.find(ra, "ra")
-                aluno['equipe'] = data['nome_equipe']
                 if aluno:
+                    aluno['equipe'] = data['nome_equipe']
+                    if ra == ra_scrum_master:
+                        aluno['funcao'] = 'scrum'
+                    elif ra == ra_product_owner:
+                        aluno['funcao'] = 'po'
+                    else:
+                        aluno['funcao'] = 'devteam'
                     user_db.edit(ra, aluno, "ra")
             
             return {"status": "success"}
@@ -128,17 +152,34 @@ def equipe():
             return {"status": "error", "message": "Falha ao registrar equipe"}
     else:
         new_data = equipes_db.find(nome_equipe, "nome_equipe")
+        
         for ra in list_members:
-            new_data['membros'].append(ra)
+            if ra not in new_data['membros']:
+                new_data['membros'].append(ra)
+            
             aluno = user_db.find(ra, "ra")
-            aluno['equipe'] = new_data['nome_equipe']
             if aluno:
+                aluno['equipe'] = new_data['nome_equipe']
+                funcao = f.request.form.get(f'funcao_{ra}')
+                if funcao == 'scrum':
+                    aluno['funcao'] = 'scrum'
+                    new_data['ra_scrum_master'] = ra
+                elif funcao == 'po':
+                    aluno['funcao'] = 'po'
+                    new_data['ra_product_owner'] = ra
+                else:
+                    aluno['funcao'] = 'devteam'
+                    if 'devteam' not in new_data:
+                        new_data['devteam'] = []
+                    if ra not in new_data['devteam']:
+                        new_data['devteam'].append(ra)
                 user_db.edit(ra, aluno, "ra")
         
         if equipes_db.edit(nome_equipe, new_data, "nome_equipe"):
             return {"status": "success"}
         else:
-            return {"status": "error", "message": "Falha ao registrar equipe"}
+            return {"status": "error", "message": "Falha ao atualizar equipe"}
+        
 
 def avaliar_equipe_post():
     if not f.session.get('ra'):

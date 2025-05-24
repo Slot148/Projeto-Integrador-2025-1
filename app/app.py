@@ -2,11 +2,9 @@ import os
 import flask as f
 import functions as fc
 import functions2 as fc2
-# from secret_key import key
+from secret_key import key
 from werkzeug.security import check_password_hash, generate_password_hash
 from decorators import login_required, admin_required, student_required
-
-key = "jgndglnfgnlfgnfdngkfn"
 
 app = f.Flask(__name__)
 app.secret_key = key
@@ -166,7 +164,8 @@ def visualizar_atestado(atestado_id):
         print(f"Erro: {str(e)}")
         return "Erro ao visualizar atestado", 500
 
-@app.route('/criar_equipe', methods=['GET', 'POST'])
+#gerenciar equipes
+@app.route('/gerenciar_equipe/criar', methods=['GET', 'POST'])
 @admin_required(min_level=3)
 def criar_equipe():
     if f.request.method == "GET":
@@ -175,6 +174,92 @@ def criar_equipe():
     if f.request.method == "POST":
         fc.equipe()
         return f.redirect(f.url_for('criar_equipe'))
+    
+@app.route("/gerenciar_equipe/deletar/<equipe_id>", methods=['GET'])
+@admin_required(min_level=3)
+def deletar_equipes(equipe_id):
+    equipe = fc.equipes_db.find(equipe_id, "equipe_id")
+    if not equipe:
+        f.flash('Equipe não encontrada', 'error')
+        return f.redirect(f.url_for('gerenciar_equipe'))
+    
+    for ra_aluno in equipe['membros']:
+        aluno = fc.user_db.find(ra_aluno, "ra")
+        aluno['equipe'] = "sem equipe"
+        aluno['funcao'] = 'none'
+        fc.user_db.edit(ra_aluno, aluno, "ra")
+    
+    fc.equipes_db.delete(equipe_id, "equipe_id")
+    f.flash('Equipe deletada com sucesso', 'success')
+    return f.redirect(f.url_for('gerenciar_equipe'))
+
+@app.route("/gerenciar_equipe/editar", methods=['GET', 'POST'])
+@admin_required(min_level=3)
+def editar_equipe():
+    equipe_id = f.request.args.get('equipe_id') if f.request.method == "GET" else f.request.form.get('equipe_id')
+    
+    if not equipe_id:
+        f.flash('ID da equipe não fornecido', 'error')
+        return f.redirect(f.url_for('gerenciar_equipe'))
+    
+    if f.request.method == "GET":
+        equipe = fc.equipes_db.find(equipe_id, "equipe_id")
+        if not equipe:
+            f.flash('Equipe não encontrada', 'error')
+            return f.redirect(f.url_for('gerenciar_equipe'))
+        
+        alunos = {}
+        for ra in equipe['membros']:
+            aluno = fc.user_db.find(ra, "ra")
+            alunos[aluno['ra']] = {
+                'nome': aluno['nome'],
+                'funcao': aluno.get('funcao', 'devteam')
+            }
+        
+        return f.render_template("editar_equipe.html", equipe=equipe, alunos=alunos)
+    
+    if f.request.method == "POST":
+        equipe = fc.equipes_db.find(equipe_id, "equipe_id")
+        if not equipe:
+            f.flash('Equipe não encontrada', 'error')
+            return f.redirect(f.url_for('gerenciar_equipe'))
+        
+        membros_remover = f.request.form.getlist('remover_membro')
+        for ra in membros_remover:
+            if ra in equipe['membros']:
+                equipe['membros'].remove(ra)
+                aluno = fc.user_db.find(ra, "ra")
+                if aluno:
+                    aluno['equipe'] = "sem equipe"
+                    fc.user_db.edit(ra, aluno, "ra")
+        
+        for ra in equipe['membros']:
+            funcao = f.request.form.get(f'funcao_{ra}')
+            if funcao:
+                aluno = fc.user_db.find(ra, "ra")
+                if aluno:
+                    aluno['funcao'] = funcao
+                    fc.user_db.edit(ra, aluno, "ra")
+        
+        if fc.equipes_db.edit(equipe_id, equipe, "equipe_id"):
+            f.flash('Equipe atualizada com sucesso', 'success')
+        else:
+            f.flash('Erro ao atualizar equipe', 'error')
+        
+        return f.redirect(f.url_for('gerenciar_equipe'))
+
+@app.route("/gerenciar_equipes", methods=['GET', 'POST'])
+@admin_required(min_level=3)
+def gerenciar_equipe():
+    if f.request.method == "GET":
+        equipes = fc.equipes_db.read()
+        alunos = fc.user_db.read()
+        ra_para_nome = {aluno['ra']: aluno['nome'] for aluno in alunos if aluno.get('ra')}
+
+        for equipe in equipes:
+            equipe['membros_nomes'] = [ra_para_nome.get(ra, f"RA {ra} (não encontrado)") for ra in equipe.get('membros', [])]
+        return f.render_template("gerenciar_equipes.html", data=equipes, alunos=alunos)
+    
 
 @app.route('/avaliar_equipe', methods=['GET', 'POST'])
 @login_required
@@ -217,17 +302,6 @@ def avaliar_equipe():
             f.flash('Erro ao processar avaliações. Tente novamente.', 'error')
             return f.redirect(f.url_for('avaliar_equipe'))   
 
-@app.route("/gerenciar_equipes", methods=['GET', 'POST'])
-@admin_required(min_level=3)
-def editar_equipe():
-    if f.request.method == "GET":
-        equipes = fc.equipes_db.read()
-        alunos = fc.user_db.read()
-        ra_para_nome = {aluno['ra']: aluno['nome'] for aluno in alunos if aluno.get('ra')}
-
-        for equipe in equipes:
-            equipe['membros_nomes'] = [ra_para_nome.get(ra, f"RA {ra} (não encontrado)") for ra in equipe.get('membros', [])]
-        return f.render_template("gerenciar_equipes.html", data=equipes, alunos=alunos)
 
 @app.route('/relatorio_pdf', methods=['GET','POST'])
 @admin_required(min_level=3)

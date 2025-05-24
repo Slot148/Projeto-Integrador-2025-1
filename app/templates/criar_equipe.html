@@ -11,6 +11,16 @@
             margin: 1%;
             padding: 1%;
         }
+        body{
+          height: 100vh;
+        }
+        footer{
+          height: -30px;
+        }
+        .micro{
+          display: flex;
+          align-items: center;
+        }
         .member-item {
             display: flex;
             justify-content: space-between;
@@ -24,7 +34,12 @@
             border: none;
             border-radius: 3px;
             padding: 3px 8px;
+            margin: auto 0 auto 10%;
             cursor: pointer;
+        }
+        #funcao{
+
+          font-size: 10px;
         }
     </style>
 </head>
@@ -36,10 +51,12 @@
     </header> <br><br>
     <main>
         <section>
-            <form action="/criar_equipe" method="post">
+            <form action="/gerenciar_equipe/criar" method="post">
                 <label for="nome">Nome da Equipe:</label>
                 <input type="text" name="nomeEquipe" id="nome" required>
-                <label for="membros">Membros:</label>
+                <div id="member_counter" style="margin: 10px 0;">
+                Membros: <span id="current_count">0</span>/9
+                </div>
                 <input type="hidden" name="members" id="members">
                 <div id="members_list">
                 </div>
@@ -64,11 +81,14 @@
                 '{{data.curso.title()}}', 
                 '{{data.semestre.title()}}', 
                 '{{data.turno.title()}}'
-            )">Add</button>
+              )">Add</button>
         </div>
-    {% endif %}
-    {% endfor %}
-    </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+      <footer>
+        <p>© 2025 - Criar Equipes | Todos os direitos reservados.</p>
+      </footer>
     <script>
     let poster = document.getElementById('members_list')
     let list = document.getElementById('members')
@@ -88,16 +108,25 @@
             member.className = 'member-item'
             member.id = `member_${ra}`
             member.innerHTML = `
-                <span>${count++}_ ${nome}</span>
+                <span>${nome}</span>
+                <div class="micro">
+                <select name="funcao_${ ra }" id="funcao_${ ra }" required>
+                  <option value="">Função</option>
+                  <option value="scrum">Scrum Master</option>
+                  <option value="po">Product Owner</option>
+                  <option value="dev">DevTeam</option>
+                </select>
+
                 <button class="remove-btn" onclick="remove_member(
                     '${ra}', 
                     '${nome}', 
                     '${curso}', 
                     '${semestre}', 
                     '${turno}'
-                )">Remover</button>
+                )">Remover</button></div>
             `
             list_example.push(ra)
+            document.getElementById("current_count").textContent = list_example.length;
             list.value = list_example.join(' ')
             console.log("adicionado", list.value)
             poster.insertAdjacentElement('beforeend', member)
@@ -115,6 +144,7 @@
         }
 
         list_example = list_example.filter(item => item !== ra)
+        document.getElementById("current_count").textContent = list_example.length;
         list.value = list_example.join(' ')
         console.log("removido", list.value)
 
@@ -147,6 +177,6 @@
             warning.style.display = "none"
         }, 2000);
     }
-</script>
+    </script>
 </body>
 </html>
