@@ -85,9 +85,19 @@ Com as atividades definidas, estimamos o tempo necessário para cada uma delas e
 | #13 | *Interface*         | MicroInterações         | Animações para feedback (loading, success, etc)   | "Como usuário, quero receber feedback visual (ex: animação de sucesso) ao realizar ações para confirmar que foram processadas." | Baixa      | 3      |
 | #14 | *Interface*         | Ícones Customizados     | Ícones temáticos para ações específicas           | "Como usuário, desejo identificar rapidamente funções (ex: ícone de upload) para melhor usabilidade." | Baixa      | 3      |
 
-## ⬇️**Instalando...**
-Você pode encontrar toda documentação, e requirementos necessários para instalação em:
--  <a href="Docs/Install">Install</a>
+## ‼️**Importante**
+
+- ### ⬇️ **Instalando...**
+  Você pode encontrar toda a documentação e os requisitos necessários para instalação em:
+  - [Guia de Instalação](Docs/Install)
+
+- ### 📖 **Como Funciona?**
+  Todas as funcionalidades do sistema estão descritas em:
+  - [Guia do Usuário](Docs/Users_guide)
+
+- ### 🆘 **Contribuindo...**
+  Para contribuir com o projeto:
+  - [Guia de Contribuição](Docs/contribuiting/CONTRIBUTING.md)
 
 
 ## 👨‍💻**Autores** 

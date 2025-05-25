@@ -104,8 +104,8 @@ Ative o ambiente virtual:
 
 * **Windows:**
 
-  ```sh
-  venv\Scripts\activate
+  ```ps1
+  .\venv\Scripts\activate
   ```
 
 * **Linux/MacOS:**
@@ -118,6 +118,44 @@ Depois, instale novamente os requisitos:
 
 ```sh
 pip install -r requirements.txt
+```
+
+---
+
+## 🔒 Configurando `.env`
+
+Por motivos de segurança, o arquivo `.env` **não faz parte do repositório** por padrão. Após instalar os requisitos, verifique se a biblioteca `python-dotenv` está disponível com:
+
+```sh
+pip freeze
+```
+
+Você deve encontrar algo como:
+
+```txt
+python-dotenv==1.1.0
+reportlab==4.4.1
+...
+```
+
+Se `python-dotenv` estiver na lista, crie um arquivo chamado `.env` (de preferência no mesmo diretório do `App.py`):
+
+* **Windows:**
+
+  ```ps1
+  ni .env
+  ```
+
+* **Linux/MacOS:**
+
+  ```sh
+  touch .env
+  ```
+
+Em seguida, abra o arquivo `.env` e adicione sua chave secreta:
+
+```env
+SECRET_KEY="sua_chave_secreta_aqui"
 ```
 
 ---
@@ -169,11 +207,12 @@ Projeto-Integrador-2025-1/
 │   ├── static/                       # Arquivos estáticos (CSS, JS, imagens)
 │   ├── templates/                    # Templates HTML
 │   └── App.py                        # Arquivo principal da aplicação
-│
 ├── Docs/
-└── README.md                         # Documentação (este arquivo)
-```
+|   └──Install
+|      └── README.md                         # Instalação (este arquivo)
+└ README.md                                  # Informações do projeto
 
+```
 
 ---
 
@@ -181,13 +220,9 @@ Projeto-Integrador-2025-1/
 
 Projeto desenvolvido por alunos do curso Análise e Desenvolvimento de Sistemas, 1ºSemestre — **Projeto Integrador 2025/ 1**
 
-| Professor M2 |
-|:-------------:|
-|   Prof. Jean Costa  |
 
-| Professor P2 |
-|:-------------:|
-|   Prof. Antônio Egydio  |
+
+
 
 
 | Desenvolvedores| GITHUB| LINKEDIN|
@@ -197,6 +232,10 @@ Projeto desenvolvido por alunos do curso Análise e Desenvolvimento de Sistemas,
 |Davi Andrande Amancio dos Anjos|<a href="https://github.com/aandrade007"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
 |Isabella Dombrowski Zanlorenzi|<a href="https://github.com/isadombrowski"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
 |Igor Siqueira Prado|<a href="https://github.com/IgorSiqueira7"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"></a>|<a href=""><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>|
+
+| Professor M2 | Professor P2 |
+|:-------------:|:-----------:|
+|   Prof. Jean Costa  |   Prof. Antônio Egydio  |
 ---
 
 
