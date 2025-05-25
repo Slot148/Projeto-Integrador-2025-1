@@ -19,53 +19,203 @@
         </div>
         <main>
             <form action="/relatorio_pdf" method="post">
-            <section>
-                <label for="relatorio">Relatório:</label>
-                <select name="periodo" id="periodo">
-                    <option value="">Periodo</option>
-                    <option value="manhã">Manhã</option>
-                    <option value="noite">Noite</option>
-                </select>
-                <select name="turma" id="turma">
-                    <option value="">turma</option>
-                    <option value="Anlise e Desenvolvimento de Sistemas">
-                        Anlise e Desenvolvimento de Sistemas
-                    </option>
-                    <option value="Manufatura Avançada">
-                        Manufatura Avançada
-                    </option>
-                    <option value="Desenvolvimento de Software multiplataforma">
-                        Desenvolvimento de Software multi-plataforma
-                    </option>
-                    <option value="Logistica">Logistica</option>
-                    <option value="Banco de dados">Banco de dados</option>
-                    <option value="Manutenção de aeronaves">
-                        Manutenção de aeronaves
-                    </option>
-                    <option value="Projetos de Estruturas Aeronáuticas">
-                        Projetos de Estruturas Aeronáuticas
-                    </option>
-                    <option value="Gestão Empresarial (EaD)">
-                        Gestão Empresarial (EaD)
-                    </option>
-                    <option value="Gestão da Produção Industrial">
-                        Gestão da Produção Industrial
-                    </option>
-                </select>
-                <select name="Semestre" id="Semestre">
-                    <option value="">Semestre</option>
-                    <option value="Primeiro">Primeiro</option>
-                    <option value="Segundo">Segundo</option>
-                    <option value="Terceiro">Terceiro</option>
-                    <option value="Quarto">Quarto</option>
-                    <option value="Quinto">Quinto</option>
-                    <option value="Sexto">Sexto</option>
-                </select>
-                <input type="submit" value="📥 Baixar Relatório de Atestados">
-                </form>
-            </section>
+                <section class="filters-section">
+                    <h3>Filtros de Atestados</h3>
+                    
+                    <div class="filter-group">
+                        <label for="periodo">Período:</label>
+                        <select name="periodo" id="periodo">
+                            <option value="">Todos os períodos</option>
+                            <option value="manhã">Manhã</option>
+                            <option value="noite">Noite</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="turma">Curso:</label>
+                        <select name="turma" id="turma">
+                            <option value="">Todos os cursos</option>
+                            <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
+                            <option value="Manufatura Avançada">Manufatura Avançada</option>
+                            <option value="Desenvolvimento de Software multiplataforma">Desenvolvimento de Software multiplataforma</option>
+                            <option value="Logistica">Logística</option>
+                            <option value="Banco de dados">Banco de dados</option>
+                            <option value="Manutenção de aeronaves">Manutenção de aeronaves</option>
+                            <option value="Projetos de Estruturas Aeronáuticas">Projetos de Estruturas Aeronáuticas</option>
+                            <option value="Gestão Empresarial (EaD)">Gestão Empresarial (EaD)</option>
+                            <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="Semestre">Semestre:</label>
+                        <select name="Semestre" id="Semestre">
+                            <option value="">Todos os semestres</option>
+                            <option value="Primeiro">Primeiro</option>
+                            <option value="Segundo">Segundo</option>
+                            <option value="Terceiro">Terceiro</option>
+                            <option value="Quarto">Quarto</option>
+                            <option value="Quinto">Quinto</option>
+                            <option value="Sexto">Sexto</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="estado">Status do Atestado:</label>
+                        <select name="estado" id="estado">
+                            <option value="">Todos os status</option>
+                            <option value="aprovado">Aprovado</option>
+                            <option value="reprovado">Reprovado</option>
+                            <option value="pendente">Pendente</option>
+                        </select>
+                    </div>
+                    
+                    <div class="download-options">
+                        <button type="submit" class="download-btn" formaction="/relatorio_pdf">📊 PDF Atestados</button>
+                        <button type="submit" class="download-btn" formaction="/relatorio_atestados_csv">📝 CSV Atestados</button>
+                    </div>
+                </section>
+            </form>
+            
+           <form action="/relatorio_avaliacoes_csv" method="post" class="csv-form">
+            <section class="filters-section">
+                <h3>Relatório de Avaliações</h3>
+                
+                <div class="filter-group">
+                    <label for="csv_equipe">Equipe:</label>
+                    <select name="equipe" id="csv_equipe">
+                        <option value="">Todas as equipes</option>
+                        {% for equipe_id, nome_equipe in equipes.items() %}
+                        <option value="{{ nome_equipe }}">{{ nome_equipe }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="csv_curso">Curso:</label>
+                    <select name="curso" id="csv_curso">
+                        <option value="">Todos os cursos</option>
+                        <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
+                        <option value="Manufatura Avançada">Manufatura Avançada</option>
+                        <option value="Desenvolvimento de Software multiplataforma">Desenvolvimento de Software multiplataforma</option>
+                        <option value="Logistica">Logística</option>
+                        <option value="Banco de dados">Banco de dados</option>
+                        <option value="Manutenção de aeronaves">Manutenção de aeronaves</option>
+                        <option value="Projetos de Estruturas Aeronáuticas">Projetos de Estruturas Aeronáuticas</option>
+                        <option value="Gestão Empresarial (EaD)">Gestão Empresarial (EaD)</option>
+                        <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="csv_semestre">Semestre:</label>
+                    <select name="semestre" id="csv_semestre">
+                        <option value="">Todos os semestres</option>
+                        <option value="Primeiro">Primeiro</option>
+                        <option value="Segundo">Segundo</option>
+                        <option value="Terceiro">Terceiro</option>
+                        <option value="Quarto">Quarto</option>
+                        <option value="Quinto">Quinto</option>
+                        <option value="Sexto">Sexto</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="periodo">Período:</label>
+                    <select name="periodo" id="periodo">
+                        <option value="">Todos os períodos</option>
+                        <option value="manhã">Manhã</option>
+                        <option value="noite">Noite</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="csv_sprint">Sprint:</label>
+                    <select name="sprint" id="csv_semestre">
+                        <option value="">Todos as sprints</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                    <div class="download-options">
+                        <button type="submit" class="download-btn" formaction="/relatorio_avaliacoes_pdf">📊 PDF Avaliações</button>
+                        <button type="submit" class="download-btn" formaction="/relatorio_avaliacoes_csv">📝 CSV Avaliações</button>
+                    </div>
+                </section>
+            </form>
+
+            <form action="/relatorio_medias_csv" method="post" class="csv-form">
+                <section class="filters-section"> 
+                <h3>Relatório de Médias</h3>
+                
+                    <div class="filter-group">
+                    <label for="csv_equipe">Equipe:</label>
+                    <select name="equipe" id="csv_equipe">
+                        <option value="">Todas as equipes</option>
+                        {% for equipe_id, nome_equipe in equipes.items() %}
+                        <option value="{{ nome_equipe }}">{{ nome_equipe }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="csv_curso">Curso:</label>
+                    <select name="curso" id="csv_curso">
+                        <option value="">Todos os cursos</option>
+                        <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
+                        <option value="Manufatura Avançada">Manufatura Avançada</option>
+                        <option value="Desenvolvimento de Software multiplataforma">Desenvolvimento de Software multiplataforma</option>
+                        <option value="Logistica">Logística</option>
+                        <option value="Banco de dados">Banco de dados</option>
+                        <option value="Manutenção de aeronaves">Manutenção de aeronaves</option>
+                        <option value="Projetos de Estruturas Aeronáuticas">Projetos de Estruturas Aeronáuticas</option>
+                        <option value="Gestão Empresarial (EaD)">Gestão Empresarial (EaD)</option>
+                        <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="csv_semestre">Semestre:</label>
+                    <select name="semestre" id="csv_semestre">
+                        <option value="">Todos os semestres</option>
+                        <option value="Primeiro">Primeiro</option>
+                        <option value="Segundo">Segundo</option>
+                        <option value="Terceiro">Terceiro</option>
+                        <option value="Quarto">Quarto</option>
+                        <option value="Quinto">Quinto</option>
+                        <option value="Sexto">Sexto</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="periodo">Período:</label>
+                    <select name="periodo" id="periodo">
+                        <option value="">Todos os períodos</option>
+                        <option value="manhã">Manhã</option>
+                        <option value="noite">Noite</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="csv_sprint">Sprint:</label>
+                    <select name="sprint" id="csv_semestre">
+                        <option value="">Todos as sprints</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                    <div class="download-options">
+                        <button type="submit" class="download-btn" formaction="/relatorio_medias_pdf">📊 PDF Médias</button>
+                        <button type="submit" class="download-btn" formaction="/relatorio_medias_csv">📝 CSV Médias</button>
+                    </div>
+                </section>
+            </form>
+
         </main>
-          <footer>
+        
+        <footer>
             <p>© 2025 - Gerar Relatório | Todos os direitos reservados.</p>
         </footer>
     </body>
