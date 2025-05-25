@@ -109,8 +109,8 @@ class JSON_MANAGER:
         file_path (str): Caminho completo para o arquivo JSON
     """
     def __init__(self, file_path):
-        self.file_path = file_path
-        self.lock_path = file_path + ".lock"
+        self.file_path = os.path.abspath(file_path)
+        self.lock_path = self.file_path + ".lock"
         self.check()
 
     def check(self):
@@ -276,29 +276,33 @@ class Equipe:
         }
         
 class AVALIACAO:
-    def __init__(self, avaliacao_id, ra_aluno, avaliador_ra, planejamento, autonomia, 
-                 colaboracao, entrega_resultados, data_avaliacao=None):
+    def __init__(self, avaliacao_id, sprint, ra_aluno, avaliador_ra, produtividade, autonomia, 
+                 colaboracao, entrega_resultados, feedback=None, data_avaliacao=None):
         self.avaliacao_id = avaliacao_id
+        self.sprint = sprint
         self.ra_aluno = ra_aluno
         self.avaliador_ra = avaliador_ra
-        self.planejamento = planejamento
+        self.produtividade = produtividade
         self.autonomia = autonomia
         self.colaboracao = colaboracao
         self.entrega_resultados = entrega_resultados
+        self.feedback = feedback
         self.data_avaliacao = data_avaliacao or datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     
     def calcular_media(self):
-        return (self.planejamento + self.autonomia + self.colaboracao + self.entrega_resultados) / 4
+        return (self.produtividade + self.autonomia + self.colaboracao + self.entrega_resultados) / 4
     
     def to_dict(self):
         return {
             "avaliacao_id": self.avaliacao_id,
+            "sprint": self.sprint,
             "ra_aluno": self.ra_aluno,
             "avaliador_ra": self.avaliador_ra,
-            "planejamento": self.planejamento,
+            "produtividade": self.produtividade,
             "autonomia": self.autonomia,
             "colaboracao": self.colaboracao,
             "entrega_resultados": self.entrega_resultados,
             "data_avaliacao": self.data_avaliacao,
-            "media": self.calcular_media()
+            "media": self.calcular_media(),
+            "feedback": self.feedback
         }

@@ -30,7 +30,8 @@ section h2 {
   }
   
   input[type="text"],
-  select {
+  select, 
+  textarea {
     padding: 10px 12px;
     font-size: 16px;
     border: 1px solid #555;
@@ -39,6 +40,11 @@ section h2 {
     color: #333;
     outline: none;
     transition: border-color 0.3s ease, background-color 0.3s ease;
+    resize: none;
+  }
+
+  textarea{
+    height: 10em;
   }
   
   input[type="text"]:hover,
@@ -136,7 +142,7 @@ section h2 {
     width: 100%;
     margin-bottom: 0.8rem;
 }
-#submit-container {
+.submit-container, #submit-container {
     text-align: center;
     margin-top: 1rem;
 }

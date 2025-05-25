@@ -15,6 +15,14 @@
         <h3>Avalie cada membro da equipe Scrum de forma justa</h3>
     </header><br>
     <form id="formAvaliacao" method="POST" action="{{ url_for('avaliar_equipe') }}">
+        <div class="submit-container">
+        <select name="sprint" style="width: 15em;" id="sprint"required>
+            <option value="">Sprint</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        </div>
     <div id="membros-container">
         {% for membro in data.membros_completos %}
         {% if membro.ra != session.ra %}
@@ -25,8 +33,8 @@
                 <input type="hidden" name="ra_aluno" value="{{ membro.ra }}">
             </section>
 
-            <label for="P_{{ membro.ra }}">P - Planejamento:</label>
-            <select id="P_{{ membro.ra }}" name="planejamento_{{ membro.ra }}" required>
+            <label for="P_{{ membro.ra }}">P - Produtividade:</label>
+            <select id="P_{{ membro.ra }}" name="produtividade_{{ membro.ra }}" required>
                 <option value="">Selecione</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -55,11 +63,13 @@
             <label for="ER_{{ membro.ra }}">ER - Entrega de Resultados:</label>
             <select id="ER_{{ membro.ra }}" name="entrega_resultados_{{ membro.ra }}" required>
                 <option value="">Selecione</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
             </select>
+            <label for="feedback_{{ membro.ra }}">Feedback</label>
+            <textarea maxlength="250" name="feedback_{{ membro.ra }}" id="feedback_{{ membro.ra }}" placeholder="Digite Algo..."></textarea>
         </section>
         {% endif %}
         {% endfor %}

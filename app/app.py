@@ -2,12 +2,16 @@ import os
 import flask as f
 import functions as fc
 import functions2 as fc2
-from secret_key import key
 from werkzeug.security import check_password_hash, generate_password_hash
 from decorators import login_required, admin_required, student_required
+from dotenv import load_dotenv
+
+load_dotenv()
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = f.Flask(__name__)
-app.secret_key = key
+app.secret_key = os.getenv('SECRET_KEY')
 
 #INDEX
 @app.route('/')
@@ -173,7 +177,7 @@ def criar_equipe():
         return f.render_template("criar_equipe.html", data=data)
     if f.request.method == "POST":
         fc.equipe()
-        return f.redirect(f.url_for('criar_equipe'))
+        return f.redirect(f.url_for('gerenciar_equipe'))
     
 @app.route("/gerenciar_equipe/deletar/<equipe_id>", methods=['GET'])
 @admin_required(min_level=3)
@@ -260,7 +264,7 @@ def gerenciar_equipe():
             equipe['membros_nomes'] = [ra_para_nome.get(ra, f"RA {ra} (não encontrado)") for ra in equipe.get('membros', [])]
         return f.render_template("gerenciar_equipes.html", data=equipes, alunos=alunos)
     
-
+#avaliação
 @app.route('/avaliar_equipe', methods=['GET', 'POST'])
 @login_required
 def avaliar_equipe():
@@ -295,24 +299,146 @@ def avaliar_equipe():
         try:
             fc.avaliar_equipe_post()
             f.flash('Avaliações registradas com sucesso!', 'success')
-            return f.redirect(f.url_for('avaliar_equipe'))
+            return f.redirect(f.url_for('index'))
         
         except Exception as e:
             print(f"Erro ao processar avaliações: {str(e)}")
             f.flash('Erro ao processar avaliações. Tente novamente.', 'error')
             return f.redirect(f.url_for('avaliar_equipe'))   
 
+#relatorio
+@app.route('/relatorio_avaliacoes_csv', methods=['GET', 'POST'])
+@admin_required(min_level=3)
+def relatorio_avaliacoes_csv():
+
+    equipes = fc.equipes_db.read()
+    equipes_list = {equipe['equipe_id']: equipe['nome_equipe'] for equipe in equipes if equipe.get('nome_equipe')}
+    
+    if f.request.method == 'POST':
+        filtros = {
+            'equipe': f.request.form.get("equipe"),
+            'periodo': f.request.form.get("periodo"),
+            'curso': f.request.form.get("curso"),
+            'semestre': f.request.form.get("semestre"),
+            'sprint': f.request.form.get("sprint"),
+            'data_inicio': f.request.form.get("data_inicio_avaliacao"),
+            'data_fim': f.request.form.get("data_fim_avaliacao"),
+            'min_media': f.request.form.get("min_media"), 
+            'max_media': f.request.form.get("max_media")   
+        }
+        
+
+        all_data = fc.avaliacoes_db.read()
+        all_users = fc.user_db.read()
+        
+        users_by_ra = {user.get('ra'): user for user in all_users if user.get('ra')}
+        
+        filtered_data = []
+        for item in all_data:
+            aluno = users_by_ra.get(item.get("ra_aluno"))
+            if not aluno:
+                continue
+                
+            match = True
+
+            if filtros['equipe'] and aluno.get('equipe', '').lower() != filtros['equipe'].lower():
+                match = False
+
+            if filtros['curso'] and aluno.get('curso', '').lower() != filtros['curso'].lower():
+                match = False
+            
+            if filtros['periodo'] and aluno.get('turno', '').lower() != filtros['periodo'].lower():
+                match = False
+
+            if filtros['semestre'] and aluno.get('semestre', '').lower() != filtros['semestre'].lower():
+                match = False
+
+            data_avaliacao = item.get('data_avaliacao', '')
+            if filtros['sprint'] and item.get('sprint', '').lower() != filtros['sprint'].lower():
+                match =False
+            if filtros['data_inicio'] and data_avaliacao < filtros['data_inicio']:
+                match = False
+            if filtros['data_fim'] and data_avaliacao > filtros['data_fim']:
+                match = False
+
+            if match and (filtros['min_media'] or filtros['max_media']):
+                media = (item.get("produtividade", 0) + item.get("autonomia", 0) + 
+                        item.get("colaboracao", 0) + item.get("entrega_resultados", 0)) / 4
+                
+                if filtros['min_media'] and media < float(filtros['min_media']):
+                    match = False
+                if filtros['max_media'] and media > float(filtros['max_media']):
+                    match = False
+            
+            if match:
+
+                avaliador = users_by_ra.get(item.get("avaliador_ra"))
+                
+                enriched_item = {
+                    **item,
+                    "sprint": item.get("sprint"),
+                    "nome_aluno": aluno.get("nome", "N/A"),
+                    "nome_avaliador": avaliador.get("nome", "N/A") if avaliador else "N/A",
+                    "equipe": aluno.get("equipe", "N/A"),
+                    "curso": aluno.get("curso", "N/A"),
+                    "semestre": aluno.get("semestre", "N/A"),
+                    "media": (item.get("produtividade", 0) + item.get("autonomia", 0) + 
+                             item.get("colaboracao", 0) + item.get("entrega_resultados", 0)) / 4,
+                    "feedback": item.get("feedback")
+                }
+
+                filtered_data.append(enriched_item)
+        
+        data = filtered_data
+    else:
+        data = fc.avaliacoes_db.read()
+        enriched_data = []
+        
+        for item in data:
+            aluno = fc.user_db.find(item.get("ra_aluno"), "ra")
+            avaliador = fc.user_db.find(item.get("avaliador_ra"), "ra")
+            
+            enriched_data.append({
+                **item,
+                "sprint": item.get("sprint"),
+                "nome_aluno": aluno.get("nome", "N/A") if aluno else "N/A",
+                "nome_avaliador": avaliador.get("nome", "N/A") if avaliador else "N/A",
+                "equipe": aluno.get("equipe", "N/A") if aluno else "N/A",
+                "curso": aluno.get("curso", "N/A") if aluno else "N/A",
+                "semestre": aluno.get("semestre", "N/A") if aluno else "N/A",
+                "media": (item.get("produtividade", 0) + item.get("autonomia", 0) + 
+                         item.get("colaboracao", 0) + item.get("entrega_resultados", 0)) / 4,
+                "feedback": item.get("feedback")
+                
+            })
+        
+        data = enriched_data
+        filtros = None
+    
+    output_dir = os.path.join(BASE_DIR, "data", "relatorios")
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, "avaliacoes.csv")
+    
+    success = fc2.gerar_csv_avaliacoes(data, output_path, filtros=filtros)
+    
+    if success:
+        return f.send_file(output_path, as_attachment=True)
+    else:
+        return "Erro ao gerar relatório de avaliações", 500
 
 @app.route('/relatorio_pdf', methods=['GET','POST'])
 @admin_required(min_level=3)
 def relatorio_pdf():
     if f.request.method == "GET":
-        return f.render_template("relatorio_pdf.html")
+        equipes = fc.equipes_db.read()
+        equipes_list = {equipe['equipe_id']: equipe['nome_equipe'] for equipe in equipes if equipe.get('nome_equipe')}
+        return f.render_template("relatorio_pdf.html", equipes=equipes_list)
     
     if f.request.method == "POST":
         periodo = f.request.form.get("periodo")
         turma = f.request.form.get("turma")
         semestre = f.request.form.get("Semestre")
+        estado = f.request.form.get("estado")
         
         all_atestados = fc.atestados_db.read()
         all_users = fc.user_db.read()
@@ -336,6 +462,8 @@ def relatorio_pdf():
                 match = False
             if semestre and user.get('semestre', '').lower() != semestre.lower():
                 match = False
+            if estado and atestado.get('estado', '').lower() != estado.lower():
+                match = False
             
             if match:
                 filtered_atestado = {
@@ -344,23 +472,333 @@ def relatorio_pdf():
                     'data_envio': atestado.get('data_envio', ''),
                     'inicio_periodo': atestado.get('inicio_periodo', ''),
                     'fim_periodo': atestado.get('fim_periodo', ''),
-                    'estado': atestado.get('estado', 'pendente')
+                    'estado': atestado.get('estado', '')
                 }
                 filtered_data.append(filtered_atestado)
         
         filtros = {
             'periodo': periodo,
             'turma': turma,
-            'semestre': semestre
+            'semestre': semestre,
+            'estado': estado
         }
         
-        output_path = os.path.abspath('app/data/relatorios/relatorio.pdf')
+        output_path = os.path.join(BASE_DIR, 'data/relatorios/relatorio.pdf')
         success = fc2.gerar_pdf_simples(filtered_data, filtros=filtros, output_path=output_path)
 
         if success:
             return f.send_file(output_path, as_attachment=True)
         else:
             return "Erro ao gerar PDF", 500
+
+@app.route('/relatorio_medias_csv', methods=['GET', 'POST'])
+@admin_required(min_level=3)
+def relatorio_medias_csv():
+    all_data = fc.avaliacoes_db.read()
+    all_users = fc.user_db.read()
+
+    enriched_data = []
+    users_by_ra = {user.get('ra'): user for user in all_users if user.get('ra')}
+    
+    if f.request.method == 'POST':
+        filtros = {
+            'equipe': f.request.form.get("equipe"),
+            'curso': f.request.form.get("curso"),
+            'semestre': f.request.form.get("semestre"),
+            'periodo': f.request.form.get("periodo"),
+            'sprint': f.request.form.get("sprint")
+        }
+    else:
+        filtros = None
+    
+    for item in all_data:
+        aluno = users_by_ra.get(item.get("ra_aluno"))
+        if not aluno:
+            continue
+            
+        match = True
+        if filtros:
+            if filtros['equipe'] and aluno.get('equipe', '').lower() != filtros['equipe'].lower():
+                match = False
+            if filtros['curso'] and aluno.get('curso', '').lower() != filtros['curso'].lower():
+                match = False
+            if filtros['semestre'] and aluno.get('semestre', '').lower() != filtros['semestre'].lower():
+                match = False
+            if filtros['periodo'] and aluno.get('turno', '').lower() != filtros['periodo'].lower():
+                match = False
+            if filtros['sprint'] and item.get('sprint', '').lower() != filtros['sprint'].lower():
+                match = False
+        
+        if match:
+            enriched_data.append({
+                **item,
+                "nome_aluno": aluno.get("nome", "N/A"),
+                "curso": aluno.get("curso", "N/A"),
+                "semestre": aluno.get("semestre", "N/A"),
+                "equipe": aluno.get("equipe", "N/A"),
+                "turno": aluno.get("turno", "N/A")
+            })
+    
+    output_dir = os.path.join(BASE_DIR, "data", "relatorios")
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, "medias.csv")
+    success = fc2.gerar_csv_medias(enriched_data, output_path, filtros=filtros)
+    
+    if success:
+        return f.send_file(output_path, as_attachment=True)
+    else:
+        return "Erro ao gerar relatório de médias", 500
+
+
+@app.route('/relatorio_avaliacoes_pdf', methods=['GET', 'POST'])
+@admin_required(min_level=3)
+def relatorio_avaliacoes_pdf():
+    if f.request.method == 'POST':
+        filtros = {
+            'equipe': f.request.form.get("equipe"),
+            'periodo': f.request.form.get("periodo"),
+            'curso': f.request.form.get("curso"),
+            'semestre': f.request.form.get("semestre"),
+            'sprint': f.request.form.get("sprint")
+        }
+        
+        all_data = fc.avaliacoes_db.read()
+        all_users = fc.user_db.read()
+        users_by_ra = {user.get('ra'): user for user in all_users if user.get('ra')}
+        
+        filtered_data = []
+        for item in all_data:
+            aluno = users_by_ra.get(item.get("ra_aluno"))
+            if not aluno:
+                continue
+                
+            match = True
+            if filtros['equipe'] and aluno.get('equipe', '').lower() != filtros['equipe'].lower():
+                match = False
+            if filtros['curso'] and aluno.get('curso', '').lower() != filtros['curso'].lower():
+                match = False
+            if filtros['semestre'] and aluno.get('semestre', '').lower() != filtros['semestre'].lower():
+                match = False
+            if filtros['periodo'] and aluno.get('turno', '').lower() != filtros['periodo'].lower():
+                match = False
+            if filtros['sprint'] and item.get('sprint', '').lower() != filtros['sprint'].lower():
+                match = False
+            
+            if match:
+                avaliador = users_by_ra.get(item.get("avaliador_ra"))
+                enriched_item = {
+                    **item,
+                    "nome_aluno": aluno.get("nome", "N/A"),
+                    "nome_avaliador": avaliador.get("nome", "N/A") if avaliador else "N/A",
+                    "equipe": aluno.get("equipe", "N/A"),
+                    "curso": aluno.get("curso", "N/A"),
+                    "semestre": aluno.get("semestre", "N/A")
+                }
+                filtered_data.append(enriched_item)
+        
+        data = filtered_data
+    else:
+        data = fc.avaliacoes_db.read()
+        filtros = None
+    
+    output_path = os.path.join(BASE_DIR, 'data/relatorios/avaliacoes.pdf')
+    success = fc2.gerar_pdf_avaliacoes(data, filtros=filtros, output_path=output_path)
+
+    if success:
+        return f.send_file(output_path, as_attachment=True)
+    else:
+        return "Erro ao gerar PDF de avaliações", 500
+
+@app.route('/relatorio_medias_pdf', methods=['GET', 'POST'])
+@admin_required(min_level=3)
+def relatorio_medias_pdf():
+    all_data = fc.avaliacoes_db.read()
+    all_users = fc.user_db.read()
+    users_by_ra = {user.get('ra'): user for user in all_users if user.get('ra')}
+    
+    if f.request.method == 'POST':
+        filtros = {
+            'equipe': f.request.form.get("equipe"),
+            'curso': f.request.form.get("curso"),
+            'semestre': f.request.form.get("semestre"),
+            'periodo': f.request.form.get("periodo"),
+            'sprint': f.request.form.get("sprint")
+        }
+    else:
+        filtros = None
+    
+    alunos = {}
+    for item in all_data:
+        ra = item.get("ra_aluno")
+        if not ra:
+            continue
+            
+        aluno = users_by_ra.get(ra)
+        if not aluno:
+            continue
+            
+        if filtros:
+            if filtros['equipe'] and aluno.get('equipe', '').lower() != filtros['equipe'].lower():
+                continue
+            if filtros['curso'] and aluno.get('curso', '').lower() != filtros['curso'].lower():
+                continue
+            if filtros['semestre'] and aluno.get('semestre', '').lower() != filtros['semestre'].lower():
+                continue
+            if filtros['periodo'] and aluno.get('turno', '').lower() != filtros['periodo'].lower():
+                continue
+            if filtros['sprint'] and item.get('sprint', '').lower() != filtros['sprint'].lower():
+                continue
+        
+        sprint = item.get("sprint", "Geral")
+        
+        if ra not in alunos:
+            alunos[ra] = {
+                "ra": ra,
+                "nome": aluno.get("nome", "N/A"),
+                "equipe": aluno.get("equipe", "N/A"),
+                "sprints": {},
+                "total_avaliacoes": 0,
+                "soma_produtividade": 0,
+                "soma_autonomia": 0,
+                "soma_colaboracao": 0,
+                "soma_entrega": 0,
+                "contador": 0
+            }
+        
+        if sprint not in alunos[ra]["sprints"]:
+            alunos[ra]["sprints"][sprint] = {
+                "soma_produtividade": 0,
+                "soma_autonomia": 0,
+                "soma_colaboracao": 0,
+                "soma_entrega": 0,
+                "contador": 0
+            }
+        
+        alunos[ra]["sprints"][sprint]["soma_produtividade"] += item.get("produtividade", 0)
+        alunos[ra]["sprints"][sprint]["soma_autonomia"] += item.get("autonomia", 0)
+        alunos[ra]["sprints"][sprint]["soma_colaboracao"] += item.get("colaboracao", 0)
+        alunos[ra]["sprints"][sprint]["soma_entrega"] += item.get("entrega_resultados", 0)
+        alunos[ra]["sprints"][sprint]["contador"] += 1
+        
+        alunos[ra]["soma_produtividade"] += item.get("produtividade", 0)
+        alunos[ra]["soma_autonomia"] += item.get("autonomia", 0)
+        alunos[ra]["soma_colaboracao"] += item.get("colaboracao", 0)
+        alunos[ra]["soma_entrega"] += item.get("entrega_resultados", 0)
+        alunos[ra]["contador"] += 1
+        alunos[ra]["total_avaliacoes"] += 1
+
+    processed_data = []
+    for ra, aluno in alunos.items():
+        if aluno["contador"] > 0:
+            media_geral_prod = aluno["soma_produtividade"] / aluno["contador"]
+            media_geral_auto = aluno["soma_autonomia"] / aluno["contador"]
+            media_geral_colab = aluno["soma_colaboracao"] / aluno["contador"]
+            media_geral_entrega = aluno["soma_entrega"] / aluno["contador"]
+            media_geral_total = (media_geral_prod + media_geral_auto + 
+                               media_geral_colab + media_geral_entrega) / 4
+            
+            processed_data.append({
+                "ra": ra,
+                "nome": aluno["nome"],
+                "equipe": aluno["equipe"],
+                "sprint": "Geral",
+                "media_produtividade": media_geral_prod,
+                "media_autonomia": media_geral_auto,
+                "media_colaboracao": media_geral_colab,
+                "media_entrega": media_geral_entrega,
+                "media_total": media_geral_total,
+                "total_avaliacoes": aluno["total_avaliacoes"]
+            })
+        
+        for sprint, dados in aluno["sprints"].items():
+            if dados["contador"] > 0:
+                media_prod = dados["soma_produtividade"] / dados["contador"]
+                media_auto = dados["soma_autonomia"] / dados["contador"]
+                media_colab = dados["soma_colaboracao"] / dados["contador"]
+                media_entrega = dados["soma_entrega"] / dados["contador"]
+                media_total = (media_prod + media_auto + media_colab + media_entrega) / 4
+                
+                processed_data.append({
+                    "ra": ra,
+                    "nome": aluno["nome"],
+                    "equipe": aluno["equipe"],
+                    "sprint": sprint,
+                    "media_produtividade": media_prod,
+                    "media_autonomia": media_auto,
+                    "media_colaboracao": media_colab,
+                    "media_entrega": media_entrega,
+                    "media_total": media_total,
+                    "total_avaliacoes": dados["contador"]
+                })
+    
+    output_path = os.path.join(BASE_DIR, 'data/relatorios/medias.pdf')
+    success = fc2.gerar_pdf_medias(processed_data, filtros=filtros, output_path=output_path)
+
+    if success:
+        return f.send_file(output_path, as_attachment=True)
+    else:
+        return "Erro ao gerar PDF de médias", 500
+
+@app.route('/relatorio_atestados_csv', methods=['GET', 'POST'])
+@admin_required(min_level=3)
+def relatorio_atestados_csv():
+    if f.request.method == "POST":
+        periodo = f.request.form.get("periodo")
+        turma = f.request.form.get("turma")
+        semestre = f.request.form.get("Semestre")
+        estado = f.request.form.get("estado")
+        
+        filtros = {
+            'periodo': periodo,
+            'turma': turma,
+            'semestre': semestre,
+            'estado': estado
+        }
+        
+        all_atestados = fc.atestados_db.read()
+        all_users = fc.user_db.read()
+        users_by_ra = {user.get('ra'): user for user in all_users if user.get('ra')}
+
+        filtered_data = []
+        for atestado in all_atestados:
+            ra = atestado.get('ra')
+            if not ra:
+                continue
+                
+            user = users_by_ra.get(ra)
+            if not user:
+                continue
+                
+            match = True
+            if periodo and user.get('turno', '').lower() != periodo.lower():
+                match = False
+            if turma and user.get('curso', '').lower() != turma.lower():
+                match = False
+            if semestre and user.get('semestre', '').lower() != semestre.lower():
+                match = False
+            if estado and atestado.get('estado', '').lower() != estado.lower():
+                match = False
+            
+            if match:
+                filtered_atestado = {
+                    **atestado,
+                    'nome_aluno': atestado.get('nome_aluno', user.get('nome', 'N/A'))
+                }
+                filtered_data.append(filtered_atestado)
+        
+        data = filtered_data
+    else:
+        data = fc.atestados_db.read()
+        filtros = None
+    
+    output_path = os.path.join(BASE_DIR, 'data/relatorios/atestados.csv')
+    success = fc2.gerar_csv_atestados(data, filtros=filtros, output_path=output_path)
+
+    if success:
+        return f.send_file(output_path, as_attachment=True)
+    else:
+        return "Erro ao gerar CSV de atestados", 500
+
 
 #PELO AMOR DE DEUS!!! LEMBRAR DE REMOVER O TRECHO ABAIXO ANTES DE PUBLICAR!!!#
 

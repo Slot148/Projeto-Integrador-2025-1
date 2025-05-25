@@ -3,11 +3,14 @@ import flask as f
 from datetime import datetime
 import os
 
-user_db = pr.JSON_MANAGER("app/data/db/user.json")
-atestados_db = pr.JSON_MANAGER("app/data/db/atestados.json")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+user_db = pr.JSON_MANAGER(os.path.join(BASE_DIR, "data/db/user.json"))
+atestados_db = pr.JSON_MANAGER(os.path.join(BASE_DIR, "data/db/atestados.json"))
+equipes_db = pr.JSON_MANAGER(os.path.join(BASE_DIR, "data/db/equipes.json"))
+avaliacoes_db = pr.JSON_MANAGER(os.path.join(BASE_DIR, "data/db/avaliacoes.json"))
 diaAtual = datetime.now().strftime('%Y-%m-%d')
-equipes_db = pr.JSON_MANAGER("app/data/db/equipes.json")
-avaliacoes_db = pr.JSON_MANAGER("app/data/db/avaliacoes.json")
 
 def get_next_id(db, id_field):
     try:
@@ -73,18 +76,22 @@ def new_usuario():
         return {"status": "error", "message": "Falha ao criar usuário"}
     
 def new_atestado():
-    atestados_folder = f"app/data/atestados/{f.session['ra']}"
-    if not os.path.exists(atestados_folder):
-        os.makedirs(atestados_folder)
+    atestados_folder = os.path.join(BASE_DIR, "data/atestados", f.session['ra'])
+    os.makedirs(atestados_folder, exist_ok=True)
 
     nome_aluno = f.session["nome"].lower()
     ra_aluno = f.session["ra"]
     atestado_id = get_next_id(atestados_db, 'atestado_id')
 
     file = f.request.files["atestado_pdf"]
+    if not file.filename.lower().endswith('.pdf'):
+        f.flash("Apenas arquivos PDF são permitidos.", 'error')
+        return {"status": "error", "message": "Formato inválido"}
+    
     fileName =f"{atestado_id}_{nome_aluno.split()[0]}_{diaAtual}.pdf"
     filePath = os.path.join(atestados_folder, fileName)
     file.save(filePath)
+
 
     atestado = pr.ATESTADO(
         atestado_id=atestado_id,
@@ -189,7 +196,7 @@ def avaliar_equipe_post():
     avaliacoes = []
 
     for ra in ra_alunos:
-        if not all(f.request.form.get(f'{crit}_{ra}') for crit in ['planejamento', 'autonomia', 'colaboracao', 'entrega_resultados']):
+        if not all(f.request.form.get(f'{crit}_{ra}') for crit in ['produtividade', 'autonomia', 'colaboracao', 'entrega_resultados']):
             raise ValueError(f"Dados incompletos para o aluno {ra}")
     
     for ra in ra_alunos:
@@ -204,18 +211,19 @@ def avaliar_equipe_post():
             
             if not avaliacao_id:
                 avaliacao_id = f"temp_{datetime.now().strftime('%Y%m%d%H%M%S')}_{ra}"
-                
-            avaliacao = {
-                "avaliacao_id": avaliacao_id,
-                "ra_aluno": ra,
-                "avaliador_ra": f.session['ra'],
-                "planejamento": int(f.request.form.get(f'planejamento_{ra}')),
-                "autonomia": int(f.request.form.get(f'autonomia_{ra}')),
-                "colaboracao": int(f.request.form.get(f'colaboracao_{ra}')),
-                "entrega_resultados": int(f.request.form.get(f'entrega_resultados_{ra}')),
-                "data_avaliacao": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            }
-            
+
+            avaliacao = pr.AVALIACAO(
+                avaliacao_id=avaliacao_id,
+                ra_aluno= ra,
+                sprint=f.request.form.get(f"sprint"),
+                avaliador_ra=f.session['ra'],
+                produtividade=int(f.request.form.get(f'produtividade_{ra}')),
+                autonomia=int(f.request.form.get(f'autonomia_{ra}')),
+                colaboracao=int(f.request.form.get(f'colaboracao_{ra}')),
+                entrega_resultados=int(f.request.form.get(f'entrega_resultados_{ra}')),
+                feedback=f.request.form.get(f'feedback_{ra}')
+            ).to_dict()
+
             if not avaliacoes_db.add(avaliacao):
                 raise Exception(f"Falha ao persistir avaliação para RA {ra}")
                 
