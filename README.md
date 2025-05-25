@@ -63,7 +63,7 @@ Com as atividades definidas, estimamos o tempo necessário para cada uma delas e
 
 ### Sprint - 2️⃣ 🎯 ([Clique aqui](/Docs/Sprints/Sprint2)):  Concluído✅
 
-### Sprint - 3️⃣ 🎯 ([Clique aqui](/Docs/Sprints/Sprint3)):  Pendente⭕
+### Sprint - 3️⃣ 🎯 ([Clique aqui](/Docs/Sprints/Sprint3)):  Concluído✅
 <br>
 
 ## 🌱Backlog do Produto
@@ -84,6 +84,11 @@ Com as atividades definidas, estimamos o tempo necessário para cada uma delas e
 | #12 | *Interface*         | Design Responsivo       | Adaptação para Mobile e Desktop                   | "Como usuário, desejo acessar o sistema tanto no celular quanto no desktop com experiência adaptada a cada dispositivo." | Baixa      | 3      |
 | #13 | *Interface*         | MicroInterações         | Animações para feedback (loading, success, etc)   | "Como usuário, quero receber feedback visual (ex: animação de sucesso) ao realizar ações para confirmar que foram processadas." | Baixa      | 3      |
 | #14 | *Interface*         | Ícones Customizados     | Ícones temáticos para ações específicas           | "Como usuário, desejo identificar rapidamente funções (ex: ícone de upload) para melhor usabilidade." | Baixa      | 3      |
+
+## ⬇️**Instalando...**
+Você pode encontrar toda documentação, e requirementos necessários para instalação em:
+-  <a href="Docs/Install">Install</a>
+
 
 ## 👨‍💻**Autores** 
 

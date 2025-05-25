@@ -12,7 +12,7 @@
 
 ## Padrão para os commits
 
-Para manter a organização do repositorio e a **sanidade da equipe**, iremos utilizar um padrão de commits semânticos.
+Para manter a organização do repositorio, iremos utilizar um padrão de commits semânticos.
 
 | \<Tipo> | Descrição |
 |---------|-----------|
