@@ -3,6 +3,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from reportlab.platypus import Table, TableStyle
 from datetime import datetime
+import flask as f
 import os
 import csv
 
@@ -107,6 +108,7 @@ def gerar_pdf_simples(data, filtros=None, output_path=None):
         c.save()
         return True
     except Exception as e:
+        f.flash('Erro ao gerar relatório', 'error')
         print(f"Erro ao gerar PDF: {str(e)}")
         return False    
 
@@ -159,6 +161,7 @@ def gerar_csv_avaliacoes(data, output_path, filtros=None):
                 ])
         return True
     except Exception as e:
+        f.flash('Erro ao gerar relatório', 'error')
         print(f"Erro ao gerar CSV: {str(e)}")
         return False
     
@@ -270,6 +273,7 @@ def gerar_csv_medias(data, output_path, filtros=None):
             
         return True
     except Exception as e:
+        f.flash('Erro ao gerar relatório', 'error')
         print(f"Erro ao gerar CSV de médias: {str(e)}")
         return False
     
@@ -341,6 +345,7 @@ def gerar_pdf_avaliacoes(data, filtros=None, output_path=None):
         c.save()
         return True
     except Exception as e:
+        f.flash('Erro ao gerar relatório', 'error')
         print(f"Erro ao gerar PDF de avaliações: {str(e)}")
         return False
 
@@ -409,6 +414,7 @@ def gerar_pdf_medias(data, filtros=None, output_path=None):
         c.save()
         return True
     except Exception as e:
+        f.flash('Erro ao gerar relatório', 'error')
         print(f"Erro ao gerar PDF de médias: {str(e)}")
         return False
     
@@ -443,5 +449,6 @@ def gerar_csv_atestados(data, filtros=None, output_path=None):
                 ])
         return True
     except Exception as e:
+        f.flash('Erro ao gerar relatório', 'error')
         print(f"Erro ao gerar CSV de atestados: {str(e)}")
         return False

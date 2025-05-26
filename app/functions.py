@@ -34,9 +34,12 @@ def get_next_id(db, id_field):
     except Exception as e:
         print(f"Erro ao gerar ID: {str(e)}")
         return None
-    
+
 def new_usuario():
     user_id = get_next_id(user_db, 'user_id')
+    if not user_id:
+        return {"status": "error", "message": "Falha ao gerar ID de usuário"}
+    
     atual = user_db.read()
     tipo_usuario = f.request.form.get('tipo')
 
@@ -44,6 +47,10 @@ def new_usuario():
         return " ".join([palavra.capitalize() for palavra in nome.split()])
 
     if tipo_usuario == "administrador":
+        if not all(f.request.form.get(field) for field in ['nome', 'username', 'senha', 'nivel_acesso']):
+            f.flash('Preencha todos os campos obrigatórios', 'error')
+            return {"status": "error", "message": "Campos obrigatórios faltando"}
+            
         user = pr.ADM(
             user_id=user_id,
             nome=ajustar_nome(f.request.form["nome"].strip()),    
@@ -52,6 +59,10 @@ def new_usuario():
             nivel_acesso=f.request.form["nivel_acesso"]
         ).to_dict()
     else:
+        if not all(f.request.form.get(field) for field in ['nome', 'ra', 'senha', 'curso', 'semestre', 'turno']):
+            f.flash('Preencha todos os campos obrigatórios', 'error')
+            return {"status": "error", "message": "Campos obrigatórios faltando"}
+            
         user = pr.ALUNO(
             user_id=user_id,
             nome=ajustar_nome(f.request.form["nome"].strip()),
@@ -64,17 +75,17 @@ def new_usuario():
         ).to_dict()
 
         for x in atual:
-            if x['tipo'] == 'aluno' and user['ra'] == x['ra']:
-                f.flash(f"O ra: {user['ra']} ja esta registrado em outro usuario", 'error')
-                return {"status": "error", "message": "o ra ja existe na base de dados"};   
-
+            if x.get('tipo') == 'aluno' and x.get('ra') == user['ra']:
+                f.flash(f"O RA: {user['ra']} já está registrado", 'error')
+                return {"status": "error", "message": "RA já existe na base de dados"}
 
     if user_db.add(user):
-        f.flash(f"Usuario criado com Sucesso", 'message')
+        f.flash("Usuário criado com sucesso", 'success')
         return {"status": "success", "user_id": str(user_id)}
     else:
+        f.flash("Falha ao criar usuário", 'error')
         return {"status": "error", "message": "Falha ao criar usuário"}
-    
+
 def new_atestado():
     atestados_folder = os.path.join(BASE_DIR, "data/atestados", f.session['ra'])
     os.makedirs(atestados_folder, exist_ok=True)
@@ -87,7 +98,6 @@ def new_atestado():
     if not file.filename.lower().endswith('.pdf'):
         f.flash("Apenas arquivos PDF são permitidos.", 'error')
         return {"status": "error", "message": "Formato inválido"}
-    
     fileName =f"{atestado_id}_{nome_aluno.split()[0]}_{diaAtual}.pdf"
     filePath = os.path.join(atestados_folder, fileName)
     file.save(filePath)
@@ -104,9 +114,11 @@ def new_atestado():
     ).to_dict()
 
     if atestados_db.add(atestado, identifier_key="atestado_id"):
+        f.flash("Atestado enviado", 'success')
         return {"status": "success"}
     else:
         return {"status": "error", "message": "Falha ao enviar atestado"}
+        f.flash("Falha ao enviar atestado", 'error')
 
 def equipe():
     nome_equipe = f.request.form['nomeEquipe']
@@ -141,6 +153,7 @@ def equipe():
         data = data.to_dict()
 
         if equipes_db.add(data, identifier_key="equipe_id"):
+            f.flash("Equipe criada com sucesso", 'success')
 
             for ra in list_members:
                 aluno = user_db.find(ra, "ra")
@@ -197,6 +210,7 @@ def avaliar_equipe_post():
 
     for ra in ra_alunos:
         if not all(f.request.form.get(f'{crit}_{ra}') for crit in ['produtividade', 'autonomia', 'colaboracao', 'entrega_resultados']):
+            f.flash(f"Dados incompletos para o aluno {ra}", 'error')
             raise ValueError(f"Dados incompletos para o aluno {ra}")
     
     for ra in ra_alunos:
@@ -231,4 +245,5 @@ def avaliar_equipe_post():
             print(f"Falha na avaliação do RA {ra}: {str(e)}")
             raise Exception(f"Erro ao avaliar {ra}: {str(e)}")
     
+    f.flash('Avaliações registradas com sucesso!', 'success')
     return True

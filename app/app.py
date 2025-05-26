@@ -16,7 +16,203 @@ app.secret_key = os.getenv('SECRET_KEY')
 #INDEX
 @app.route('/')
 def index():
+        if f.session['tipo'] == 'administrador':
+            return f.redirect(f.url_for('admin_dashboard'))
+        if f.session['tipo'] == 'aluno':
+             return f.redirect(f.url_for('aluno_perfil'))
+
         return f.render_template("index.html")
+
+@app.route("/aluno/perfil")
+@student_required
+def aluno_perfil():
+    aluno = fc.user_db.find(f.session['ra'], "ra")
+    
+    todos_atestados = fc.atestados_db.read()
+    atestados_aluno = [a for a in todos_atestados if str(a.get('ra')) == str(f.session.get('ra'))]
+    
+    atestados = {
+        'total': len(atestados_aluno),
+        'aprovados': len([a for a in atestados_aluno if a.get('estado') == 'aprovado']),
+        'pendentes': len([a for a in atestados_aluno if a.get('estado') == 'pendente']),
+        'reprovados': len([a for a in atestados_aluno if a.get('estado') == 'reprovado'])
+    }
+    
+
+    todas_avaliacoes = fc.avaliacoes_db.read()
+    avaliacoes_aluno = [a for a in todas_avaliacoes if a.get('ra_aluno') == f.session['ra']]
+    
+    if avaliacoes_aluno:
+        media = (sum(float(a.get('produtividade', 0)) for a in avaliacoes_aluno) + 
+                sum(float(a.get('autonomia', 0)) for a in avaliacoes_aluno) + 
+                sum(float(a.get('colaboracao', 0)) for a in avaliacoes_aluno) + 
+                sum(float(a.get('entrega_resultados', 0)) for a in avaliacoes_aluno)) / (4 * len(avaliacoes_aluno))
+    else:
+        media = 0
+    
+    return f.render_template("aluno_dashboard.html",
+                           aluno=aluno,
+                           atestados=atestados,
+                           desempenho={'media': media})
+
+
+@app.route("/admin/dashboard")
+@admin_required(min_level=3)
+def admin_dashboard():
+    todos_usuarios = fc.user_db.read()
+    total_usuarios = len(todos_usuarios)
+    total_alunos = len([u for u in todos_usuarios if u.get('tipo') == 'aluno'])
+    total_admins = len([u for u in todos_usuarios if u.get('tipo') == 'administrador'])
+    
+    todos_atestados = fc.atestados_db.read()
+    total_atestados = len(todos_atestados)
+    atestados_aprovados = len([a for a in todos_atestados if a.get('estado') == 'aprovado'])
+    atestados_reprovados = len([a for a in todos_atestados if a.get('estado') == 'reprovado'])
+    atestados_pendentes = len([a for a in todos_atestados if a.get('estado') not in ['aprovado', 'reprovado']])
+    
+    total_equipes = len(fc.equipes_db.read())
+    total_avaliacoes = len(fc.avaliacoes_db.read())
+    
+    return f.render_template("admin_dashboard.html",
+                           total_usuarios=total_usuarios,
+                           total_alunos=total_alunos,
+                           total_admins=total_admins,
+                           total_atestados=total_atestados,
+                           atestados_aprovados=atestados_aprovados,
+                           atestados_reprovados=atestados_reprovados,
+                           atestados_pendentes=atestados_pendentes,
+                           total_equipes=total_equipes,
+                           total_avaliacoes=total_avaliacoes)
+
+@app.route("/painel_desempenho")
+@student_required
+def painel_desempenho():
+    if not f.session.get('equipe'):
+        f.flash('Você não está em nenhuma equipe cadastrada', 'error')
+        return f.redirect(f.url_for('index'))
+
+    aluno = fc.user_db.find(f.session['ra'], "ra")
+    equipe_nome = aluno.get('equipe', 'Sem equipe')
+    
+    todas_avaliacoes = fc.avaliacoes_db.read()
+    avaliacoes_aluno = [a for a in todas_avaliacoes if a.get('ra_aluno') == f.session['ra']]
+    
+
+    if avaliacoes_aluno:
+        sum_prod = sum(float(a.get('produtividade', 0)) for a in avaliacoes_aluno)
+        sum_auto = sum(float(a.get('autonomia', 0)) for a in avaliacoes_aluno)
+        sum_colab = sum(float(a.get('colaboracao', 0)) for a in avaliacoes_aluno)
+        sum_entrega = sum(float(a.get('entrega_resultados', 0)) for a in avaliacoes_aluno)
+        count = len(avaliacoes_aluno)
+        
+        desempenho_aluno = {
+            'produtividade': sum_prod / count,
+            'autonomia': sum_auto / count,
+            'colaboracao': sum_colab / count,
+            'entrega_resultados': sum_entrega / count,
+            'media_geral': (sum_prod + sum_auto + sum_colab + sum_entrega) / (4 * count)
+        }
+    else:
+        desempenho_aluno = {
+            'produtividade': 0,
+            'autonomia': 0,
+            'colaboracao': 0,
+            'entrega_resultados': 0,
+            'media_geral': 0
+        }
+    
+
+    equipe = fc.equipes_db.find(equipe_nome, "nome_equipe")
+    membros_equipe = equipe.get('membros', []) if equipe else []
+    
+
+    avaliacoes_equipe = [a for a in todas_avaliacoes if a.get('ra_aluno') in membros_equipe]
+    
+    if avaliacoes_equipe:
+        sum_prod_eq = sum(float(a.get('produtividade', 0)) for a in avaliacoes_equipe)
+        sum_auto_eq = sum(float(a.get('autonomia', 0)) for a in avaliacoes_equipe)
+        sum_colab_eq = sum(float(a.get('colaboracao', 0)) for a in avaliacoes_equipe)
+        sum_entrega_eq = sum(float(a.get('entrega_resultados', 0)) for a in avaliacoes_equipe)
+        count_eq = len(avaliacoes_equipe)
+        
+        desempenho_equipe = {
+            'produtividade': sum_prod_eq / count_eq,
+            'autonomia': sum_auto_eq / count_eq,
+            'colaboracao': sum_colab_eq / count_eq,
+            'entrega_resultados': sum_entrega_eq / count_eq,
+            'media_geral': (sum_prod_eq + sum_auto_eq + sum_colab_eq + sum_entrega_eq) / (4 * count_eq)
+        }
+    else:
+        desempenho_equipe = {
+            'produtividade': 0,
+            'autonomia': 0,
+            'colaboracao': 0,
+            'entrega_resultados': 0,
+            'media_geral': 0
+        }
+    
+
+    ranking = []
+    todos_usuarios = fc.user_db.read()
+    for ra in membros_equipe:
+        usuario = next((u for u in todos_usuarios if u.get('ra') == ra), None)
+        if usuario:
+            aval_usuario = [a for a in todas_avaliacoes if a.get('ra_aluno') == ra]
+            if aval_usuario:
+                sum_p = sum(float(a.get('produtividade', 0)) for a in aval_usuario)
+                sum_a = sum(float(a.get('autonomia', 0)) for a in aval_usuario)
+                sum_c = sum(float(a.get('colaboracao', 0)) for a in aval_usuario)
+                sum_e = sum(float(a.get('entrega_resultados', 0)) for a in aval_usuario)
+                count_av = len(aval_usuario)
+                
+                media = (sum_p + sum_a + sum_c + sum_e) / (4 * count_av)
+                
+                ranking.append({
+                    'ra': ra,
+                    'nome': usuario.get('nome'),
+                    'media': media
+                })
+    
+    ranking_equipe = sorted(ranking, key=lambda x: x['media'], reverse=True)
+    
+
+    feedbacks_aluno = []
+    for aval in avaliacoes_aluno:
+        if aval.get('feedback'):
+            avaliador = next((u for u in todos_usuarios if u.get('ra') == aval.get('avaliador_ra')), None)
+            feedbacks_aluno.append({
+                'avaliador': avaliador.get('nome') if avaliador else 'Desconhecido',
+                'sprint': aval.get('sprint', 'N/A'),
+                'texto': aval.get('feedback'),
+                'data': aval.get('data_avaliacao', 'N/A')
+            })
+    
+    return f.render_template("painel_desempenho.html",
+                           equipe_nome=equipe_nome,
+                           desempenho_aluno=desempenho_aluno,
+                           desempenho_equipe=desempenho_equipe,
+                           ranking_equipe=ranking_equipe,
+                           feedbacks=feedbacks_aluno[-5:])  
+
+
+
+    feedbacks_aluno = []
+    for aval in avaliacoes_aluno:
+        if aval.get('feedback'):
+            avaliador = next((u for u in todos_usuarios if u.get('ra') == aval.get('avaliador_ra')), None)
+            feedbacks_aluno.append({
+                'avaliador': avaliador.get('nome') if avaliador else 'Desconhecido',
+                'sprint': aval.get('sprint', 'N/A'),
+                'texto': aval.get('feedback'),
+                'data': aval.get('data_avaliacao', 'N/A')
+            })
+    
+    return f.render_template("painel_desempenho.html",
+                           equipe_nome=equipe_nome,
+                           desempenho_aluno=desempenho_aluno,
+                           desempenho_equipe=desempenho_equipe,
+                           ranking_equipe=ranking_equipe,
+                           feedbacks=feedbacks_aluno[-5:])  
 
 #login
 @app.route('/login', methods=['GET', 'POST'])
@@ -65,7 +261,7 @@ def logout():
     f.session.clear()
     f.session.pop('_flashes', None)
     f.flash('Desconectado com sucesso')
-    return f.redirect(f.url_for('index'))
+    return f.redirect(f.url_for('login'))
 
 #usuarios
 @app.route("/cadastro_usuarios", methods=["GET", "POST"])
@@ -89,6 +285,7 @@ def consulta_usuarios():
 def delete_usuario():
     user_id = f.request.form["user_id"]
     fc.user_db.delete(user_id)
+    f.flash("Usuário removido com sucesso", 'success')
     return f.redirect(f.url_for('consulta_usuarios'))
 
 #atestados
@@ -120,6 +317,7 @@ def remover_atestado(atestado_id):
         if os.path.exists(file_path):
             os.remove(file_path)
         if fc.atestados_db.delete(atestado_id, identifier_key="atestado_id"):
+            f.flash("Atestado removido com sucesso", 'success')
             return f.redirect(f.url_for('consulta_atestados_aluno'))
         else:
             return "Erro ao remover atestado", 500
@@ -141,6 +339,7 @@ def aprovar_atestado(id):
     new_data = fc.atestados_db.find(id, identifier_key="atestado_id")
     new_data['estado'] = "aprovado"
     fc.atestados_db.edit(id, new_data, identifier_key="atestado_id")
+    f.flash("Atestado aprovado", 'success')
     return f.redirect(f.url_for("consulta_atestados")) 
 
 @app.route('/consulta_atestado/reprovar/<id>', methods=["POST"])
@@ -149,6 +348,7 @@ def reprovar_atestado(id):
     new_data = fc.atestados_db.find(id, identifier_key="atestado_id")
     new_data['estado'] = "reprovado"
     fc.atestados_db.edit(id, new_data, identifier_key="atestado_id")
+    f.flash("Atestado reprovado", 'warning')
     return f.redirect(f.url_for("consulta_atestados")) 
 
 @app.route('/consulta_atestado/view/<atestado_id>')
@@ -422,8 +622,10 @@ def relatorio_avaliacoes_csv():
     success = fc2.gerar_csv_avaliacoes(data, output_path, filtros=filtros)
     
     if success:
+        f.flash("Relatório gerado com sucesso", 'success')
         return f.send_file(output_path, as_attachment=True)
     else:
+        f.flash("Erro ao gerar relatório", 'error')
         return "Erro ao gerar relatório de avaliações", 500
 
 @app.route('/relatorio_pdf', methods=['GET','POST'])
@@ -483,7 +685,7 @@ def relatorio_pdf():
             'estado': estado
         }
         
-        output_path = os.path.join(BASE_DIR, 'data/relatorios/relatorio.pdf')
+        output_path = os.path.join(BASE_DIR, 'data/relatorios/atestados.pdf')
         success = fc2.gerar_pdf_simples(filtered_data, filtros=filtros, output_path=output_path)
 
         if success:
@@ -800,21 +1002,26 @@ def relatorio_atestados_csv():
         return "Erro ao gerar CSV de atestados", 500
 
 
+
+
 #PELO AMOR DE DEUS!!! LEMBRAR DE REMOVER O TRECHO ABAIXO ANTES DE PUBLICAR!!!#
 
 def check_default_admin():
-    existing_admin = fc.user_db.find("admin", identifier_key="user_id")
-    if not existing_admin:
+    existing_admins = [user for user in fc.user_db.read() if user.get('tipo') == 'administrador']
+    
+    if not existing_admins:
         admin_data = {
             "user_id": "001",
             "username": "admin",
             "nome": "Administrador Padrão",
             "senha": generate_password_hash("admin123"),
             "tipo": "administrador",
-            "nivel_acesso": "3"
+            "nivel_acesso": "1"
         }
-        fc.user_db.add(admin_data, identifier_key="user_id")
-        print("Admin padrão criado com credenciais temporárias")
+        if fc.user_db.add(admin_data, identifier_key="user_id"):
+            print("Admin padrão criado com credenciais temporárias")
+        else:
+            print("Falha ao criar admin padrão")
 
 #PELO AMOR DE DEUS!!! LEMBRAR DE REMOVER O TRECHO ACIMA ANTES DE PUBLICAR!!!#
 

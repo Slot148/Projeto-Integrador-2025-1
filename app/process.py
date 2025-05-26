@@ -79,6 +79,15 @@ class ADM(USER):
         super().__init__(user_id, nome, senha, tipo="administrador")
         self.username = username
         self.nivel_acesso = nivel_acesso
+
+    def to_dict(self):
+        data = super().to_dict()
+        data.update({
+            'username': self.username,
+            'nivel_acesso': self.nivel_acesso
+        })
+        return data
+
 class ATESTADO:
     def __init__(self, atestado_id, file_path, data_envio, ra_aluno, nome_aluno, inicio_periodo, fim_periodo, estado = "pendente"):
         self.atestado_id = atestado_id
