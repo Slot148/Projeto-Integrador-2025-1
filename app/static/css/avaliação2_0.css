@@ -123,8 +123,8 @@ section h2 {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-    justify-content: center;
     padding: 1rem;
+    justify-content: left;
 }
 
 .membro-card {

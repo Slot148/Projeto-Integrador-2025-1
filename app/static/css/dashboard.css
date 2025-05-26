@@ -1,0 +1,135 @@
+        /* Layout principal */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        /* Cartões de estatísticas */
+        .card {
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            background-color: #f8f9fa;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #0d6efd;
+        }
+        
+        .card h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.2rem;
+        }
+        
+        .card p {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0d6efd;
+            margin: 0;
+        }
+        
+        /* Links rápidos */
+        .quick-links {
+            margin: 30px 20px;
+            padding: 0 10px;
+        }
+        
+        .quick-links h2 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .quick-links a {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 12px 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+        
+        .quick-links a:hover {
+            background-color: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .quick-links a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+            color: #0d6efd;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .card i {
+                font-size: 2rem;
+            }
+            
+            .card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .card p {
+                font-size: 1.3rem;
+            }
+            
+            .quick-links {
+                margin: 20px 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: 10px;
+                gap: 10px;
+            }
+            
+            .card {
+                padding: 12px;
+            }
+            
+            .card i {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+            }
+            
+            .card h3 {
+                font-size: 1rem;
+                margin-bottom: 5px;
+            }
+            
+            .card p {
+                font-size: 1.2rem;
+            }
+            
+            .quick-links a {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }

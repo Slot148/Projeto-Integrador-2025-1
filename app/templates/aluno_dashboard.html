@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aluno_dashboard.css') }}">
+</head>
+<body>
+    <header>
+        <a href="/logout">Sair</a>
+        <h1>Meu Perfil</h1>
+    </header>
+
+    <!-- container de mensagens -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <i class="fas 
+            {% if category == 'success' %}fa-check-circle{% endif %}
+            {% if category == 'danger' %}fa-times-circle{% endif %}
+            {% if category == 'warning' %}fa-exclamation-triangle{% endif %}me-2">
+            </i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <!-- container de mensagens -->
+
+    <main>
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h2>{{ aluno.nome }}</h2>
+                <p>RA: {{ aluno.ra }}</p>
+            </div>
+            
+            <div class="profile-info">
+                <div class="info-item">
+                    <span class="info-label">Curso:</span>
+                    <span class="info-value">{{ aluno.curso }}</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Semestre:</span>
+                    <span class="info-value">{{ aluno.semestre }}</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Turno:</span>
+                    <span class="info-value">{{ aluno.turno }}</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Equipe:</span>
+                    <span class="info-value">{{ aluno.equipe if aluno.equipe else "Sem equipe" }}</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Função:</span>
+                    <span class="info-value">
+                        {% if aluno.funcao == 'scrum' %}Scrum Master
+                        {% elif aluno.funcao == 'po' %}Product Owner
+                        {% elif aluno.funcao == 'devteam' %}Dev Team
+                        {% else %}Não definida{% endif %}
+                    </span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Atestados:</span>
+                    <span class="info-value">
+                        {{ atestados.total }} ({{ atestados.aprovados }} aprovados, {{ atestados.pendentes }} pendentes)
+                    </span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">Média Geral:</span>
+                    <span class="info-value">
+                        {% if desempenho.media > 0 %}{{ "%.1f"|format(desempenho.media) }}{% else %}N/A{% endif %}
+                    </span>
+                </div>
+            </div>
+            
+            <div class="quick-links">
+                <h3>Ações Rápidas</h3>
+                <a href="/cadastro_atestados"><i class="fas fa-file-upload"></i> Enviar Atestado</a>
+                <a href="/avaliar_equipe"><i class="fas fa-star"></i> Avaliar Equipe</a>
+                <a href="/aluno/consulta_atestados"><i class="fas fa-search"></i> Meus Atestados</a>
+                <a href="/painel_desempenho"><i class="fas fa-chart-line"></i> Ver Desempenho</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 - Meu Perfil | Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

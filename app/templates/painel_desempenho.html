@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Desempenho</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/performance.css') }}">
+
+</head>
+<body>
+    <header>
+        <a href="/">HOME</a>
+        <h1>Painel de Desempenho</h1>
+        <h3>Desempenho da Equipe {{ equipe_nome }}</h3>
+    </header>
+
+    <!-- container de mensagens -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <i class="fas 
+            {% if category == 'success' %}fa-check-circle{% endif %}
+            {% if category == 'danger' %}fa-times-circle{% endif %}
+            {% if category == 'warning' %}fa-exclamation-triangle{% endif %}me-2">
+            </i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <!-- container de mensagens -->
+
+    <main>
+        <div class="performance-container">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Seu Desempenho</h3>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Produtividade</span>
+                    <span class="metric-value">{{ desempenho_aluno.produtividade|round(1) }}/3.0</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ (desempenho_aluno.produtividade/3)*100 }}%" 
+                         aria-valuenow="{{ desempenho_aluno.produtividade }}" aria-valuemin="0" aria-valuemax="3"></div>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-name">Autonomia</span>
+                    <span class="metric-value">{{ desempenho_aluno.autonomia|round(1) }}/3.0</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ (desempenho_aluno.autonomia/3)*100 }}%" 
+                         aria-valuenow="{{ desempenho_aluno.autonomia }}" aria-valuemin="0" aria-valuemax="3"></div>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-name">Colaboração</span>
+                    <span class="metric-value">{{ desempenho_aluno.colaboracao|round(1) }}/3.0</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ (desempenho_aluno.colaboracao/3)*100 }}%" 
+                         aria-valuenow="{{ desempenho_aluno.colaboracao }}" aria-valuemin="0" aria-valuemax="3"></div>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-name">Entrega de Resultados</span>
+                    <span class="metric-value">{{ desempenho_aluno.entrega_resultados|round(1) }}/3.0</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ (desempenho_aluno.entrega_resultados/3)*100 }}%" 
+                         aria-valuenow="{{ desempenho_aluno.entrega_resultados }}" aria-valuemin="0" aria-valuemax="3"></div>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-name">Média Geral</span>
+                    <span class="metric-value">{{ desempenho_aluno.media_geral|round(1) }}/3.0</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ (desempenho_aluno.media_geral/3)*100 }}%" 
+                         aria-valuenow="{{ desempenho_aluno.media_geral }}" aria-valuemin="0" aria-valuemax="3"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-people-group"></i>
+                    <h3>Desempenho da Equipe</h3>
+                </div>
+                <div class="metric">
+                    <span class="metric-name">Média de Produtividade</span>
+                    <span class="metric-value">{{ desempenho_equipe.produtividade|round(1) }}/3.0</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ (desempenho_equipe.produtividade/3)*100 }}%" 
+                         aria-valuenow="{{ desempenho_equipe.produtividade }}" aria-valuemin="0" aria-valuemax="3"></div>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-name">Média de Autonomia</span>
+                    <span class="metric-value">{{ desempenho_equipe.autonomia|round(1) }}/3.0</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ (desempenho_equipe.autonomia/3)*100 }}%" 
+                         aria-valuenow="{{ desempenho_equipe.autonomia }}" aria-valuemin="0" aria-valuemax="3"></div>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-name">Média de Colaboração</span>
+                    <span class="metric-value">{{ desempenho_equipe.colaboracao|round(1) }}/3.0</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ (desempenho_equipe.colaboracao/3)*100 }}%" 
+                         aria-valuenow="{{ desempenho_equipe.colaboracao }}" aria-valuemin="0" aria-valuemax="3"></div>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-name">Média de Entrega</span>
+                    <span class="metric-value">{{ desempenho_equipe.entrega_resultados|round(1) }}/3.0</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{ (desempenho_equipe.entrega_resultados/3)*100 }}%" 
+                         aria-valuenow="{{ desempenho_equipe.entrega_resultados }}" aria-valuemin="0" aria-valuemax="3"></div>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-name">Média Geral</span>
+                    <span class="metric-value">{{ desempenho_equipe.media_geral|round(1) }}/3.0</span>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ (desempenho_equipe.media_geral/3)*100 }}%" 
+                         aria-valuenow="{{ desempenho_equipe.media_geral }}" aria-valuemin="0" aria-valuemax="3"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Ranking da Equipe</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Posição</th>
+                            <th>Nome</th>
+                            <th>Média</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for membro in ranking_equipe %}
+                        <tr class="{% if membro.ra == session.ra %}highlight-row{% endif %}">
+                            <td>{{ loop.index }}º</td>
+                            <td>{{ membro.nome }}</td>
+                            <td>{{ membro.media|round(1) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-comment-alt"></i>
+                    <h3>Últimos Feedbacks</h3>
+                </div>
+                {% for feedback in feedbacks %}
+                <div class="feedback-item">
+                    <p><strong>{{ feedback.avaliador }} (Sprint {{ feedback.sprint }}):</strong></p>
+                    <p>"{{ feedback.texto }}"</p>
+                    <small>{{ feedback.data }}</small>
+                    <hr>
+                </div>
+                {% else %}
+                <p>Nenhum feedback recebido ainda.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 - Painel de Desempenho | Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

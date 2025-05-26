@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/avaliação2_0.css') }}">
   <link rel="stylesheet" href="../static/css/avaliação2_0.css">
   <link rel="stylesheet" href="../static/css/base.css">
@@ -13,7 +14,31 @@
         <a href="/">HOME</a>
         <h1>Avaliação de Aluno - Critérios Scrum</h1>
         <h3>Avalie cada membro da equipe Scrum de forma justa</h3>
-    </header><br>
+    </header>
+
+
+    <!-- container de mensagens -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <i class="fas 
+            {% if category == 'success' %}fa-check-circle{% endif %}
+            {% if category == 'danger' %}fa-times-circle{% endif %}
+            {% if category == 'warning' %}fa-exclamation-triangle{% endif %}me-2">
+            </i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <!-- container de mensagens -->
+
+
+
     <form id="formAvaliacao" method="POST" action="{{ url_for('avaliar_equipe') }}">
         <div class="submit-container">
         <select name="sprint" style="width: 15em;" id="sprint"required>
@@ -137,6 +162,7 @@
     <footer>
         <p>© 2025 - Avaliação Scrum | Todos os direitos reservados.</p>
     </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>
