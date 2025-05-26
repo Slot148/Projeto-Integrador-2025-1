@@ -91,15 +91,6 @@ Com as atividades definidas, estimamos o tempo necessário para cada uma delas e
   Você pode encontrar toda a documentação e os requisitos necessários para instalação em:
   - [Guia de Instalação](Docs/Install)
 
-- ### 📖 **Como Funciona?**
-  Todas as funcionalidades do sistema estão descritas em:
-  - [Guia do Usuário](Docs/Users_guide)
-
-- ### 🆘 **Contribuindo...**
-  Para contribuir com o projeto:
-  - [Guia de Contribuição](Docs/contribuiting/CONTRIBUTING.md)
-
-
 ## 👨‍💻**Autores** 
 
 | NOME| FUNÇÃO| GITHUB| LINKEDIN|
