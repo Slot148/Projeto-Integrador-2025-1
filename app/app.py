@@ -16,12 +16,15 @@ app.secret_key = os.getenv('SECRET_KEY')
 #INDEX
 @app.route('/')
 def index():
+        if 'tipo' not in f.session:
+            return f.redirect(f.url_for('login'))
         if f.session['tipo'] == 'administrador':
             return f.redirect(f.url_for('admin_dashboard'))
         if f.session['tipo'] == 'aluno':
              return f.redirect(f.url_for('aluno_perfil'))
 
-        return f.render_template("index.html")
+
+        return f.redirect(f.url_for('login'))
 
 @app.route("/aluno/perfil")
 @student_required
