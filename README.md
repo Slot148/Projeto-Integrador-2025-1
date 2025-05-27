@@ -51,7 +51,7 @@ Com as atividades definidas, estimamos o tempo necessário para cada uma delas e
 ## 🏆**MVP**
 
 1. Wireframe: [Protótipo navegável](https://www.figma.com/proto/Ox8KcNvkylAJDsWbpvBEIQ/COVID-longa?node-id=7-18&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=7%3A18)
-2. Web Site: [Versão atual](Docs/video)
+2. Web Site: [Versão atual](https://youtu.be/bDDlY9t3gLY)
 
 
 

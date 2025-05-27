@@ -13,6 +13,9 @@
 |8|Alta| "Como gestor quero poder registrar as equipes dos usuarios"| Criar funcionalidade(backend) para criação  gerenciamento de equipes| 3|
 |9|Alta| "Como usuário quero poder registrar avaliações dos demais membros da minha equipe"| Implementar funcionalidade que permita avaliar todos os membros da quipe com excessão do avaliador| 3|
 
+## Preview 🔍
+- [Video de Preview](https://youtu.be/bDDlY9t3gLY)
+
 
 
 

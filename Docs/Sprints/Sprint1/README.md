@@ -10,7 +10,4 @@
 
 <br>
 
-## User Story's 📝
-
-| ID US | Sprint | US    |
-|:-----:|:------:|:-----:|
+## Preview 🔍

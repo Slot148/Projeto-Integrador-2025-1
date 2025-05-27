@@ -10,7 +10,6 @@
 
 <br>
 
-## User Story's 📝
+## Preview 🔍
+- [Video de Preview](https://youtu.be/cP-n4cC8w6Q)
 
-| ID US | Sprint | US    |
-|:-----:|:------:|:-----:|
